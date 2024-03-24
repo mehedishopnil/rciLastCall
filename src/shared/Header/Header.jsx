@@ -85,7 +85,7 @@ const Header = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 right-0"
             >
-              <li>
+              <li className="font-bold text-gray-600">
                 <a>BOOK</a>
                 <ul className="p-2">
                   <li>
@@ -96,10 +96,10 @@ const Header = () => {
                   </li>
                 </ul>
               </li>
-              <li>
+              <li className="font-bold text-gray-600">
                 <a>TRIPS</a>
               </li>
-              <li>
+              <li className="font-bold text-gray-600">
                 <a>DEALS</a>
               </li>
             </ul>
