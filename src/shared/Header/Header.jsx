@@ -1,9 +1,18 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/Images/logo.svg";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
+import { IoIosHelpCircleOutline, IoMdNotificationsOutline } from "react-icons/io";
+import { FaUserCircle, FaTimes, FaBars, FaRegUserCircle } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa6";
+import { PiSignOutFill } from "react-icons/pi";
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="bg-[#037092]">
       {/* Desktop Navbar */}
@@ -57,52 +66,107 @@ const Header = () => {
         <div className="container mx-auto flex lg:hidden justify-between items-center navbar">
           <div className="space-x-4">
             {/* Logo */}
-          <img src={logo} alt="" className="w-[52px] h-[52px]" />
+            <img src={logo} alt="" className="w-[52px] h-[52px]" />
             <div className="w-[1px] h-14 bg-white"></div>
-          <img src='https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png' alt="" className="w-[80px] " />
-          
+            <img
+              src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
+              alt=""
+              className="w-[80px] "
+            />
           </div>
 
           {/* Mobile Dropdown */}
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 text-xl text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </div>
-            <ul
+          <div className="dropdown relative">
+            <div
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 right-0"
+              role="button"
+              className="btn btn-ghost"
+              onClick={toggleMenu}
             >
-              <li className="font-bold text-gray-600">
-                <a>BOOK</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
+              {isMenuOpen ? (
+                <FaTimes className="h-8 w-8 text-xl text-white" />
+              ) : (
+                <FaBars className="h-8 w-8 text-xl text-white" />
+              )}
+            </div>
+            {isMenuOpen && (
+              <div className=" p-5">
+                <ul className="absolute right-0 menu menu-lg dropdown-content mt-3  p-2 shadow bg-white rounded-box w-screen z-10 h-fit flex flex-col ">
+                  <div>
+                    <li className="flex font-regular text-gray-600">
+                      <div className="">
+                        <img
+                          src="https://www.rci.com/static/images/content/icons-header/book.svg"
+                          alt=""
+                        />
+                        <a>BOOK</a>
+                      </div>
+                    </li>
+
+                    <li className="flex font-regular text-gray-600">
+                      <div className="">
+                        <img
+                          src="https://www.rci.com/static/images/content/icons-header/trips.svg"
+                          alt=""
+                        />
+                        <a>TRIPS</a>
+                      </div>
+                    </li>
+
+                    <li className="flex font-regular text-gray-600">
+                      <div className="">
+                        <img
+                          src="https://www.rci.com/static/images/content/icons-header/offers.svg"
+                          alt=""
+                        />
+                        <a>DEALS</a>
+                      </div>
+                    </li>
+                  </div>
+
+                  <div className="flex justify-center">
+                    <span className="w-11/12 h-[1px]  bg-slate-400"></span>
+                  </div>
+
+                  <div>
+                    <li className="flex font-regular text-gray-600">
+                      <div className="">
+                      <IoMdNotificationsOutline className="text-3xl" />
+                        <a>Notifications</a>
+                      </div>
+                    </li>
+
+                    <li className="flex font-regular text-gray-600">
+                    <div className="">
+                      <FaRegUserCircle className="text-2xl" />
+                        <a>My Account</a>
+                      </div>
+                    </li>
+
+                    <li className="flex font-regular text-gray-600">
+                    <div className="">
+                      <FaRegHeart className="text-2xl" />
+                        <a>My Favorites</a>
+                      </div>
+                    </li>
+
+                    <li className="flex font-regular text-gray-600">
+                    <div className="">
+                      <IoIosHelpCircleOutline className="text-2xl" />
+                        <a>Help</a>
+                      </div>
+                    </li>
+                    <li className="flex font-regular text-gray-600">
+                    <div className="">
+                      <PiSignOutFill className="text-2xl" />
+                        <a>Sign Out</a>
+                      </div>
+                    </li>
+                  </div>
+
                 </ul>
-              </li>
-              <li className="font-bold text-gray-600">
-                <a>TRIPS</a>
-              </li>
-              <li className="font-bold text-gray-600">
-                <a>DEALS</a>
-              </li>
-            </ul>
+              </div>
+            )}
           </div>
         </div>
         {/* Search bar visible only on mobile screens */}
