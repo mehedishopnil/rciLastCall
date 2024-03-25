@@ -31,7 +31,7 @@ const Home = () => {
           number of Points required for the trip you'd like to book.
         </p>
 
-        <div className="p-5 shadow-md border space-y-2 rounded-3xl">
+        <div className="p-5 shadow-md border space-y-2 rounded-3xl my-5">
           <h1 className="text-xl font-semibold">
             Get Points for your next vacation
           </h1>
@@ -41,9 +41,9 @@ const Home = () => {
           </button>
         </div>
 
-        <div className="bg-[#e6f8fc] text-start ">
+        <div className="w-full bg-[#e6f8fc] my-10 ">
           <img src={rciImg2} alt="" className="cover" />
-          <div className="px-4 py-6 space-y-2">
+          <div className="text-start px-4 py-6 space-y-2">
             <h1 className="text-xl font-bold">RCI Magazine®</h1>
             <p className="text-base">
               RCI Magazine® is your all-in-one resource for travel inspiration,

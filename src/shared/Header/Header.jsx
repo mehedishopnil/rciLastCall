@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/Images/logo.svg";
-import { IoIosHelpCircleOutline, IoMdNotificationsOutline } from "react-icons/io";
+import {
+  IoIosHelpCircleOutline,
+  IoMdNotificationsOutline,
+} from "react-icons/io";
 import { FaUserCircle, FaTimes, FaBars, FaRegUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
+import { IoHomeOutline } from "react-icons/io5";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -91,17 +95,19 @@ const Header = () => {
             </div>
             {isMenuOpen && (
               <div className=" p-5">
-                <ul className="absolute right-0 menu menu-lg dropdown-content mt-3  p-2 shadow bg-white rounded-box w-screen z-10 h-fit flex flex-col ">
+                <ul className="absolute right-0 menu menu-lg dropdown-content mt-5  p-2 shadow bg-white rounded-box w-screen z-10 h-fit flex flex-col ">
                   <div>
-                    <li className="flex font-regular text-gray-600">
-                      <div className="">
-                        <img
-                          src="https://www.rci.com/static/images/content/icons-header/book.svg"
-                          alt=""
-                        />
-                        <a>BOOK</a>
-                      </div>
-                    </li>
+                    <Link to="/lastCallVacation">
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <img
+                            src="https://www.rci.com/static/images/content/icons-header/book.svg"
+                            alt=""
+                          />
+                          <a>BOOK</a>
+                        </div>
+                      </li>
+                    </Link>
 
                     <li className="flex font-regular text-gray-600">
                       <div className="">
@@ -122,6 +128,15 @@ const Header = () => {
                         <a>DEALS</a>
                       </div>
                     </li>
+
+                    <Link to="/">
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <IoHomeOutline className="text-2xl" />
+                          <a>Home</a>
+                        </div>
+                      </li>
+                    </Link>
                   </div>
 
                   <div className="flex justify-center">
@@ -131,39 +146,38 @@ const Header = () => {
                   <div>
                     <li className="flex font-regular text-gray-600">
                       <div className="">
-                      <IoMdNotificationsOutline className="text-3xl" />
+                        <IoMdNotificationsOutline className="text-3xl" />
                         <a>Notifications</a>
                       </div>
                     </li>
 
                     <li className="flex font-regular text-gray-600">
-                    <div className="">
-                      <FaRegUserCircle className="text-2xl" />
+                      <div className="">
+                        <FaRegUserCircle className="text-2xl" />
                         <a>My Account</a>
                       </div>
                     </li>
 
                     <li className="flex font-regular text-gray-600">
-                    <div className="">
-                      <FaRegHeart className="text-2xl" />
+                      <div className="">
+                        <FaRegHeart className="text-2xl" />
                         <a>My Favorites</a>
                       </div>
                     </li>
 
                     <li className="flex font-regular text-gray-600">
-                    <div className="">
-                      <IoIosHelpCircleOutline className="text-2xl" />
+                      <div className="">
+                        <IoIosHelpCircleOutline className="text-2xl" />
                         <a>Help</a>
                       </div>
                     </li>
                     <li className="flex font-regular text-gray-600">
-                    <div className="">
-                      <PiSignOutFill className="text-2xl" />
+                      <div className="">
+                        <PiSignOutFill className="text-2xl" />
                         <a>Sign Out</a>
                       </div>
                     </li>
                   </div>
-
                 </ul>
               </div>
             )}
