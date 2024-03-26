@@ -22,16 +22,25 @@ const Header = () => {
       {/* Desktop Navbar */}
       <div className="container mx-auto hidden lg:flex justify-between items-center navbar">
         {/* Logo and Search Bar */}
-        <div className="navbar-start flex items-center">
-          <img src={logo} alt="" className="w-[52px] h-[52px] " />
+        <div className="navbar-start flex items-center justify-between">
+          <Link to="/"> <img src={logo} alt="Logo" className="w-12 h-12" /> </Link>
+          <div className="w-[1px] h-14 bg-white"></div>
+            <img
+              src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
+              alt=""
+              className="w-[80px] "
+            />
+
+
           {/* Search bar visible only on lg screens */}
           <div className="hidden lg:block">
             <input
               type="text"
               placeholder="Search..."
-              className="px-2 py-1 rounded bg-gray-200 ml-4"
+              className="px-2 py-1 rounded-full bg-gray-200 ml-4"
             />
           </div>
+          
         </div>
 
         {/* Desktop Menu */}
