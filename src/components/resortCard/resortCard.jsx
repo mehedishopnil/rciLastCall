@@ -6,7 +6,7 @@ const resortCard = ({ resort }) => {
     
     return (
         <div>
-            <div className=" card w-96 bg-base-100 shadow-xl">
+            <div className=" card w-96 bg-white shadow-xl">
                 <figure className=" relative">
                     <img src={img} alt="Shoes" />
                     <p className="absolute top-5 right-5 text-xl"><FaRegHeart /></p>
