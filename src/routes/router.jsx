@@ -5,6 +5,7 @@ import {
 import Main from "../layout/Main/Main";
 import Home from "../pages/Home/Home";
 import LastCallVacations from "../pages/LastCallVacations/LastCallVacations";
+import MyAccount from "../pages/MyAccount/MyAccount";
 
  export  const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ import LastCallVacations from "../pages/LastCallVacations/LastCallVacations";
         {
           path: "/lastCallVacation",
           element: <LastCallVacations />,
+        },
+        {
+          path: "/myAccount",
+          element: <MyAccount />,
         }
       ],
     },

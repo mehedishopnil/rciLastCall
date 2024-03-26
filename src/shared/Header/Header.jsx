@@ -51,7 +51,7 @@ const Header = () => {
               <Link to="/lastCallVacation"><p className="text-xl">BOOK</p></Link>
             </li>
             <li>
-              <p className="text-xl">TRIPS</p>
+              <Link to="/"><p className="text-xl">TRIPS</p></Link>
             </li>
             <li>
               <p className="text-xl">DEALS</p>
@@ -155,7 +155,7 @@ const Header = () => {
                     <li className="flex font-regular text-gray-600">
                       <div className="">
                         <FaRegUserCircle className="text-2xl" />
-                        <a>My Account</a>
+                        <Link to="/myAccount"><a>My Account</a></Link>
                       </div>
                     </li>
 
