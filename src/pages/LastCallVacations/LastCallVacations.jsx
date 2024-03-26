@@ -1,19 +1,39 @@
-
-import { FaMapLocationDot, FaRegHeart } from 'react-icons/fa6';
-import { IoFilterSharp } from 'react-icons/io5';
+import React, { useState, useEffect } from 'react';
+import ResortCard from '../../components/resortCard/resortCard'; // Assuming correct import path for resortCard component
 
 const LastCallVacations = () => {
+    const [resorts, setResorts] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/public/TempData/ResortsData.json'); // Assuming ResortsData.json is served from the public folder
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                const data = await response.json();
+                setResorts(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
+
     return (
-        <div className="lg:hidden w-full flex justify-between h-16 p-5 text-gray-600 bg-white fixed bottom-0 left-0">
-      <div className="flex gap-10 text-2xl text-[#037092]">
-        <FaMapLocationDot />
-        <FaRegHeart />
-      </div>
-      <div className="flex items-center gap-2 text-[#037092]">
-        <IoFilterSharp />
-        <h1>Filters</h1>
-      </div>
-    </div>
+        <div className="p-4">
+            <div className='border-b border-gray-500 py-2'>
+                <h1 className='text-xl'>{resorts.length} Resorts </h1>
+            </div>
+
+            {/* Render resort cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {resorts.map((resort) => (
+                  <ResortCard key={resort.id} resort={resort} />
+              ))}
+            </div>
+        </div>
     );
 };
 
