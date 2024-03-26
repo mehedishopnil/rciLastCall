@@ -22,7 +22,7 @@ const LastCallVacations = () => {
     }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
 
     return (
-        <div className="p-4">
+        <div className="p-4 space-y-5">
             <div className='border-b border-gray-500 py-2'>
                 <h1 className='text-xl'>{resorts.length} Resorts </h1>
             </div>
