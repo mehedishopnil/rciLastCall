@@ -37,17 +37,9 @@ const Header = () => {
         {/* Desktop Menu */}
         <div className="navbar-center">
           <ul className="menu menu-horizontal px-1 text-white">
+            
             <li>
-              <details>
-                <summary className="text-xl">BOOK</summary>
-                <ul className="p-2 text-black">
-                  <li>
-                    <Link>
-                      <a>Last Call Vacations</a>
-                    </Link>
-                  </li>
-                </ul>
-              </details>
+              <Link to="/lastCallVacation"><p className="text-xl">BOOK</p></Link>
             </li>
             <li>
               <p className="text-xl">TRIPS</p>
@@ -59,7 +51,7 @@ const Header = () => {
         </div>
 
         {/* User Icons */}
-        <div className="navbar-end flex gap-5 items-center">
+        <div className="navbar-end text-white flex gap-5 items-center">
           <IoMdNotificationsOutline className="text-3xl" />
           <FaUserCircle className="text-3xl" />
         </div>
