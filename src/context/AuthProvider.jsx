@@ -10,7 +10,7 @@ const AuthProvider = ({children}) => {
         const fetchResortData = async () => {
           setLoading(true);
           try {
-            const response = await fetch('http://localhost:5000/resorts');
+            const response = await fetch('https://rci-last-call-server.vercel.app/resorts');
             if (!response.ok) {
               throw new Error(`Error fetching hotelData.json: ${response.status} ${response.statusText}`);
             }
