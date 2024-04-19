@@ -1,32 +1,53 @@
-import React, { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthProvider';
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
+import { AuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from 'react-router-dom'
 
 const SingleResortPage = () => {
-    const { resortData } = useContext(AuthContext);
-    const { id } = useParams();
-    console.log("id:", id); 
+  const { resortData } = useContext(AuthContext);
+  const { id } = useParams();
+  const navigate = useNavigate(); // Initialize navigate
 
-    // Parse id to integer
-    const idAsInt = parseInt(id);
+  const [currentResort, setCurrentResort] = useState(null);
 
-    // Find the resort with the matching ID
-    const resort = resortData.find(resort => parseInt(resort._id) === idAsInt);
-    console.log("resort:", resort);
+  // Parse id to integer
+  const idAsInt = parseInt(id);
 
-    return (
-        <div>
-            <h1>This is single resort page</h1>
-            {resort && (
-                <div>
-                    <h2>{resort.name}</h2>
-                    <p>Location: {resort.location}</p>
-                    <p>Description: {resort.description}</p>
-                    {/* Add more details as needed */}
-                </div>
-            )}
-        </div>
-    );
+  useEffect(() => {
+    if (resortData && idAsInt) {
+      const foundResort = resortData.find(
+        (resort) => parseInt(resort._id) === idAsInt
+      );
+      setCurrentResort(foundResort);
+    }
+  }, [resortData, idAsInt]);
+
+  // Handle navigation back
+  const goBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
+
+  return (
+    <div>
+      <div>
+        <button
+          onClick={goBack}
+          className="flex items-center m-2 text-[#037092] font-bold"
+        >
+          <IoIosArrowBack /> Back
+        </button>
+        {currentResort && (
+          <div>
+            <img src={currentResort.img} alt="" />
+            <h2>Location: {currentResort.place_name}</h2>
+            <p>Description: {currentResort.resort_details}</p>
+            {/* Add more details as needed */}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default SingleResortPage;

@@ -4,8 +4,14 @@ import logo from "../../assets/Images/logo.svg";
 import {
   IoIosHelpCircleOutline,
   IoMdNotificationsOutline,
-} from "react-icons/io";
-import { FaUserCircle, FaTimes, FaBars, FaRegUserCircle } from "react-icons/fa";
+  IoSearchOutline,
+} from "react-icons/io5"; // Import the search icon
+import {
+  FaUserCircle,
+  FaTimes,
+  FaBars,
+  FaRegUserCircle,
+} from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
@@ -23,35 +29,40 @@ const Header = () => {
       <div className="container mx-auto hidden lg:flex justify-between items-center navbar">
         {/* Logo and Search Bar */}
         <div className="navbar-start flex items-center justify-between">
-          <Link to="/"> <img src={logo} alt="Logo" className="w-12 h-12" /> </Link>
+          <Link to="/">
+            {" "}
+            <img src={logo} alt="Logo" className="w-12 h-12" />{" "}
+          </Link>
           <div className="w-[1px] h-14 bg-white"></div>
-            <img
-              src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
-              alt=""
-              className="w-[80px] "
-            />
-
+          <img
+            src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
+            alt=""
+            className="w-[80px] "
+          />
 
           {/* Search bar visible only on lg screens */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block relative">
             <input
               type="text"
               placeholder="Search..."
-              className="px-2 py-1 rounded-full bg-gray-200 ml-4"
+              className="px-2 py-1 rounded-full bg-gray-200 ml-4 pr-8" // Add pr-8 for padding-right
             />
+            <IoSearchOutline className="absolute top-0 right-0 mt-2 mr-3 text-gray-400" />
           </div>
-          
         </div>
 
         {/* Desktop Menu */}
         <div className="navbar-center">
           <ul className="menu menu-horizontal px-1 text-white">
-            
             <li>
-              <Link to="/lastCallVacation"><p className="text-xl">BOOK</p></Link>
+              <Link to="/lastCallVacation">
+                <p className="text-xl">BOOK</p>
+              </Link>
             </li>
             <li>
-              <Link to="/"><p className="text-xl">TRIPS</p></Link>
+              <Link to="/">
+                <p className="text-xl">TRIPS</p>
+              </Link>
             </li>
             <li>
               <p className="text-xl">DEALS</p>
@@ -155,7 +166,9 @@ const Header = () => {
                     <li className="flex font-regular text-gray-600">
                       <div className="">
                         <FaRegUserCircle className="text-2xl" />
-                        <Link to="/myAccount"><a>My Account</a></Link>
+                        <Link to="/myAccount">
+                          <a>My Account</a>
+                        </Link>
                       </div>
                     </li>
 
@@ -186,11 +199,13 @@ const Header = () => {
         </div>
         {/* Search bar visible only on mobile screens */}
         <div className="container flex justify-center pb-5 mx-auto lg:hidden">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="block w-10/12 px-2 py-1 rounded-full bg-gray-200 mt-4"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="block w-10/12 px-2 py-1 rounded-full bg-gray-200 mt-4 pr-8" // Add pr-8 for padding-right
+            />
+            <IoSearchOutline className="absolute top-0 right-0 mt-2 mr-3 text-gray-400" /></div>
         </div>
       </div>
     </div>
