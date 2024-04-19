@@ -28,11 +28,11 @@ const resortCard = ({ resort }) => {
                     <h1>All-Inclusive</h1>
                     </div>
 
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-1">
                         <img src="https://clubs.rci.com/static/media/gold-crown.d40b5cfc.svg" alt="" />
                         <div className="border-l-2 "></div>
 
-                        <div>
+                        <div className="">
                         <img src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/5.0-32772-5.svg" alt="" />
                             {/* You need to add reviews_amount in resort object */}
                             <div>
