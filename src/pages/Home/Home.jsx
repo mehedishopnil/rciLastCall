@@ -1,5 +1,6 @@
 import { IoSearch } from "react-icons/io5";
 import rciImg2 from "../../assets/Images/rci-magazine-people-places.jpg";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const Home = () => {
   return (
@@ -14,8 +15,8 @@ const Home = () => {
           </div>
           <div className="w-full h-[1px] bg-gray-300 mt-2"></div>
 
-          <h1 className="text-center font-medium text-[#037092]">
-            See all RCI resorts >>
+          <h1 className="flex items-center text-center font-medium text-[#037092]">
+            See all RCI resorts <MdKeyboardDoubleArrowRight />
           </h1>
         </div>
       </div>
