@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { GiStarsStack } from "react-icons/gi";
 import TopAmenities from "./TopAmenities/TopAmenities";
+import FilterContent from "./FilterContent/FilterContent";
 
 const SingleResortPage = () => {
   const { resortData } = useContext(AuthContext);
@@ -88,8 +89,29 @@ const SingleResortPage = () => {
           <div className="mt-2">
             <h1>Top Amenities</h1>
             <TopAmenities />
+          </div>
+
+          <div className="border-b border-gray-200"></div>
+
+          <div className="mt-2">
+            <h1 className="font-semibold">TripAdvisor Traveler Rating</h1>
+            <div className=" flex gap-3">
+              <img
+                src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/5.0-32772-5.svg"
+                alt=""
+              />
+              {/* You need to add reviews_amount in resort object */}
+              <p className="font-bold">{reviews_amount} reviews</p>
+            </div>
+
             
           </div>
+
+          {/* Filter info of the resort */}
+          <div>
+          <FilterContent resort={currentResort} />
+          </div>
+          
         </div>
       </div>
     </div>
