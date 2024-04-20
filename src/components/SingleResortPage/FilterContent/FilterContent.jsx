@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AvailableUnits from './FilteredComponent/AvailableUnits';
 
 const FilterContent = () => {
     // State to track the active menu
@@ -12,11 +13,9 @@ const FilterContent = () => {
     // Demo content for each menu
     const menuContent = {
         'Available Units': (
-            <div>
-                <h2>Available Units</h2>
-                <p>This section displays information about available units for booking.</p>
-            </div>
+            <AvailableUnits />
         ),
+        
         'All-inclusive info': (
             <div>
                 <h2>All-inclusive info</h2>
