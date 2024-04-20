@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AvailableUnits from './FilteredComponent/AvailableUnits';
+import AllInclusiveInfo from './FilteredComponent/AllInclusiveInfo';
 
 const FilterContent = () => {
     // State to track the active menu
@@ -17,10 +18,7 @@ const FilterContent = () => {
         ),
         
         'All-inclusive info': (
-            <div>
-                <h2>All-inclusive info</h2>
-                <p>This section provides details about all-inclusive packages offered by the resort.</p>
-            </div>
+            <AllInclusiveInfo />
         ),
         'Room': (
             <div>
@@ -55,9 +53,9 @@ const FilterContent = () => {
     };
 
     return (
-        <div className=''>
+        <div className='overflow-x-hidden'>
             <div className='carousel'>
-                <ul className="carousel-item space-x-5  relative text-xl font-semibold my-5">
+                <ul className="carousel-item space-x-5  relative text-xl font-semibold pl-3 my-5">
                     {Object.keys(menuContent).map((menu) => (
                         <li key={menu} className={activeMenu === menu ? 'active underline text-[#037092] ' : ''} onClick={() => handleMenuClick(menu)}>
                             {menu}
