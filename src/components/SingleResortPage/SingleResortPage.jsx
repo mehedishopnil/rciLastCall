@@ -128,7 +128,7 @@ const SingleResortPage = () => {
 
           {/* Filter info of the resort */}
           <div>
-            <FilterContent resort={currentResort} />
+            <FilterContent currentResort={currentResort} />
           </div>
         </div>
       </div>

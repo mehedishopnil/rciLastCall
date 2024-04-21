@@ -1,8 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import AvailableUnits from "./FilteredComponent/AvailableUnits";
 import AllInclusiveInfo from "./FilteredComponent/AllInclusiveInfo";
+import RoomDetails from "./FilteredComponent/RoomDetails";
 
-const FilterContent = () => {
+
+const FilterContent = ({currentResort}) => {
+    console.log(currentResort);
+    const {room_details} = currentResort;
+    
   // State to track the active menu
   const [activeMenu, setActiveMenu] = useState("Available Units");
 
@@ -16,23 +21,12 @@ const FilterContent = () => {
 
   // Demo content for each menu
   const menuContent = {
-    "Available Units": <AvailableUnits />,
+    "Available Units": <AvailableUnits  />,
 
     "All-inclusive info": <AllInclusiveInfo />,
-    Room: (
-      <div>
-        <h2>Room</h2>
-        <p>This section contains information about room types and amenities.</p>
-      </div>
-    ),
+   
     "Room Details": (
-      <div>
-        <h2>Room Details</h2>
-        <p>
-          Detailed descriptions of each room type, including features and
-          pricing.
-        </p>
-      </div>
+      <RoomDetails room_details={room_details} />
     ),
     "Resort Details": (
       <div>

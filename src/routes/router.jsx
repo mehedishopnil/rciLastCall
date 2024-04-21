@@ -7,6 +7,7 @@ import Home from "../pages/Home/Home";
 import LastCallVacations from "../pages/LastCallVacations/LastCallVacations";
 import MyAccount from "../pages/MyAccount/MyAccount";
 import SingleResortPage from "../components/SingleResortPage/SingleResortPage";
+import Search from "../pages/Search/Search";
 
  export  const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ import SingleResortPage from "../components/SingleResortPage/SingleResortPage";
         {
           path: "/singleResortPage/:id",
           element: <SingleResortPage />,
+        },
+        {
+          path: "/search",
+          element: <Search />,
         }
       ],
     },

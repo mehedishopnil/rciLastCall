@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/Images/logo.svg";
 import {
   IoIosHelpCircleOutline,
@@ -18,20 +18,31 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   return (
     <div className="bg-[#037092]">
       {/* Desktop Navbar */}
       <div className="container mx-auto hidden lg:flex justify-between items-center navbar">
         {/* Logo and Search Bar */}
         <div className="navbar-start flex items-center justify-between">
-          <Link to="/"> <img src={logo} alt="Logo" className="w-12 h-12" /> </Link>
+          <Link to="/">
+            {" "}
+            <img src={logo} alt="Logo" className="w-12 h-12" />{" "}
+          </Link>
           <div className="w-[1px] h-14 bg-white"></div>
-            <img
-              src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
-              alt=""
-              className="w-[80px] "
-            />
-
+          <img
+            src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
+            alt=""
+            className="w-[80px] "
+          />
 
           {/* Search bar visible only on lg screens */}
           <div className="hidden lg:block">
@@ -41,18 +52,20 @@ const Header = () => {
               className="px-2 py-1 rounded-full bg-gray-200 ml-4"
             />
           </div>
-          
         </div>
 
         {/* Desktop Menu */}
         <div className="navbar-center">
           <ul className="menu menu-horizontal px-1 text-white">
-            
             <li>
-              <Link to="/lastCallVacation"><p className="text-xl">BOOK</p></Link>
+              <Link to="/lastCallVacation">
+                <p className="text-xl">BOOK</p>
+              </Link>
             </li>
             <li>
-              <Link to="/"><p className="text-xl">TRIPS</p></Link>
+              <Link to="/">
+                <p className="text-xl">TRIPS</p>
+              </Link>
             </li>
             <li>
               <p className="text-xl">DEALS</p>
@@ -156,7 +169,9 @@ const Header = () => {
                     <li className="flex font-regular text-gray-600">
                       <div className="">
                         <FaRegUserCircle className="text-2xl" />
-                        <Link to="/myAccount"><a>My Account</a></Link>
+                        <Link to="/myAccount">
+                          <a>My Account</a>
+                        </Link>
                       </div>
                     </li>
 
@@ -186,13 +201,20 @@ const Header = () => {
           </div>
         </div>
         {/* Search bar visible only on mobile screens */}
-        <div className="relative container flex justify-center pb-5 mx-auto lg:hidden">
+        <div className="block relative container flex justify-center pb-5 mx-auto lg:hidden">
           <input
             type="text"
             placeholder="Search..."
-            className="block w-10/12 px-2 py-1 rounded-full bg-gray-200 mt-4"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-10/12 px-2 py-1 rounded-full bg-gray-200 mt-4"
           />
-          <Link className="absolute right-[7%] top-4 text-xl text-white bg-yellow-500 px-3 py-[6px] rounded-r-full "><IoSearch /></Link>
+          <button
+            className="absolute right-[7%] top-4 text-xl text-white bg-yellow-500 px-3 py-[6px] rounded-r-full"
+            onClick={handleSearch}
+          >
+            <IoSearch />
+          </button>
         </div>
       </div>
     </div>
