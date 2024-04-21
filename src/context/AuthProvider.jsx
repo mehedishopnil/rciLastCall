@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -7,7 +7,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [resortData, setResortData] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResortData = async () => {
@@ -35,8 +35,8 @@ const AuthProvider = ({ children }) => {
       // Filter resortData based on searchQuery
       const results = resortData.filter(resort => resort.place_name.toLowerCase().includes(searchQuery.toLowerCase()));
       setSearchResults(results);
-      // Redirect to search page
-      history.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      // Redirect to search page using navigate
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
