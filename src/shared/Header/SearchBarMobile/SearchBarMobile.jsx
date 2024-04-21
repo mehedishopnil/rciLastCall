@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { IoSearch } from 'react-icons/io5';
+import { IoSearch, IoClose } from 'react-icons/io5'; // Import IoClose for the cross icon
 import { useNavigate } from 'react-router-dom';
 
 const SearchBarMobile = () => {
@@ -18,6 +18,14 @@ const SearchBarMobile = () => {
   const saveSearchQuery = (query) => {
     const updatedSearchHistory = [query, ...searchHistory.filter(item => item !== query)];
     updatedSearchHistory.splice(10); // Limit search history to the last 10 queries
+    setSearchHistory(updatedSearchHistory);
+    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
+  };
+
+  // Function to remove search history item
+  const removeSearchHistoryItem = (index) => {
+    const updatedSearchHistory = [...searchHistory];
+    updatedSearchHistory.splice(index, 1);
     setSearchHistory(updatedSearchHistory);
     localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
@@ -48,7 +56,7 @@ const SearchBarMobile = () => {
   return (
     <div>
       {/* Search bar visible only on mobile screens */}
-      <div className="block relative container flex justify-center pb-5 mx-auto lg:hidden">
+      <div className=" relative container flex justify-center pb-5 mx-auto lg:hidden">
         <input
           type="text"
           placeholder="Search..."
@@ -67,12 +75,13 @@ const SearchBarMobile = () => {
       </div>
       {/* Display search history dropdown */}
       {showHistoryDropdown && searchHistory.length > 0 && (
-        <div className="search-history-dropdown bg-white border mb-2">
+        <div className="search-history-dropdown bg-white border mb-2 p-4 overflow-y-auto">
           <ul>
-            <h1 className="text-center">Your serach History</h1>
+            <h1 className="text-center">Your search History</h1>
             {searchHistory.map((query, index) => (
-              <li key={index} onClick={() => handleSearchHistorySelect(query)}>
-                {query}
+              <li key={index} className="flex justify-between items-center">
+                <span onClick={() => handleSearchHistorySelect(query)}>{query}</span>
+                <IoClose onClick={() => removeSearchHistoryItem(index)} className="cursor-pointer" />
               </li>
             ))}
           </ul>

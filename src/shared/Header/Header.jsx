@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import logo from "../../assets/Images/logo.svg";
 import {
   IoIosHelpCircleOutline,
@@ -26,7 +26,7 @@ const Header = () => {
       <div className="container mx-auto hidden lg:flex justify-between items-center navbar">
         {/* Logo and Search Bar */}
         <div className="navbar-start flex items-center justify-between">
-          <Link to="/">
+          <Link to="/" className="z-20">
             {" "}
             <img src={logo} alt="Logo" className="w-12 h-12" />{" "}
           </Link>
@@ -76,16 +76,22 @@ const Header = () => {
       {/* Mobile Navbar */}
       <div className="">
         <div className="container mx-auto flex lg:hidden justify-between items-center navbar">
+          
           <div className="space-x-4">
+          
             {/* Logo */}
+            <Link to="/" className="z-20">
             <img src={logo} alt="" className="w-[52px] h-[52px]" />
+            </Link>
             <div className="w-[1px] h-14 bg-white"></div>
             <img
               src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
               alt=""
               className="w-[80px] "
             />
+       
           </div>
+          
 
           {/* Mobile Dropdown */}
           <div className="dropdown relative">
