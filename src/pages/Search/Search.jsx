@@ -30,7 +30,7 @@ const Search = () => {
         ) : searchResults.length > 0 ? (
           <ul>
             {searchResults.map((result) => (
-              <li key={result.id}>{/* Display search result item */}</li>
+              <li key={result.id}>{result.name}</li>
             ))}
           </ul>
         ) : (

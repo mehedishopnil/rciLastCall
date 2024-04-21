@@ -8,6 +8,10 @@ const SearchBarMobile = () => {
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
   const navigate = useNavigate();
 
+  const handleSearchButtonClick = () => {
+    handleSearch(searchQuery); // Pass searchQuery to handleSearch function
+  };
+
   // Load search history from local storage on component mount
   useEffect(() => {
     const storedSearchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
@@ -30,9 +34,11 @@ const SearchBarMobile = () => {
     localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
 
+  // Function to handle search
   const handleSearch = () => {
     if (searchQuery.trim() !== '') {
       saveSearchQuery(searchQuery);
+      // Redirect to search page with the search query as parameter
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
@@ -56,7 +62,7 @@ const SearchBarMobile = () => {
   return (
     <div>
       {/* Search bar visible only on mobile screens */}
-      <div className=" relative container flex justify-center pb-5 mx-auto lg:hidden">
+      <div className="relative container flex justify-center pb-5 mx-auto lg:hidden">
         <input
           type="text"
           placeholder="Search..."
