@@ -1,13 +1,12 @@
-import { createContext, useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext();
+export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [resortData, setResortData] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     const fetchResortData = async () => {
@@ -29,30 +28,16 @@ const AuthProvider = ({ children }) => {
     fetchResortData();
   }, []);
 
-  // Function to handle search
-  const handleSearch = (searchQuery) => {
-    if (searchQuery.trim() !== '') {
-      // Filter resortData based on searchQuery
-      const results = resortData.filter(resort => resort.place_name.toLowerCase().includes(searchQuery.toLowerCase()));
-      setSearchResults(results);
-      // Redirect to search page using navigate
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-    }
-  };
+
 
   const authInfo = {
     loading,
     resortData,
-    searchResults,
-    handleSearch,
   };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
-
-// Custom hook to access AuthContext
-export const useAuth = () => useContext(AuthContext);
 
 export default AuthProvider;

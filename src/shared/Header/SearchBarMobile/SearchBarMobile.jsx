@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { IoSearch, IoClose } from 'react-icons/io5'; // Import IoClose for the cross icon
+import { useState, useEffect, useContext } from 'react';
+import { IoSearch, IoClose } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const SearchBarMobile = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -8,25 +9,20 @@ const SearchBarMobile = () => {
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
   const navigate = useNavigate();
 
-  const handleSearchButtonClick = () => {
-    handleSearch(searchQuery); // Pass searchQuery to handleSearch function
-  };
+  const { resortData } = useContext(AuthContext);
 
-  // Load search history from local storage on component mount
   useEffect(() => {
     const storedSearchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     setSearchHistory(storedSearchHistory);
   }, []);
 
-  // Save search query to local storage
   const saveSearchQuery = (query) => {
     const updatedSearchHistory = [query, ...searchHistory.filter(item => item !== query)];
-    updatedSearchHistory.splice(10); // Limit search history to the last 10 queries
+    updatedSearchHistory.splice(10);
     setSearchHistory(updatedSearchHistory);
     localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
 
-  // Function to remove search history item
   const removeSearchHistoryItem = (index) => {
     const updatedSearchHistory = [...searchHistory];
     updatedSearchHistory.splice(index, 1);
@@ -34,12 +30,15 @@ const SearchBarMobile = () => {
     localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
 
-  // Function to handle search
   const handleSearch = () => {
     if (searchQuery.trim() !== '') {
       saveSearchQuery(searchQuery);
-      // Redirect to search page with the search query as parameter
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      // Filter resortData based on searchQuery
+      const filteredResortData = resortData.filter(item => item.place_name.toLowerCase() === searchQuery.toLowerCase());
+      // Extract _id values from filtered resortData
+      const ids = filteredResortData.map(item => item._id);
+      // Navigate to Search page with query parameter
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}&ids=${encodeURIComponent(ids.join(','))}`);
     }
   };
 
@@ -61,8 +60,7 @@ const SearchBarMobile = () => {
 
   return (
     <div>
-      {/* Search bar visible only on mobile screens */}
-      <div className="relative container flex justify-center pb-5 mx-auto lg:hidden">
+      <div className="block relative container flex justify-center pb-5 mx-auto lg:hidden">
         <input
           type="text"
           placeholder="Search..."
@@ -79,11 +77,10 @@ const SearchBarMobile = () => {
           <IoSearch />
         </button>
       </div>
-      {/* Display search history dropdown */}
       {showHistoryDropdown && searchHistory.length > 0 && (
-        <div className="search-history-dropdown bg-white border mb-2 p-4 overflow-y-auto">
+        <div className="search-history-dropdown bg-white border mb-2 p-4">
+          <h1 className="text-center mb-2">Your search History</h1>
           <ul>
-            <h1 className="text-center">Your search History</h1>
             {searchHistory.map((query, index) => (
               <li key={index} className="flex justify-between items-center">
                 <span onClick={() => handleSearchHistorySelect(query)}>{query}</span>
