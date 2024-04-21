@@ -23,8 +23,8 @@ const Search = () => {
   }, [resortData, location.search, dataFetched]); // Trigger useEffect when resortData, location.search, or dataFetched change
 console.log(searchData);
   return (
-    <div>
-      <h1>Search Results</h1>
+    <div className='p-4'>
+      <h1 className='text-center text-2xl font-semibold my-2'>Search Results Found: {searchData.length}</h1>
       {searchData.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {searchData.map((resort) =>

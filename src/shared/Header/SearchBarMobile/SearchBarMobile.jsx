@@ -10,6 +10,7 @@ const SearchBarMobile = () => {
   const navigate = useNavigate();
 
   const { resortData } = useContext(AuthContext);
+  console.log(resortData);
 
   useEffect(() => {
     const storedSearchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
@@ -34,7 +35,7 @@ const SearchBarMobile = () => {
     if (searchQuery.trim() !== '') {
       saveSearchQuery(searchQuery);
       // Filter resortData based on searchQuery
-      const filteredResortData = resortData.filter(item => item.place_name.toLowerCase() === searchQuery.toLowerCase());
+      const filteredResortData = resortData.filter(item => item.place_name.toLowerCase().includes(searchQuery.toLowerCase()));
       // Extract _id values from filtered resortData
       const ids = filteredResortData.map(item => item._id);
       // Navigate to Search page with query parameter
