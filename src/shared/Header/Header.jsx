@@ -9,7 +9,7 @@ import { FaUserCircle, FaTimes, FaBars, FaRegUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
-import { IoSearch } from "react-icons/io5";
+import SearchBarMobile from "./SearchBarMobile/SearchBarMobile";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,14 +18,7 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
-
-  const handleSearch = () => {
-    if (searchQuery.trim() !== "") {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-    }
-  };
+ 
 
   return (
     <div className="bg-[#037092]">
@@ -200,22 +193,7 @@ const Header = () => {
             )}
           </div>
         </div>
-        {/* Search bar visible only on mobile screens */}
-        <div className="block relative container flex justify-center pb-5 mx-auto lg:hidden">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-10/12 px-2 py-1 rounded-full bg-gray-200 mt-4"
-          />
-          <button
-            className="absolute right-[7%] top-4 text-xl text-white bg-yellow-500 px-3 py-[6px] rounded-r-full"
-            onClick={handleSearch}
-          >
-            <IoSearch />
-          </button>
-        </div>
+       <SearchBarMobile />
       </div>
     </div>
   );
