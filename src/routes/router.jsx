@@ -1,6 +1,5 @@
 import {
     createBrowserRouter,
-    RouterProvider,
   } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import Home from "../pages/Home/Home";
@@ -9,6 +8,7 @@ import MyAccount from "../pages/MyAccount/MyAccount";
 import SingleResortPage from "../components/SingleResortPage/SingleResortPage";
 import Search from "../pages/Search/Search";
 import SearchBarMobile from "../shared/Header/SearchBarMobile/SearchBarMobile";
+import ResortInputForm from "../pages/ResortInputForm/ResortInputForm";
 
  export  const router = createBrowserRouter([
     {
@@ -38,6 +38,10 @@ import SearchBarMobile from "../shared/Header/SearchBarMobile/SearchBarMobile";
         {
           path: "/search",
           element: <Search />,
+        },
+        {
+          path: "/resort_data_input",
+          element: <ResortInputForm />
         }
       ],
     },

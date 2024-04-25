@@ -151,6 +151,15 @@ const Header = () => {
                         </div>
                       </li>
                     </Link>
+
+                    <Link to="/resort_data_input">
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <IoHomeOutline className="text-2xl" />
+                          <a>Resort Input Form</a>
+                        </div>
+                      </li>
+                    </Link>
                   </div>
 
                   <div className="flex justify-center">
