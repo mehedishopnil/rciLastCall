@@ -1,0 +1,17 @@
+{
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/"
+        },
+        {
+            "src": "/singleResortPage/:id",
+            "dest": "/"
+        },
+
+        {
+            "src": "/lastCallVacation",
+            "dest": "/"
+        }
+    ]
+}

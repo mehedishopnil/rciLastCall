@@ -5,7 +5,6 @@ import RoomDetails from "./FilteredComponent/RoomDetails";
 
 
 const FilterContent = ({currentResort}) => {
-    console.log(currentResort);
     const {room_details, available_amount} = currentResort;
     
   // State to track the active menu

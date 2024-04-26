@@ -46,18 +46,8 @@ const SingleResortPage = () => {
     location,
     place_name,
     resort_details,
-    price_usd,
-    check_in_time,
-    check_out_time,
-    rating,
     reviews_amount,
-    room_details,
-    available_amount
   } = currentResort;
-
-  // Destructure room_details further
-  const { sleeps_room, privacy_room_amount, kitchen, bath } = room_details;
-  console.log(sleeps_room, privacy_room_amount,kitchen, bath );
 
   return (
     <div>
