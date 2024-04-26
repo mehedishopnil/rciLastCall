@@ -6,9 +6,8 @@
         },
         {
             "src": "/singleResortPage/:id",
-            "dest": "/:id"
+            "dest": "/singleResortPage/[id]"
         },
-
         {
             "src": "/lastCallVacation",
             "dest": "/"
