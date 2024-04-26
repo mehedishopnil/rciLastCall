@@ -11,10 +11,10 @@ const resortCard = ({ resort }) => {
                 <figure className=" relative">
                     <img src={img} alt="Shoes" />
                     <p className="absolute top-5 right-5 text-xl"><FaRegHeart /></p>
-                <div className= "absolute flex flex-col items-center bottom-5 right-5 p-2 rounded bg-white">
+                {/* <div className= "absolute flex flex-col items-center bottom-5 right-5 p-2 rounded bg-white">
                     <p className="">Starting At </p>
                     <p className="text-lg font-bold"> ${price_usd} USD</p>
-                </div>
+                </div> */}
                     </figure>
                 
                 <div className="card-body">

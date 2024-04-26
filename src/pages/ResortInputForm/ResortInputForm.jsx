@@ -22,6 +22,10 @@ const ResortInputForm = () => {
       privacy_room_amount: "",
       kitchen: "",
       bath: "",
+      studio_sleeps_room: "",
+      studio_privacy_room_amount: "",
+      studio_kitchen: "",
+      studio_bath: "",
     },
   });
 
@@ -80,6 +84,10 @@ const ResortInputForm = () => {
           privacy_room_amount: "",
           kitchen: "",
           bath: "",
+          studio_sleeps_room: "",
+          studio_privacy_room_amount: "",
+          studio_kitchen: "",
+          studio_bath: "",
         },
       });
 
@@ -194,7 +202,7 @@ const ResortInputForm = () => {
             Resort ID
           </label>
           <input
-            type="number"
+            type="text"
             id="resortID"
             name="resort_ID"
             value={formData.resort_ID}
@@ -261,7 +269,7 @@ const ResortInputForm = () => {
             Check-in Time
           </label>
           <input
-            type="date"
+            type="time"
             id="checkInTime"
             name="check_in_time"
             value={formData.check_in_time}
@@ -278,7 +286,7 @@ const ResortInputForm = () => {
             Check-out Time
           </label>
           <input
-            type="date"
+            type="time"
             id="checkOutTime"
             name="check_out_time"
             value={formData.check_out_time}
@@ -353,7 +361,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           ></textarea>
         </div>
-        {/* Sleeps Room */}
+        {/*Hotel Sleeps Room */}
         <div className="mb-4">
           <label
             htmlFor="sleepsRoom"
@@ -421,6 +429,76 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
+        {/*Studio Sleeps Room */}
+        <div className="mb-4">
+          <label
+            htmlFor="sleepsRoom"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Studio Sleeps Room
+          </label>
+          <input
+            type="number"
+            id="sleepsRoom"
+            name="studio_sleeps_room"
+            value={formData.room_details.studio_sleeps_room}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        {/* Privacy Room Amount */}
+        <div className="mb-4">
+          <label
+            htmlFor="privacyRoomAmount"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Studio Privacy Room Amount
+          </label>
+          <input
+            type="number"
+            id="privacyRoomAmount"
+            name="studio_privacy_room_amount"
+            value={formData.room_details.studio_privacy_room_amount}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        {/* Kitchen */}
+        <div className="mb-4">
+          <label
+            htmlFor="kitchen"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Studio Kitchen
+          </label>
+          <input
+            type="text"
+            id="kitchen"
+            name="studio_kitchen"
+            value={formData.room_details.studio_kitchen}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        {/* Bath */}
+        <div className="mb-4">
+          <label
+            htmlFor="bath"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Studio Bath
+          </label>
+          <input
+            type="text"
+            id="bath"
+            name="studio_bath"
+            value={formData.room_details.studio_bath}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
         {/* Submit Button */}
         <div className="mt-6">
           <button
