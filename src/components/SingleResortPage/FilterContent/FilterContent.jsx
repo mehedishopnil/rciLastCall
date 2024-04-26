@@ -6,7 +6,7 @@ import RoomDetails from "./FilteredComponent/RoomDetails";
 
 const FilterContent = ({currentResort}) => {
     console.log(currentResort);
-    const {room_details} = currentResort;
+    const {room_details, available_amount} = currentResort;
     
   // State to track the active menu
   const [activeMenu, setActiveMenu] = useState("Available Units");
@@ -21,7 +21,7 @@ const FilterContent = ({currentResort}) => {
 
   // Demo content for each menu
   const menuContent = {
-    "Available Units": <AvailableUnits  />,
+    "Available Units": <AvailableUnits available_amount={available_amount}  />,
 
     "All-inclusive info": <AllInclusiveInfo />,
    

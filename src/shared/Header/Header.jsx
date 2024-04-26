@@ -5,7 +5,7 @@ import {
   IoIosHelpCircleOutline,
   IoMdNotificationsOutline,
 } from "react-icons/io";
-import { FaUserCircle, FaTimes, FaBars, FaRegUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaTimes, FaBars, FaRegUserCircle, FaWpforms } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
@@ -61,8 +61,11 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <p className="text-xl">DEALS</p>
+              <Link to="/resort_data_input">
+                <p className="text-xl">Resort Input Form</p>
+              </Link>
             </li>
+            
           </ul>
         </div>
 
@@ -155,7 +158,7 @@ const Header = () => {
                     <Link to="/resort_data_input">
                       <li className="flex font-regular text-gray-600">
                         <div className="">
-                          <IoHomeOutline className="text-2xl" />
+                          <FaWpforms className="text-2xl" />
                           <a>Resort Input Form</a>
                         </div>
                       </li>

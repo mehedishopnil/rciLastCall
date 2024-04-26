@@ -52,6 +52,7 @@ const SingleResortPage = () => {
     rating,
     reviews_amount,
     room_details,
+    available_amount
   } = currentResort;
 
   // Destructure room_details further

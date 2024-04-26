@@ -51,7 +51,7 @@ const ResortInputForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/resorts", {
+      const response = await fetch("https://rci-last-call-server.vercel.app/resorts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const ResortInputForm = () => {
 
       // Show success popup
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "success",
         title: "Your work has been saved",
         showConfirmButton: false,
@@ -105,6 +105,7 @@ const ResortInputForm = () => {
       console.error("Error submitting form data:", error);
       // Show error popup
       Swal.fire({
+        position: "center",
         icon: "error",
         title: "Oops...",
         text: "Something went wrong!",

@@ -1,7 +1,7 @@
 import { FaChevronDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const AvailableUnits = ({availableUnit}) => {
+const AvailableUnits = ({available_amount}) => {
   return (
     <div>
       {/* Travel Dates Section */}
@@ -42,7 +42,7 @@ const AvailableUnits = ({availableUnit}) => {
 
       {/* Available Units */}
       <div>
-        <h1 className="text-center font-semibold">{availableUnit} Available Units</h1>
+        <h1 className="text-center font-semibold">{available_amount} Available Units</h1>
         <div className="relative flex justify-center  my-3 ">
           <h1 className="absolute left-0 w-1/2 text-center rounded-l-full bg-[#037092] text-white font-semibold border border-gray-500">
             TYPE OF UNIT
