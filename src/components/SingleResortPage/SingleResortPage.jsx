@@ -56,6 +56,7 @@ const SingleResortPage = () => {
 
   // Destructure room_details further
   const { sleeps_room, privacy_room_amount, kitchen, bath } = room_details;
+  console.log(sleeps_room, privacy_room_amount,kitchen, bath );
 
   return (
     <div>
