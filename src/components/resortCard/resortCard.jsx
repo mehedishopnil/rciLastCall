@@ -2,7 +2,8 @@ import { GiStarsStack } from "react-icons/gi";
 import { FaRegHeart } from "react-icons/fa";
 
 const resortCard = ({ resort }) => {
-    const { img, price_usd, place_name,reviews_amount } = resort;
+    const { img, price_usd, place_name,reviews_amount,location,
+    } = resort;
     
     return (
         <div>
@@ -17,10 +18,10 @@ const resortCard = ({ resort }) => {
                     </figure>
                 
                 <div className="card-body">
-                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <p>{location}</p>
                     <h2 className="card-title">
                         {place_name}
-                        <div className="badge badge-secondary">NEW</div>
+                        
                     </h2>
                 <div>
                     <div className="flex items-center gap-2">

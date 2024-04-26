@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 const ResortInputForm = () => {
   const [formData, setFormData] = useState({
     img: "",
+    img2: "",
+    img3: "",
     location: "",
     resort_ID: "",
     place_name: "",
@@ -60,6 +62,8 @@ const ResortInputForm = () => {
       // Reset form after successful submission
       setFormData({
         img: "",
+        img2: "",
+        img3: "",
         location: "",
         resort_ID: "",
         place_name: "",
@@ -110,13 +114,13 @@ const ResortInputForm = () => {
         onSubmit={handleSubmit}
         className="drop-shadow-sm border rounded p-4"
       >
-        {/* Image */}
+        {/* Image 1*/}
         <div className="mb-4">
           <label
             htmlFor="img"
             className="block text-sm font-medium text-gray-700"
           >
-            Image
+            Main Image
           </label>
           <input
             type="text"
@@ -127,6 +131,43 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
+        {/* Image 2*/}
+        <div className="mb-4">
+          <label
+            htmlFor="img2"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Image 2
+          </label>
+          <input
+            type="text"
+            id="img2"
+            name="img2"
+            value={formData.img2}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        {/* Image 3*/}
+        <div className="mb-4">
+          <label
+            htmlFor="img3"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Image 3
+          </label>
+          <input
+            type="text"
+            id="img3"
+            name="img3"
+            value={formData.img3}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
         {/* Location */}
         <div className="mb-4">
           <label
