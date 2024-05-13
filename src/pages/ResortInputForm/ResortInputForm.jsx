@@ -283,7 +283,7 @@ const ResortInputForm = () => {
             onChange={handleChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option value="">Select the Option</option>
+            <option value="">Select the Time</option>
             <option value="04.00 AM">04.00 AM</option>
             <option value="10.00 PM">10.00 PM</option>{" "}
             {/* Fixed the value here */}
@@ -306,7 +306,7 @@ const ResortInputForm = () => {
             onChange={handleChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option value="">Select the Option</option>
+            <option value="">Select the Time</option>
             <option value="04.00 AM">04.00 AM</option>
             <option value="10.00 PM">10.00 PM</option>{" "}
             {/* Fixed the value here */}
