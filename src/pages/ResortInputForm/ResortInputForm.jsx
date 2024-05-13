@@ -324,7 +324,7 @@ const ResortInputForm = () => {
         {/* RCI Gold Crown / Silver Crown */}
         <div className="mb-4">
           <label
-            htmlFor="rating"
+            htmlFor="State Rating"
             className="block text-sm font-medium text-gray-700"
           >
             Rating
