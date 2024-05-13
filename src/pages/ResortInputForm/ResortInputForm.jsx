@@ -119,7 +119,6 @@ const ResortInputForm = () => {
     }
   };
 
-
   return (
     <div className="max-w-md p-4 mx-auto">
       <h2 className="text-xl text-center font-semibold mb-4">
@@ -277,15 +276,20 @@ const ResortInputForm = () => {
           >
             Check-in Time
           </label>
-          <input
-            type="time"
-            id="checkInTime"
+          <select
+            id="check_in_time"
             name="check_in_time"
             value={formData.check_in_time}
             onChange={handleChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
+          >
+            <option value="">Select the Option</option>
+            <option value="04.00 AM">04.00 AM</option>
+            <option value="10.00 PM">10.00 PM</option>{" "}
+            {/* Fixed the value here */}
+          </select>
         </div>
+
         {/* Check-out Time */}
         <div className="mb-4">
           <label
@@ -294,14 +298,19 @@ const ResortInputForm = () => {
           >
             Check-out Time
           </label>
-          <input
-            type="time"
-            id="checkOutTime"
+
+          <select
+            id="check_out_time"
             name="check_out_time"
             value={formData.check_out_time}
             onChange={handleChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
+          >
+            <option value="">Select the Option</option>
+            <option value="04.00 AM">04.00 AM</option>
+            <option value="10.00 PM">10.00 PM</option>{" "}
+            {/* Fixed the value here */}
+          </select>
         </div>
 
         {/* Rating */}
@@ -323,26 +332,25 @@ const ResortInputForm = () => {
         </div>
 
         {/* RCI Gold Crown / Silver Crown */}
-<div className="mb-4">
-  <label
-    htmlFor="stateRating"
-    className="block text-sm font-medium text-gray-700"
-  >
-    Rating
-  </label>
-  <select
-    id="stateRating"
-    name="stateRating"
-    value={formData.stateRating}
-    onChange={handleChange}
-    className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-  >
-    <option value="">Select the Option</option>
-    <option value="RCI Gold Crown">RCI Gold Crown</option>
-    <option value="RCI Silver Crown">RCI Silver Crown</option>
-  </select>
-</div>
-
+        <div className="mb-4">
+          <label
+            htmlFor="stateRating"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Rating
+          </label>
+          <select
+            id="stateRating"
+            name="stateRating"
+            value={formData.stateRating}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="">Select the Option</option>
+            <option value="RCI Gold Crown">RCI Gold Crown</option>
+            <option value="RCI Silver Crown">RCI Silver Crown</option>
+          </select>
+        </div>
 
         {/* Available Amount */}
         <div className="mb-4">
