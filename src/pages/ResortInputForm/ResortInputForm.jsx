@@ -119,6 +119,7 @@ const ResortInputForm = () => {
     }
   };
 
+
   return (
     <div className="max-w-md p-4 mx-auto">
       <h2 className="text-xl text-center font-semibold mb-4">
@@ -336,6 +337,7 @@ const ResortInputForm = () => {
             onChange={handleChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
+            <option value="RCI Gold Crown">Select the Option</option>
             <option value="RCI Gold Crown">RCI Gold Crown</option>
             <option value="RCI Silver Crown">RCI Silver Crown</option>
           </select>
