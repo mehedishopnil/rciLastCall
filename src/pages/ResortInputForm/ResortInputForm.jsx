@@ -14,6 +14,7 @@ const ResortInputForm = () => {
     check_in_time: "",
     check_out_time: "",
     rating: "",
+    stateRating: "",
     available_amount: "",
     reviews_amount: "",
     room_details: {
@@ -51,13 +52,16 @@ const ResortInputForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://rci-last-call-server.vercel.app/resorts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://rci-last-call-server.vercel.app/resorts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to submit form data");
@@ -76,6 +80,7 @@ const ResortInputForm = () => {
         check_in_time: "",
         check_out_time: "",
         rating: "",
+        stateRating: "",
         available_amount: "",
         reviews_amount: "",
         room_details: {
@@ -228,6 +233,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
         {/* Price USD */}
         <div className="mb-4">
           <label
@@ -245,6 +251,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
         {/* Resort Details */}
         <div className="mb-4">
           <label
@@ -295,6 +302,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
         {/* Rating */}
         <div className="mb-4">
           <label
@@ -312,6 +320,27 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
+        {/* RCI Gold Crown / Silver Crown */}
+        <div className="mb-4">
+          <label
+            htmlFor="rating"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Rating
+          </label>
+          <select
+            id="stateRating"
+            name="stateRating"
+            value={formData.stateRating}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="RCI Gold Crown">RCI Gold Crown</option>
+            <option value="RCI Silver Crown">RCI Silver Crown</option>
+          </select>
+        </div>
+
         {/* Available Amount */}
         <div className="mb-4">
           <label

@@ -10,7 +10,6 @@ const SearchBarMobile = () => {
   const navigate = useNavigate();
 
   const { resortData } = useContext(AuthContext);
-  console.log(resortData);
 
   useEffect(() => {
     const storedSearchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
@@ -28,7 +27,7 @@ const SearchBarMobile = () => {
     const updatedSearchHistory = [...searchHistory];
     updatedSearchHistory.splice(index, 1);
     setSearchHistory(updatedSearchHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
+    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory)); 01626409976
   };
 
   const handleSearch = () => {
