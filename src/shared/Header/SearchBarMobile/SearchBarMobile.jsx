@@ -27,7 +27,7 @@ const SearchBarMobile = () => {
     const updatedSearchHistory = [...searchHistory];
     updatedSearchHistory.splice(index, 1);
     setSearchHistory(updatedSearchHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory)); 01626409976
+    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
 
   const handleSearch = () => {
