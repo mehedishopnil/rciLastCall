@@ -311,6 +311,7 @@ const ResortInputForm = () => {
             <option value="09.00 AM">09.00 AM</option>
             <option value="10.00 PM">10.00 PM</option>
             <option value="11.00 PM">11.00 PM</option>
+            <option value="12.00 PM">12.00 PM</option>
             {" "}
             {/* Fixed the value here */}
           </select>
