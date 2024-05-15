@@ -284,9 +284,12 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select the Time</option>
-            <option value="03.00 AM">03.00 AM</option>
-            <option value="04.00 AM">04.00 AM</option>
-            <option value="10.00 PM">10.00 PM</option>{" "}
+
+            <option value="13.00">13.00</option>
+            <option value="14.00">14.00</option>
+            <option value="15.00">15.00</option>
+            <option value="16.00">16.00</option>
+            {" "}
             {/* Fixed the value here */}
           </select>
         </div>
@@ -308,10 +311,10 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select the Time</option>
-            <option value="09.00 AM">09.00 AM</option>
-            <option value="10.00 PM">10.00 PM</option>
-            <option value="11.00 PM">11.00 PM</option>
-            <option value="12.00 PM">12.00 PM</option>
+            <option value="09.00">09.00</option>
+            <option value="10.00">10.00</option>
+            <option value="11.00">11.00</option>
+            <option value="12.00">12.00</option>
             {" "}
             {/* Fixed the value here */}
           </select>
@@ -325,14 +328,21 @@ const ResortInputForm = () => {
           >
             Rating
           </label>
-          <input
-            type="number"
+          <select
             id="rating"
             name="rating"
             value={formData.rating}
             onChange={handleChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
+          >
+            <option value="">Select the Time</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            
+            {" "}
+            {/* Fixed the value here */}
+          </select>
         </div>
 
         {/* RCI Gold Crown / Silver Crown */}
