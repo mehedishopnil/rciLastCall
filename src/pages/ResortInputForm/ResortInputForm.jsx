@@ -566,7 +566,7 @@ const ResortInputForm = () => {
             type="number"
             id="hotel_room"
             name="hotel_room"
-            value={formData.hotel_room}
+            value={formData.room_details.hotel_room}
             onChange={handleRoomDetailsChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
