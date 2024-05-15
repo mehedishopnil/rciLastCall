@@ -557,14 +557,14 @@ const ResortInputForm = () => {
         {/*Hotel */}
         <div className="mb-4">
           <label
-            htmlFor="sleepsRoom"
+            htmlFor="hotel_room"
             className="block text-sm font-medium text-gray-700"
           >
             Hotel Room
           </label>
           <input
             type="number"
-            id="sleepsRoom"
+            id="hotel_room"
             name="hotel_room"
             value={formData.hotel_room}
             onChange={handleRoomDetailsChange}
@@ -574,14 +574,14 @@ const ResortInputForm = () => {
         {/* Privacy Room Amount */}
         <div className="mb-4">
           <label
-            htmlFor="privacyRoomAmount"
+            htmlFor="hotel_privacy_room_amount"
             className="block text-sm font-medium text-gray-700"
           >
             Hotel Privacy Room Amount
           </label>
           <input
             type="number"
-            id="privacyRoomAmount"
+            id="hotel_privacy_room_amount"
             name="hotel_privacy_room_amount"
             value={formData.room_details.hotel_privacy_room_amount}
             onChange={handleRoomDetailsChange}
@@ -598,7 +598,7 @@ const ResortInputForm = () => {
           </label>
           <input
             type="text"
-            id="kitchen"
+            id="hotel_kitchen"
             name="hotel_kitchen"
             value={formData.room_details.hotel_kitchen}
             onChange={handleRoomDetailsChange}
@@ -615,7 +615,7 @@ const ResortInputForm = () => {
           </label>
           <input
             type="text"
-            id="bath"
+            id="hotel_bath"
             name="hotel_bath"
             value={formData.room_details.hotel_bath}
             onChange={handleRoomDetailsChange}
