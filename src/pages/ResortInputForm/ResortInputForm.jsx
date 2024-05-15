@@ -577,7 +577,7 @@ const ResortInputForm = () => {
             htmlFor="privacyRoomAmount"
             className="block text-sm font-medium text-gray-700"
           >
-            Studio Privacy Room Amount
+            Hotel Privacy Room Amount
           </label>
           <input
             type="number"
@@ -594,7 +594,7 @@ const ResortInputForm = () => {
             htmlFor="kitchen"
             className="block text-sm font-medium text-gray-700"
           >
-            Studio Kitchen
+            Hotel Kitchen
           </label>
           <input
             type="text"
@@ -611,7 +611,7 @@ const ResortInputForm = () => {
             htmlFor="bath"
             className="block text-sm font-medium text-gray-700"
           >
-            Studio Bath
+            Hotel Bath
           </label>
           <input
             type="text"
