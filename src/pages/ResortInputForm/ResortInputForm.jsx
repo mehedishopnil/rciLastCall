@@ -27,6 +27,10 @@ const ResortInputForm = () => {
       studio_privacy_room_amount: "",
       studio_kitchen: "",
       studio_bath: "",
+      hotel_room: "",
+      hotel_privacy_room_amount: "",
+      hotel_kitchen: "",
+      hotel_bath: "",
     },
   });
 
@@ -93,6 +97,10 @@ const ResortInputForm = () => {
           studio_privacy_room_amount: "",
           studio_kitchen: "",
           studio_bath: "",
+          hotel_room: "",
+          hotel_privacy_room_amount: "",
+          hotel_kitchen: "",
+          hotel_bath: "",
         },
       });
 
@@ -284,13 +292,10 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select the Time</option>
-
             <option value="13.00">13.00</option>
             <option value="14.00">14.00</option>
             <option value="15.00">15.00</option>
-            <option value="16.00">16.00</option>
-            {" "}
-            {/* Fixed the value here */}
+            <option value="16.00">16.00</option> {/* Fixed the value here */}
           </select>
         </div>
 
@@ -314,9 +319,7 @@ const ResortInputForm = () => {
             <option value="09.00">09.00</option>
             <option value="10.00">10.00</option>
             <option value="11.00">11.00</option>
-            <option value="12.00">12.00</option>
-            {" "}
-            {/* Fixed the value here */}
+            <option value="12.00">12.00</option> {/* Fixed the value here */}
           </select>
         </div>
 
@@ -338,10 +341,7 @@ const ResortInputForm = () => {
             <option value="">Select the Time</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            <option value="5">5</option>
-            
-            {" "}
-            {/* Fixed the value here */}
+            <option value="5">5</option> {/* Fixed the value here */}
           </select>
         </div>
 
@@ -549,6 +549,75 @@ const ResortInputForm = () => {
             id="bath"
             name="studio_bath"
             value={formData.room_details.studio_bath}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        {/*Hotel */}
+        <div className="mb-4">
+          <label
+            htmlFor="sleepsRoom"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Hotel Room
+          </label>
+          <input
+            type="number"
+            id="sleepsRoom"
+            name="hotel_room"
+            value={formData.hotel_room}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        {/* Privacy Room Amount */}
+        <div className="mb-4">
+          <label
+            htmlFor="privacyRoomAmount"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Studio Privacy Room Amount
+          </label>
+          <input
+            type="number"
+            id="privacyRoomAmount"
+            name="hotel_privacy_room_amount"
+            value={formData.room_details.hotel_privacy_room_amount}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        {/* Kitchen */}
+        <div className="mb-4">
+          <label
+            htmlFor="kitchen"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Studio Kitchen
+          </label>
+          <input
+            type="text"
+            id="kitchen"
+            name="hotel_kitchen"
+            value={formData.room_details.hotel_kitchen}
+            onChange={handleRoomDetailsChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        {/* Bath */}
+        <div className="mb-4">
+          <label
+            htmlFor="bath"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Studio Bath
+          </label>
+          <input
+            type="text"
+            id="bath"
+            name="hotel_bath"
+            value={formData.room_details.hotel_bath}
             onChange={handleRoomDetailsChange}
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
