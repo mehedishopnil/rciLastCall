@@ -292,6 +292,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select the Time</option>
+            <option value="12.00">12.00</option>
             <option value="13.00">13.00</option>
             <option value="14.00">14.00</option>
             <option value="15.00">15.00</option>
