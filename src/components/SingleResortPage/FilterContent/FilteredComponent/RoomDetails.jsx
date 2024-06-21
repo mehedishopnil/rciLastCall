@@ -17,6 +17,9 @@ const RoomDetails = ({ room_details }) => {
     hotel_kitchen,
     hotel_bath,
   } = room_details;
+
+  const isNotEmpty = (value) => value !== null && value !== undefined && value !== "";
+
   return (
     <div className="my-5 p-4">
       <h1 className="text-4xl font-semibold mb-2">Room Details</h1>
@@ -27,92 +30,94 @@ const RoomDetails = ({ room_details }) => {
       </h2>
 
       {/* Bedroom */}
-      <div className="border rounded ">
-        <h1 className="text-center text-2xl pt-3 font-semibold">Bedroom</h1>
-        <div className="divider divider-info"></div>
+      {isNotEmpty(sleeps_room) && (
+        <div className="border rounded">
+          <h1 className="text-center text-2xl pt-3 font-semibold">Bedroom</h1>
+          <div className="divider divider-info"></div>
 
-        <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
-          <p className="text-center">Features at a glance</p>
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaBed /> Sleeps: {sleeps_room}
-          </h2>
+          <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
+            <p className="text-center">Features at a glance</p>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaBed /> Sleeps: {sleeps_room}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaDoorOpen /> Privacy: {privacy_room_amount}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaDoorOpen /> Privacy: {privacy_room_amount}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <RiFridgeFill /> Kitchen: {kitchen}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <RiFridgeFill /> Kitchen: {kitchen}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaShower /> Bath: {bath}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaShower /> Bath: {bath}
+            </h2>
+          </div>
+          <p className="flex items-center justify-center gap-2 font-semibold py-2 text-[#037092]">
+            More room features <FaAngleDown />
+          </p>
         </div>
-        <p className="flex items-center justify-center gap-2 font-semibold py-2 text-[#037092]">
-          More room features <FaAngleDown />
-        </p>
-      </div>
-
+      )}
 
       {/* Studio */}
-      <div className="border rounded ">
-        <h1 className="text-center text-2xl pt-3 font-semibold">Studio</h1>
-        <div className="divider divider-info"></div>
+      {isNotEmpty(studio_sleeps_room) && (
+        <div className="border rounded">
+          <h1 className="text-center text-2xl pt-3 font-semibold">Studio</h1>
+          <div className="divider divider-info"></div>
 
-        <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
-          <p className="text-center">Features at a glance</p>
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaBed /> Sleeps: {studio_sleeps_room}
-          </h2>
+          <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
+            <p className="text-center">Features at a glance</p>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaBed /> Sleeps: {studio_sleeps_room}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaDoorOpen /> Privacy: {studio_privacy_room_amount}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaDoorOpen /> Privacy: {studio_privacy_room_amount}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <RiFridgeFill /> Kitchen: {studio_kitchen}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <RiFridgeFill /> Kitchen: {studio_kitchen}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaShower /> Bath: {studio_bath}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaShower /> Bath: {studio_bath}
+            </h2>
+          </div>
+          <p className="flex items-center justify-center gap-2 font-semibold py-2 text-[#037092]">
+            More room features <FaAngleDown />
+          </p>
         </div>
-        <p className="flex items-center justify-center gap-2 font-semibold py-2 text-[#037092]">
-          More room features <FaAngleDown />
-        </p>
-      </div>
+      )}
 
       {/* Hotel */}
-      <div className="border rounded mb-5">
-        <h1 className="text-center text-2xl pt-3 font-semibold">Hotel</h1>
-        <div className="divider divider-info"></div>
+      {isNotEmpty(hotel_room) && (
+        <div className="border rounded mb-5">
+          <h1 className="text-center text-2xl pt-3 font-semibold">Hotel</h1>
+          <div className="divider divider-info"></div>
 
-        <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
-          <p className="text-center">Features at a glance</p>
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaBed /> Sleeps: {hotel_room}
-          </h2>
+          <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
+            <p className="text-center">Features at a glance</p>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaBed /> Sleeps: {hotel_room}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaDoorOpen /> Privacy: {hotel_privacy_room_amount}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaDoorOpen /> Privacy: {hotel_privacy_room_amount}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <RiFridgeFill /> Kitchen: {hotel_kitchen}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <RiFridgeFill /> Kitchen: {hotel_kitchen}
+            </h2>
 
-          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
-            <FaShower /> Bath: {hotel_bath}
-          </h2>
+            <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+              <FaShower /> Bath: {hotel_bath}
+            </h2>
+          </div>
+          <p className="flex items-center justify-center gap-2 font-semibold py-2 text-[#037092]">
+            More room features <FaAngleDown />
+          </p>
         </div>
-        <p className="flex items-center justify-center gap-2 font-semibold py-2 text-[#037092]">
-          More room features <FaAngleDown />
-        </p>
-      </div>
-
-      
-
+      )}
     </div>
   );
 };
