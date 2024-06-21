@@ -22,6 +22,14 @@ const SingleResortPage = () => {
     }
   }, [resortData, id]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleSwipe('left');
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
   const goBack = () => {
     navigate(-1);
   };
@@ -40,7 +48,7 @@ const SingleResortPage = () => {
     img3,
     location,
     place_name,
-    resort_details,
+    resort_ID,
     reviews_amount
   } = currentResort;
 
@@ -68,6 +76,24 @@ const SingleResortPage = () => {
     };
   };
 
+  const handleMouseDown = (e) => {
+    const mouseDownX = e.clientX;
+    e.target.onmousemove = (moveEvent) => {
+      const mouseMoveX = moveEvent.clientX;
+      if (mouseDownX - mouseMoveX > 50) {
+        handleSwipe('left');
+        e.target.onmousemove = null;
+      } else if (mouseDownX - mouseMoveX < -50) {
+        handleSwipe('right');
+        e.target.onmousemove = null;
+      }
+    };
+  };
+
+  const handleMouseUp = (e) => {
+    e.target.onmousemove = null;
+  };
+
   return (
     <div>
       <button onClick={goBack} className="flex items-center m-2 text-[#037092] font-bold">
@@ -76,14 +102,22 @@ const SingleResortPage = () => {
 
       <div className="container mx-auto p-4">
         {/* Image Slider */}
-        <div 
+        <div
           className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden"
           onTouchStart={handleTouchStart}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
         >
           {additional_images.map((image, index) => (
-            <div 
-              key={index} 
-              className={`absolute w-full h-full transition-transform duration-500 ${index === currentIndex ? 'translate-x-0' : index < currentIndex ? '-translate-x-full' : 'translate-x-full'}`}
+            <div
+              key={index}
+              className={`absolute w-full h-full transition-transform duration-500 ${
+                index === currentIndex
+                  ? 'translate-x-0'
+                  : index < currentIndex
+                  ? '-translate-x-full'
+                  : 'translate-x-full'
+              }`}
             >
               <img src={image} className="w-full h-full object-cover" alt={`Slide ${index}`} />
             </div>
@@ -92,16 +126,18 @@ const SingleResortPage = () => {
 
         <div className="flex justify-center py-2 gap-2">
           {additional_images.map((_, index) => (
-            <div 
-              key={index} 
-              className={`h-2 w-2 rounded-full ${index === currentIndex ? 'bg-[#037092]' : 'bg-gray-300'}`}
+            <div
+              key={index}
+              className={`h-2 w-2 rounded-full ${
+                index === currentIndex ? 'bg-[#037092]' : 'bg-gray-300'
+              }`}
             ></div>
           ))}
         </div>
 
         <div className="p-4">
           <p className="text-lg text-[#303030]">{location}</p>
-          <p>Resort ID: {resort_details}</p>
+          <p>Resort ID: {resort_ID}</p>
           <h1 className="text-3xl font-semibold mt-5">{place_name}</h1>
 
           <div className="mt-5">

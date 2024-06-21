@@ -9,14 +9,16 @@ const LastCallVacations = () => {
     const [pageNumberLimit] = useState(10);
     const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(10);
     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredData, setFilteredData] = useState(resortData);
     const resortsPerPage = 15;
 
     const indexOfLastResort = currentPage * resortsPerPage;
     const indexOfFirstResort = indexOfLastResort - resortsPerPage;
-    const currentResorts = resortData.slice(indexOfFirstResort, indexOfLastResort);
+    const currentResorts = filteredData.slice(indexOfFirstResort, indexOfLastResort);
 
     const pages = [];
-    for (let i = 1; i <= Math.ceil(resortData.length / resortsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(filteredData.length / resortsPerPage); i++) {
         pages.push(i);
     }
 
@@ -39,6 +41,16 @@ const LastCallVacations = () => {
         paginate(currentPage - 1);
     };
 
+    const handleSearch = () => {
+        const filtered = resortData.filter(resort =>
+            resort.location.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredData(filtered);
+        setCurrentPage(1);
+        setMaxPageNumberLimit(10);
+        setMinPageNumberLimit(0);
+    };
+
     const renderPageNumbers = pages.map((number) => {
         if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
             return (
@@ -58,13 +70,32 @@ const LastCallVacations = () => {
 
     return (
         <div className="container mx-auto p-4 space-y-5 pb-20">
-            <div className='border-b border-gray-500 py-2'>
-                <h1 className='text-xl'>{resortData.length} Resorts</h1>
+            <div className='pt-2'>
+                <h1 className='text-xl'>{filteredData.length} Resorts</h1>
+            </div>
+
+            <div className="divider"></div>
+
+            {/* Filter option */}
+            <div className="mb-4 flex">
+                <input
+                    type="text"
+                    placeholder="Filter by location"
+                    className="w-full px-3 py-2 border rounded-md"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button
+                    onClick={handleSearch}
+                    className="ml-2 px-3 py-2 bg-[#037092] text-white rounded-md"
+                >
+                    Filter
+                </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {currentResorts.map((resort) => (
-                    <Link to={`/singleResortPage/${resort._id}`} key={resort.id}>
+                    <Link to={`/singleResortPage/${resort._id}`} key={resort._id}>
                         <ResortCard resort={resort} />
                     </Link>
                 ))}
@@ -82,7 +113,7 @@ const LastCallVacations = () => {
                     {renderPageNumbers}
                 </ul>
                 <button
-                    className={`px-3 py-1 rounded-md ${currentPage === pages.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+                    className={`px-3 py-1 rounded-md ${currentPage === pages.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#037092] text-white'}`}
                     onClick={handleNextbtn}
                     disabled={currentPage === pages.length}
                 >
