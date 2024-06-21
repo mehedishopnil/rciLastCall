@@ -2,11 +2,17 @@ import { useState, useRef, useEffect, useContext } from "react";
 import AvailableUnits from "./FilteredComponent/AvailableUnits";
 import AllInclusiveInfo from "./FilteredComponent/AllInclusiveInfo";
 import RoomDetails from "./FilteredComponent/RoomDetails";
+import ResortDetails from "./FilteredComponent/ResortDetails";
 
+const FilterContent = ({ currentResort }) => {
+  const {
+    room_details,
+    available_amount,
+    resort_details,
+    check_in_time,
+    check_out_time,
+  } = currentResort;
 
-const FilterContent = ({currentResort}) => {
-    const {room_details, available_amount} = currentResort;
-    
   // State to track the active menu
   const [activeMenu, setActiveMenu] = useState("Available Units");
 
@@ -20,19 +26,14 @@ const FilterContent = ({currentResort}) => {
 
   // Demo content for each menu
   const menuContent = {
-    "Available Units": <AvailableUnits available_amount={available_amount}  />,
+    "Available Units": <AvailableUnits available_amount={available_amount} />,
 
     "All-inclusive info": <AllInclusiveInfo />,
-   
-    "Room Details": (
-      <RoomDetails room_details={room_details} />
-    ),
+
+    "Room Details": <RoomDetails room_details={room_details} />,
     "Resort Details": (
       <div>
-        <h2>Resort Details</h2>
-        <p>
-          Information about the resort's facilities, services, and location.
-        </p>
+        <ResortDetails resort_details = {resort_details} check_in_time = {check_in_time} check_out_time = {check_out_time} />
       </div>
     ),
     "Area info": (
