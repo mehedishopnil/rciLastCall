@@ -15,8 +15,8 @@ const AllInclusiveInfo = () => {
                 <p className="flex items-center gap-2 font-semibold text-[#037092]">See Golf <FaAngleDown /></p>
                 <div className="border-b border-gray-300"></div>
    
-                <h2 className="text-lg font-semibold">All Inclusive Fees</h2>
-                <p className="flex items-center gap-2 font-semibold text-[#037092]">See fees & Urgent Information <FaAngleDown /></p>
+                {/* <h2 className="text-lg font-semibold">All Inclusive Fees</h2>
+                <p className="flex items-center gap-2 font-semibold text-[#037092]">See fees & Urgent Information <FaAngleDown /></p> */}
   
             </div>
 

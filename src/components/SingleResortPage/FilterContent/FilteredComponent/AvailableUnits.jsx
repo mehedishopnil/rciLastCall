@@ -57,9 +57,9 @@ const AvailableUnits = ({available_amount}) => {
       <div className="divider my-10"></div>
 
       {/* Mandatory All-Inclusive Fee */}
-      <p className="text-center">
+      {/* <p className="text-center">
         This resort collects a mandatory all-inclusive fee based on age and number of guests.
-      </p>
+      </p> */}
     </div>
   );
 };

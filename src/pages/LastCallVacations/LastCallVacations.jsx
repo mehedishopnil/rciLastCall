@@ -11,7 +11,6 @@ const LastCallVacations = () => {
     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
     const resortsPerPage = 15;
 
-    // Calculate indexes of the resorts to be displayed on the current page
     const indexOfLastResort = currentPage * resortsPerPage;
     const indexOfFirstResort = indexOfLastResort - resortsPerPage;
     const currentResorts = resortData.slice(indexOfFirstResort, indexOfLastResort);
@@ -21,7 +20,6 @@ const LastCallVacations = () => {
         pages.push(i);
     }
 
-    // Change page
     const paginate = pageNumber => {
         setCurrentPage(pageNumber);
         if (pageNumber > maxPageNumberLimit) {
@@ -64,7 +62,6 @@ const LastCallVacations = () => {
                 <h1 className='text-xl'>{resortData.length} Resorts</h1>
             </div>
 
-            {/* Render resort cards for the current page */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {currentResorts.map((resort) => (
                     <Link to={`/singleResortPage/${resort._id}`} key={resort.id}>
@@ -73,20 +70,19 @@ const LastCallVacations = () => {
                 ))}
             </div>
 
-            {/* Pagination */}
-            <div className="flex justify-center mt-4">
+            <div className="flex flex-col items-center mt-4 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
                 <button
-                    className={`px-3 py-1 rounded-md mr-2 ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+                    className={`px-3 py-1 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
                     onClick={handlePrevbtn}
                     disabled={currentPage === 1}
                 >
                     &lt; Prev
                 </button>
-                <ul className="flex space-x-2">
+                <ul className="flex flex-wrap justify-center space-x-2">
                     {renderPageNumbers}
                 </ul>
                 <button
-                    className={`px-3 py-1 rounded-md ml-2 ${currentPage === pages.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+                    className={`px-3 py-1 rounded-md ${currentPage === pages.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
                     onClick={handleNextbtn}
                     disabled={currentPage === pages.length}
                 >
