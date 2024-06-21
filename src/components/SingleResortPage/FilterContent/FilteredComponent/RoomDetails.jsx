@@ -12,6 +12,10 @@ const RoomDetails = ({ room_details }) => {
     studio_privacy_room_amount,
     studio_kitchen,
     studio_bath,
+    hotel_room,
+    hotel_privacy_room_amount,
+    hotel_kitchen,
+    hotel_bath,
   } = room_details;
   return (
     <div className="my-5 p-4">
@@ -22,9 +26,9 @@ const RoomDetails = ({ room_details }) => {
         Actual room configurations may vary
       </h2>
 
-      {/* Hotel */}
-      <div className="border rounded mb-5">
-        <h1 className="text-center text-2xl pt-3 font-semibold">Hotel</h1>
+      {/* Bedroom */}
+      <div className="border rounded ">
+        <h1 className="text-center text-2xl pt-3 font-semibold">Bedroom</h1>
         <div className="divider divider-info"></div>
 
         <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
@@ -49,6 +53,7 @@ const RoomDetails = ({ room_details }) => {
           More room features <FaAngleDown />
         </p>
       </div>
+
 
       {/* Studio */}
       <div className="border rounded ">
@@ -77,6 +82,37 @@ const RoomDetails = ({ room_details }) => {
           More room features <FaAngleDown />
         </p>
       </div>
+
+      {/* Hotel */}
+      <div className="border rounded mb-5">
+        <h1 className="text-center text-2xl pt-3 font-semibold">Hotel</h1>
+        <div className="divider divider-info"></div>
+
+        <div className="px-5 space-y-3 py-3 bg-[#f4f4f4]">
+          <p className="text-center">Features at a glance</p>
+          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+            <FaBed /> Sleeps: {hotel_room}
+          </h2>
+
+          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+            <FaDoorOpen /> Privacy: {hotel_privacy_room_amount}
+          </h2>
+
+          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+            <RiFridgeFill /> Kitchen: {hotel_kitchen}
+          </h2>
+
+          <h2 className="flex items-center gap-2 font-semibold text-xl text-[#037092]">
+            <FaShower /> Bath: {hotel_bath}
+          </h2>
+        </div>
+        <p className="flex items-center justify-center gap-2 font-semibold py-2 text-[#037092]">
+          More room features <FaAngleDown />
+        </p>
+      </div>
+
+      
+
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import React from 'react';
+
+
 
 const Reviews = ({reviews_amount, rating}) => {
      return (
