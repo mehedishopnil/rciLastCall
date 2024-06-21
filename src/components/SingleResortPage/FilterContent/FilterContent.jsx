@@ -3,6 +3,8 @@ import AvailableUnits from "./FilteredComponent/AvailableUnits";
 import AllInclusiveInfo from "./FilteredComponent/AllInclusiveInfo";
 import RoomDetails from "./FilteredComponent/RoomDetails";
 import ResortDetails from "./FilteredComponent/ResortDetails";
+import AreaInfo from "./FilteredComponent/AreaInfo";
+import Reviews from "./FilteredComponent/Reviews";
 
 const FilterContent = ({ currentResort }) => {
   const {
@@ -11,6 +13,10 @@ const FilterContent = ({ currentResort }) => {
     resort_details,
     check_in_time,
     check_out_time,
+    place_name,
+    location,
+    reviews_amount,
+    rating
   } = currentResort;
 
   // State to track the active menu
@@ -38,16 +44,12 @@ const FilterContent = ({ currentResort }) => {
     ),
     "Area info": (
       <div>
-        <h2>Area info</h2>
-        <p>
-          Details about the surrounding area, attractions, and local amenities.
-        </p>
+        <AreaInfo place_name={place_name} location={location} />
       </div>
     ),
     Reviews: (
       <div>
-        <h2>Reviews</h2>
-        <p>Guest reviews and ratings of the resort.</p>
+        <Reviews reviews_amount={reviews_amount} rating={rating}/>
       </div>
     ),
   };

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { GiStarsStack } from "react-icons/gi";
 import TopAmenities from "./TopAmenities/TopAmenities";
 import FilterContent from "./FilterContent/FilterContent";
+import Loading from "../Loading";
 
 const SingleResortPage = () => {
   // Accessing global state and functions from AuthContext
@@ -37,7 +38,7 @@ const SingleResortPage = () => {
 
   // Check if currentResort is null or undefined
   if (!currentResort) {
-    return <div>Loading...</div>; // Render loading state or handle differently
+    return <div><Loading/></div>; // Render loading state or handle differently
   }
 
   // Destructure the contents from currentResort
