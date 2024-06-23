@@ -24,10 +24,12 @@ const resortCard = ({ resort }) => {
                         
                     </h2>
                 <div>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                     <GiStarsStack />
                     <h1>All-Inclusive</h1>
-                    </div>
+                    </div> */}
+
+                        <div className="divider"></div>
 
                     <div className="flex items-center gap-1">
                         <img src="https://clubs.rci.com/static/media/gold-crown.d40b5cfc.svg" alt="" />
