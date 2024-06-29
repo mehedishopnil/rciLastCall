@@ -2,7 +2,7 @@ import { GiStarsStack } from "react-icons/gi";
 import { FaRegHeart } from "react-icons/fa";
 
 const resortCard = ({ resort }) => {
-    const { img, price_usd, place_name,reviews_amount,location,
+    const { img, price_usd, place_name,reviews_amount,location, ownerExclusive
     } = resort;
     
     return (
@@ -24,10 +24,10 @@ const resortCard = ({ resort }) => {
                         
                     </h2>
                 <div>
-                    {/* <div className="flex items-center gap-2">
-                    <GiStarsStack />
-                    <h1>All-Inclusive</h1>
-                    </div> */}
+                    <div className="flex items-center gap-2">
+                    {/* <GiStarsStack /> */}
+                    <h1>{ownerExclusive}</h1>
+                    </div>
 
                         <div className="divider"></div>
 
