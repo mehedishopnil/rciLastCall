@@ -15,6 +15,7 @@ const ResortInputForm = () => {
     check_out_time: "",
     rating: "",
     stateRating: "",
+    ownerExclusive: "",
     available_amount: "",
     reviews_amount: "",
     room_details: {
@@ -85,6 +86,7 @@ const ResortInputForm = () => {
         check_out_time: "",
         rating: "",
         stateRating: "",
+        ownerExclusive: "",
         available_amount: "",
         reviews_amount: "",
         room_details: {
@@ -224,6 +226,8 @@ const ResortInputForm = () => {
             className="mt-1 p-2  w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
+
         {/* Place Name */}
         <div className="mb-4">
           <label
@@ -241,6 +245,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
 
         {/* Price USD */}
         <div className="mb-4">
@@ -276,6 +281,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           ></textarea>
         </div>
+
         {/* Check-in Time */}
         <div className="mb-4">
           <label
@@ -367,6 +373,28 @@ const ResortInputForm = () => {
             <option value="">Select the Option</option>
             <option value="RCI Gold Crown">RCI Gold Crown</option>
             <option value="RCI Silver Crown">RCI Silver Crown</option>
+          </select>
+        </div>
+
+
+        {/* Owner Exclusive*/}
+        <div className="mb-4">
+          <label
+            htmlFor="ownerExclusive"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Owner Exclusive
+          </label>
+          <select
+            id="ownerExclusive"
+            name="ownerExclusive"
+            value={formData.ownerExclusive}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="">Select the Option</option>
+            <option value="RCI Gold Crown">Owner Exclusive</option>
+
           </select>
         </div>
 
