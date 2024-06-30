@@ -393,7 +393,7 @@ const ResortInputForm = () => {
             className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select the Option</option>
-            <option value="RCI Gold Crown">Owner Exclusive</option>
+            <option value="Owner Exclusive">Owner Exclusive</option>
 
           </select>
         </div>
