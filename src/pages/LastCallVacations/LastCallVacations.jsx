@@ -1,17 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ResortCard from '../../components/resortCard/resortCard';
 import { AuthContext } from '../../context/AuthProvider';
 
 const LastCallVacations = () => {
-    const { resortData } = useContext(AuthContext);
+    const { resortData, fetchResortData } = useContext(AuthContext);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageNumberLimit] = useState(10);
     const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(10);
     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredData, setFilteredData] = useState(resortData);
+    const [filteredData, setFilteredData] = useState([]);
     const resortsPerPage = 15;
+
+    useEffect(() => {
+        const loadData = async () => {
+            await fetchResortData();
+            setFilteredData(resortData);
+        };
+
+        loadData();
+    }, [fetchResortData, resortData]);
 
     const indexOfLastResort = currentPage * resortsPerPage;
     const indexOfFirstResort = indexOfLastResort - resortsPerPage;
