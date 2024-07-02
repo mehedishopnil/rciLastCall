@@ -34,7 +34,11 @@ const SearchBarMobile = () => {
     if (searchQuery.trim() !== '') {
       saveSearchQuery(searchQuery);
       // Filter resortData based on searchQuery
-      const filteredResortData = resortData.filter(item => item.place_name.toLowerCase().includes(searchQuery.toLowerCase()));
+      const filteredResortData = resortData.filter(item => 
+      item.place_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.resort_ID && item.resort_ID.toString().toLowerCase().includes(searchQuery.toLowerCase())
+ );
       // Extract _id values from filtered resortData
       const ids = filteredResortData.map(item => item._id);
       // Navigate to Search page with query parameter
@@ -63,7 +67,7 @@ const SearchBarMobile = () => {
       <div className="block relative container flex justify-center pb-5 mx-auto lg:hidden">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search by resort Name, Location, ID"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onFocus={handleSearchBarClick}
