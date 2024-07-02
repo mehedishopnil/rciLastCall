@@ -394,6 +394,7 @@ const ResortInputForm = () => {
           >
             <option value="">Select the Option</option>
             <option value="Owner Exclusive">Owner Exclusive</option>
+            <option value="Owner Exclusive">new Owner Exclusive</option>
 
           </select>
         </div>

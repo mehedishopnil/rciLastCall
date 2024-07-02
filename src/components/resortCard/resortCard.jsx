@@ -2,7 +2,7 @@ import { GiStarsStack } from "react-icons/gi";
 import { FaRegHeart } from "react-icons/fa";
 
 const resortCard = ({ resort }) => {
-    const { img, price_usd, place_name,reviews_amount,location, ownerExclusive
+    const { img,  place_name,reviews_amount,location, ownerExclusive
     } = resort;
     
     return (
