@@ -1,4 +1,5 @@
 import { FaRegHeart } from "react-icons/fa";
+import { GiStarsStack } from "react-icons/gi";
 
 const ResortCard = ({ resort }) => {
   const { img, place_name, reviews_amount, location, ownerExclusive } = resort;
@@ -23,6 +24,7 @@ const ResortCard = ({ resort }) => {
 
           {place_name.includes("Wyndham") && (
             <div className="flex items-center gap-2">
+                <GiStarsStack />
               <h1>Wyndham owner exclusive</h1>
             </div>
           )}

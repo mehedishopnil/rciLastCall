@@ -141,11 +141,17 @@ const SingleResortPage = () => {
           <h1 className="text-3xl font-semibold mt-5">{place_name}</h1>
 
           <div className="mt-5">
-            <h1>All Inclusive</h1>
+          {place_name.includes("Wyndham") && (
             <div className="flex items-center gap-2">
               <GiStarsStack />
-              <h1>Mandatory</h1>
+              <h1>Wyndham owner exclusive</h1>
             </div>
+          )}
+            
+            {/* <div className="flex items-center gap-2">
+              <GiStarsStack />
+              <h1>Mandatory</h1>
+            </div> */}
           </div>
 
           <div className="border-b border-gray-200"></div>
