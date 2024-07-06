@@ -9,6 +9,7 @@ const Search = () => {
     const [searchData, setSearchData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchIds, setSearchIds] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);

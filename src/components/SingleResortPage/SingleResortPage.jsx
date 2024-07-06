@@ -14,10 +14,8 @@ const SingleResortPage = () => {
   const navigate = useNavigate();
   const [currentResort, setCurrentResort] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [additional_images, setAdditionalImages] = useState([]);
 
-  // Declare and initialize additional_images here
-  let additional_images = [];
-  
   useEffect(() => {
     if (allResortData && id) {
       const foundResort = allResortData.find((resort) => resort._id === id);
@@ -28,11 +26,9 @@ const SingleResortPage = () => {
   useEffect(() => {
     if (currentResort) {
       const { img, img2, img3 } = currentResort;
-      additional_images = [img, img2, img3];
+      setAdditionalImages([img, img2, img3].filter(Boolean)); // Filter out null or undefined values
     }
   }, [currentResort]);
-  
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -94,14 +90,13 @@ const SingleResortPage = () => {
     );
   }
 
-  const {img, img2, img3,
+  const {
+    
     location,
     place_name,
     resort_ID,
     reviews_amount,
   } = currentResort;
-
-  console.log(img, img2, img3);
 
   return (
     <div>
@@ -118,20 +113,19 @@ const SingleResortPage = () => {
           onMouseUp={handleMouseUp}
         >
           {additional_images.map((image, index) => (
-  <div
-    key={index}
-    className={`absolute w-full h-full transition-transform duration-500 ${
-      index === currentIndex
-        ? "translate-x-0"
-        : index < currentIndex
-        ? "-translate-x-full"
-        : "translate-x-full"
-    }`}
-  >
-    <img src={image} className="w-full h-full object-cover" alt={`Slide ${index}`} />
-  </div>
-))}
-
+            <div
+              key={index}
+              className={`absolute w-full h-full transition-transform duration-500 ${
+                index === currentIndex
+                  ? "translate-x-0"
+                  : index < currentIndex
+                  ? "-translate-x-full"
+                  : "translate-x-full"
+              }`}
+            >
+              <img src={image} className="w-full h-full object-cover" alt={`Slide ${index}`} />
+            </div>
+          ))}
         </div>
 
         <div className="flex justify-center py-2 gap-2">
