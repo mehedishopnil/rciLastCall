@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../context/AuthProvider";
 
 const ResortInputForm = () => {
+const {allResortData} = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     img: "",
     img2: "",
@@ -134,6 +137,7 @@ const ResortInputForm = () => {
       <h2 className="text-xl text-center font-semibold mb-4">
         Resort Input Form
       </h2>
+      <h1>Total Data: {allResortData.length}</h1>
       <form
         onSubmit={handleSubmit}
         className="drop-shadow-sm border rounded p-4"
