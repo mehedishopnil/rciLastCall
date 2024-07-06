@@ -15,21 +15,27 @@ const AuthProvider = ({ children }) => {
   const fetchResortData = async (page = 1, limit = 15) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/resorts?page=${page}&limit=${limit}`);
-      if (!response.ok) {
-        throw new Error(`Error fetching resort data: ${response.status} ${response.statusText}`);
-      }
-      const data = await response.json();
-      setResortData(data.resorts);
-      setFilteredData(data.resorts); // Initialize filteredData with fetched resortData
-      setTotalPages(data.totalPages);
-      setCurrentPage(data.currentPage);
+        const response = await fetch(`http://localhost:5000/resorts?page=${page}&limit=${limit}`);
+        if (!response.ok) {
+            throw new Error(`Error fetching resort data: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setResortData(data.resorts);
+        setFilteredData(data.resorts); // Assuming filteredData setup
+        setTotalPages(data.totalPages);
+        setCurrentPage(data.currentPage);
     } catch (error) {
-      console.error('Error fetching resort data:', error.message);
+        console.error('Error fetching resort data:', error.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
+
+useEffect(() => {
+    fetchResortData(); // Initial fetch on component mount
+}, []);
+
+
 
   const fetchAllResorts = async () => {
     setLoading(true);
@@ -60,6 +66,7 @@ const AuthProvider = ({ children }) => {
     allResortData,
     totalPages,
     currentPage,
+    fetchResortData,
   };
 
   return (

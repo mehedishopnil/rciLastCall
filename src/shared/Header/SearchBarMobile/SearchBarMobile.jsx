@@ -10,11 +10,8 @@ const SearchBarMobile = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    
-    // Accessing allResortData from AuthContext
     const { allResortData } = useContext(AuthContext);
 
-    // Load search history from localStorage on component mount
     useEffect(() => {
         const savedHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
         setSearchHistory(savedHistory);
@@ -40,22 +37,22 @@ const SearchBarMobile = () => {
                 setFilteredData(allResortData);
                 return;
             }
-            setLoading(true); // Set loading to true before filtering data
+            setLoading(true);
 
-            const filteredResortData = allResortData.filter(item => 
+            const filteredResortData = allResortData.filter(item =>
                 item.place_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (item.resort_ID && item.resort_ID.toString().toLowerCase().includes(searchQuery.toLowerCase()))
             );
 
             setFilteredData(filteredResortData);
-            saveSearchQuery(searchQuery); // Save search query to history
+            saveSearchQuery(searchQuery);
             setLoading(false);
             const ids = filteredResortData.map(item => item._id);
             navigate(`/search?q=${encodeURIComponent(searchQuery)}&ids=${encodeURIComponent(ids.join(','))}`);
         } catch (error) {
             console.error('Error filtering search results:', error.message);
-            setLoading(false); // Set loading to false on error
+            setLoading(false);
         }
     };
 
@@ -65,7 +62,7 @@ const SearchBarMobile = () => {
         }
     };
 
-    const handleSearchBarClick = () => {
+    const handleSearchBarFocus = () => {
         setShowHistoryDropdown(true);
     };
 
@@ -75,28 +72,41 @@ const SearchBarMobile = () => {
         handleSearch();
     };
 
+    const handleOutsideClick = (e) => {
+        if (e.target.closest('.search-bar-container') === null) {
+            setShowHistoryDropdown(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleOutsideClick);
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, []);
+
     return (
-        <div>
+        <div className="search-bar-container">
             <div className="block relative container flex justify-center pb-5 mx-auto lg:hidden">
                 <input
                     type="text"
                     placeholder="Search by resort Name, Location, ID"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    onFocus={handleSearchBarClick}
+                    onFocus={handleSearchBarFocus}
                     onKeyPress={handleKeyPress}
                     className="w-10/12 px-2 py-1 rounded-full bg-gray-200 mt-4"
                 />
                 <button
                     className="absolute right-[7%] top-4 text-xl text-white bg-yellow-500 px-3 py-[6px] rounded-r-full"
-                    onClick={handleSearch} // Trigger search on button click
+                    onClick={handleSearch}
                 >
                     <IoSearch />
                 </button>
             </div>
-            {showHistoryDropdown && searchHistory.length > 0 && (
+            {showHistoryDropdown && (
                 <div className="search-history-dropdown bg-white border mb-2 p-4">
-                    <h1 className="text-center mb-2">Your search History</h1>
+                    <h1 className="text-center mb-2">Your Search History</h1>
                     <ul>
                         {searchHistory.map((query, index) => (
                             <li key={index} className="flex justify-between items-center">
