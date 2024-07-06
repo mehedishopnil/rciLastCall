@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { IoSearch, IoClose } from 'react-icons/io5';
+import React, { useState, useEffect, useContext } from 'react';
+import { IoClose, IoSearch } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../context/AuthProvider'; // Import useAuth hook
+import { AuthContext } from '../../../context/AuthProvider';
 
 const SearchBarMobile = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
     const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
+    const [filteredData, setFilteredData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { resortData, searchResorts, setFilteredData, setLoading } = useAuth(); // Use useAuth hook to access context
+    
+    // Accessing allResortData from AuthContext
+    const { allResortData } = useContext(AuthContext);
 
     // Load search history from localStorage on component mount
     useEffect(() => {
@@ -30,29 +34,28 @@ const SearchBarMobile = () => {
         localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
     };
 
-    const handleSearch = async () => {
+    const handleSearch = () => {
         try {
             if (searchQuery.trim() === '') {
-                if (setFilteredData) {
-                    setFilteredData(resortData);
-                }
+                setFilteredData(allResortData);
                 return;
             }
-            setLoading(true); // Set loading to true before fetching data
-            if (setFilteredData) {
-                setFilteredData([]); // Clear existing search results before new search
-            }
-            const data = await searchResorts(searchQuery);
-            if (setFilteredData) {
-                setFilteredData(data || []); // Set filtered data based on search results
-            }
-            const ids = data.map(item => item._id);
-            navigate(`/search?q=${encodeURIComponent(searchQuery)}&ids=${encodeURIComponent(ids.join(','))}`);
+            setLoading(true); // Set loading to true before filtering data
+
+            const filteredResortData = allResortData.filter(item => 
+                item.place_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                (item.resort_ID && item.resort_ID.toString().toLowerCase().includes(searchQuery.toLowerCase()))
+            );
+
+            setFilteredData(filteredResortData);
             saveSearchQuery(searchQuery); // Save search query to history
+            setLoading(false);
+            const ids = filteredResortData.map(item => item._id);
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}&ids=${encodeURIComponent(ids.join(','))}`);
         } catch (error) {
-            console.error('Error fetching search results:', error.message);
-        } finally {
-            setLoading(false); // Set loading to false after data fetching is complete or on error
+            console.error('Error filtering search results:', error.message);
+            setLoading(false); // Set loading to false on error
         }
     };
 

@@ -7,8 +7,10 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [resortData, setResortData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [allResortData, setAllResortData] = useState([]); // Add allResortData state
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+
 
   const fetchResortData = async (page = 1, limit = 15) => {
     setLoading(true);
@@ -29,37 +31,35 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchResortData();
-  }, []);
-
-  const searchResorts = async (searchTerm) => {
+  const fetchAllResorts = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/resorts/search?key=${searchTerm}`);
+      const response = await fetch('http://localhost:5000/all-resorts');
       if (!response.ok) {
-        throw new Error(`Error fetching search results: ${response.status} ${response.statusText}`);
+        throw new Error(`Error fetching all resort data: ${response.status} ${response.statusText}`);
       }
       const data = await response.json();
-      return data;
+      setAllResortData(data); // Update allResortData with fetched data
     } catch (error) {
-      console.error('Error fetching search results:', error.message);
-      return [];
+      console.error('Error fetching all resort data:', error.message);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchResortData();
+    fetchAllResorts(); // Fetch all resorts data on component mount
+  }, []); // Empty dependency array ensures it runs once on mount
 
   const authInfo = {
     loading,
     setLoading,
     resortData,
     filteredData,
-    setFilteredData,
+    allResortData,
     totalPages,
     currentPage,
-    fetchResortData,
-    searchResorts,
   };
 
   return (

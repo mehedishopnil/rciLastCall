@@ -3,36 +3,45 @@ import { AuthContext } from '../../context/AuthProvider';
 import { Link, useLocation } from 'react-router-dom';
 import ResortCard from '../../components/resortCard/resortCard';
 
-
 const Search = () => {
-    const { searchResorts } = useContext(AuthContext);
+    const { allResortData, setLoading } = useContext(AuthContext);
     const location = useLocation();
     const [searchData, setSearchData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchIds, setSearchIds] = useState('');
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const searchQuery = queryParams.get('q') || '';
+        const ids = queryParams.get('ids') || '';
         setSearchTerm(searchQuery);
+        setSearchIds(ids);
     }, [location.search]);
 
     useEffect(() => {
         const fetchData = async () => {
-            if (searchTerm.trim() !== '') {
-                try {
-                    const data = await searchResorts(searchTerm);
-                    setSearchData(data);
-                } catch (error) {
-                    console.error('Error fetching search results:', error.message);
+            setLoading(true);
+            try {
+                if (searchTerm.trim() !== '') {
+                    const filteredData = allResortData.filter(resort => {
+                        const nameMatch = resort.place_name ? resort.place_name.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+                        const locationMatch = resort.location ? resort.location.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+                        const idMatch = resort.resort_ID ? resort.resort_ID.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+                        return nameMatch || locationMatch || idMatch;
+                    });
+                    setSearchData(filteredData);
+                } else {
                     setSearchData([]);
                 }
-            } else {
-                setSearchData([]);
+            } catch (error) {
+                console.error('Error fetching and filtering data:', error.message);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
-    }, [searchTerm, searchResorts]);
+    }, [searchTerm, allResortData, setLoading]);
 
     return (
         <div className="p-4">
