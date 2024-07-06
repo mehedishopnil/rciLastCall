@@ -8,8 +8,7 @@ const SearchBarMobile = () => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
   const navigate = useNavigate();
-
-  const { resortData } = useContext(AuthContext);
+  const { resortData, searchResorts, setFilteredData } = useContext(AuthContext);
 
   useEffect(() => {
     const storedSearchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
@@ -18,7 +17,7 @@ const SearchBarMobile = () => {
 
   const saveSearchQuery = (query) => {
     const updatedSearchHistory = [query, ...searchHistory.filter(item => item !== query)];
-    updatedSearchHistory.splice(10);
+    updatedSearchHistory.splice(10); // Limit history to 10 items
     setSearchHistory(updatedSearchHistory);
     localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
@@ -30,19 +29,20 @@ const SearchBarMobile = () => {
     localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (searchQuery.trim() !== '') {
       saveSearchQuery(searchQuery);
-      // Filter resortData based on searchQuery
-      const filteredResortData = resortData.filter(item => 
-      item.place_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.resort_ID && item.resort_ID.toString().toLowerCase().includes(searchQuery.toLowerCase())
- );
-      // Extract _id values from filtered resortData
-      const ids = filteredResortData.map(item => item._id);
-      // Navigate to Search page with query parameter
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}&ids=${encodeURIComponent(ids.join(','))}`);
+
+      try {
+        const data = await searchResorts(searchQuery);
+        setFilteredData(data || []);
+        const ids = data.map(item => item._id);
+        navigate(`/search?q=${encodeURIComponent(searchQuery)}&ids=${encodeURIComponent(ids.join(','))}`);
+      } catch (error) {
+        console.error('Error fetching search results:', error.message);
+      }
+    } else {
+      setFilteredData(resortData);
     }
   };
 

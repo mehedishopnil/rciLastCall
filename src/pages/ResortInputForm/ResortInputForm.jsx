@@ -58,7 +58,7 @@ const ResortInputForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://rci-last-call-server.vercel.app/resorts",
+        "http://localhost:5000/resorts",
         {
           method: "POST",
           headers: {

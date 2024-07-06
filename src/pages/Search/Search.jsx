@@ -7,7 +7,7 @@ import Loading from '../../components/Loading';
 const Search = () => {
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { resortData } = useContext(AuthContext);
+  const { filteredData } = useContext(AuthContext);
   const location = useLocation();
 
   useEffect(() => {
@@ -15,10 +15,10 @@ const Search = () => {
     const queryParams = new URLSearchParams(location.search);
     const filteredIds = queryParams.get('ids')?.split(',') || [];
 
-    const searchResults = resortData.filter(resort => filteredIds.includes(resort._id));
+    const searchResults = filteredData.filter(resort => filteredIds.includes(resort._id));
     setSearchData(searchResults);
     setLoading(false);
-  }, [resortData, location.search]); // Trigger useEffect when resortData or location.search changes
+  }, [filteredData, location.search]); // Trigger useEffect when filteredData or location.search changes
 
   return (
     <div className='p-4'>

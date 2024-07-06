@@ -2,37 +2,30 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ResortCard from '../../components/resortCard/resortCard';
 import { AuthContext } from '../../context/AuthProvider';
+import Loading from '../../components/Loading';
 
 const LastCallVacations = () => {
-    const { resortData, fetchResortData } = useContext(AuthContext);
-    const [currentPage, setCurrentPage] = useState(1);
+    const { resortData, searchResorts, loading, totalPages, currentPage, fetchResortData, totalResorts } = useContext(AuthContext);
+    const [localCurrentPage, setLocalCurrentPage] = useState(currentPage);
     const [pageNumberLimit] = useState(10);
     const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(10);
     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const resortsPerPage = 15;
+    const [filteredResortsCount, setFilteredResortsCount] = useState(0); // State for filtered resorts count
 
     useEffect(() => {
-        const loadData = async () => {
-            await fetchResortData();
-            setFilteredData(resortData);
-        };
+        setFilteredData(resortData);
+        setFilteredResortsCount(resortData.length); // Initialize count with total resorts
+    }, [resortData]);
 
-        loadData();
-    }, [fetchResortData, resortData]);
+    useEffect(() => {
+        setLocalCurrentPage(currentPage);
+    }, [currentPage]);
 
-    const indexOfLastResort = currentPage * resortsPerPage;
-    const indexOfFirstResort = indexOfLastResort - resortsPerPage;
-    const currentResorts = filteredData.slice(indexOfFirstResort, indexOfLastResort);
-
-    const pages = [];
-    for (let i = 1; i <= Math.ceil(filteredData.length / resortsPerPage); i++) {
-        pages.push(i);
-    }
-
-    const paginate = pageNumber => {
-        setCurrentPage(pageNumber);
+    const handlePageChange = (pageNumber) => {
+        setLocalCurrentPage(pageNumber);
+        fetchResortData(pageNumber);
         if (pageNumber > maxPageNumberLimit) {
             setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
             setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
@@ -43,44 +36,53 @@ const LastCallVacations = () => {
     };
 
     const handleNextbtn = () => {
-        paginate(currentPage + 1);
+        if (localCurrentPage < totalPages) {
+            handlePageChange(localCurrentPage + 1);
+        }
     };
 
     const handlePrevbtn = () => {
-        paginate(currentPage - 1);
+        if (localCurrentPage > 1) {
+            handlePageChange(localCurrentPage - 1);
+        }
     };
 
-    const handleSearch = () => {
-        const filtered = resortData.filter(resort =>
-            resort.location.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredData(filtered);
-        setCurrentPage(1);
-        setMaxPageNumberLimit(10);
-        setMinPageNumberLimit(0);
+    const handleSearch = async () => {
+        try {
+            if (searchTerm.trim() === '') {
+                setFilteredData(resortData);
+                setFilteredResortsCount(resortData.length); // Reset to total resorts count
+                return;
+            }
+            const data = await searchResorts(searchTerm);
+            setFilteredData(data || []);
+            setFilteredResortsCount(data.length); // Set count based on filtered data length
+        } catch (error) {
+            console.error('Error fetching search results:', error.message);
+        }
     };
 
-    const renderPageNumbers = pages.map((number) => {
-        if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+    const renderPageNumbers = Array.from({ length: totalPages }).map((_, index) => {
+        const pageNumber = index + 1;
+        if (pageNumber <= maxPageNumberLimit && pageNumber >= minPageNumberLimit) {
             return (
-                <li key={number}>
+                <li key={pageNumber}>
                     <button
-                        className={`px-3 py-1 rounded-md ${currentPage === number ? 'bg-blue-500 text-white' : 'border text-gray-200'}`}
-                        onClick={() => paginate(number)}
+                        className={`px-3 py-1 rounded-md ${localCurrentPage === pageNumber ? 'bg-blue-500 text-white' : 'border text-gray-200'}`}
+                        onClick={() => handlePageChange(pageNumber)}
                     >
-                        {number}
+                        {pageNumber}
                     </button>
                 </li>
             );
-        } else {
-            return null;
         }
+        return null;
     });
 
     return (
         <div className="container mx-auto p-4 space-y-5 pb-20">
             <div className='pt-2'>
-                <h1 className='text-xl'>{filteredData.length} Resorts</h1>
+                <h1 className='text-xl'>{searchTerm.trim() !== '' ? filteredResortsCount : totalResorts} Resorts</h1>
             </div>
 
             <div className="divider"></div>
@@ -103,30 +105,34 @@ const LastCallVacations = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {currentResorts.map((resort) => (
-                    <Link to={`/singleResortPage/${resort._id}`} key={resort._id}>
-                        <ResortCard resort={resort} />
-                    </Link>
-                ))}
+                {loading ? (
+                    <Loading />
+                ) : (
+                    filteredData.map((resort) => (
+                        <Link to={`/singleResortPage/${resort._id}`} key={resort._id}>
+                            <ResortCard resort={resort} />
+                        </Link>
+                    ))
+                )}
             </div>
 
             <div className="flex flex-col items-center mt-4 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
                 <button
-                    className={`px-3 py-1 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
                     onClick={handlePrevbtn}
-                    disabled={currentPage === 1}
+                    className={`px-3 py-1 rounded-md ${localCurrentPage === 1 ? 'bg-gray-200' : 'bg-blue-500 text-white'}`}
+                    disabled={localCurrentPage === 1}
                 >
-                    &lt; Prev
+                    Prev
                 </button>
-                <ul className="flex flex-wrap justify-center space-x-2">
+                <ul className="flex space-x-2">
                     {renderPageNumbers}
                 </ul>
                 <button
-                    className={`px-3 py-1 rounded-md ${currentPage === pages.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#037092] text-white'}`}
                     onClick={handleNextbtn}
-                    disabled={currentPage === pages.length}
+                    className={`px-3 py-1 rounded-md ${localCurrentPage === totalPages ? 'bg-gray-200' : 'bg-blue-500 text-white'}`}
+                    disabled={localCurrentPage === totalPages}
                 >
-                    Next &gt;
+                    Next
                 </button>
             </div>
         </div>
