@@ -75,10 +75,11 @@ const LastCallVacations = () => {
 
   return (
     <div className="container mx-auto p-4 space-y-5 pb-20">
-        
+      {searchTerm && (
         <div className="pt-2">
-        <h1 className="text-xl">{filteredData.length} Resorts</h1>
-      </div>
+          <h1 className="text-xl">{filteredData.length} Resorts</h1>
+        </div>
+      )}
       {/* Filter Section */}
 
       <div className="divider"></div>
