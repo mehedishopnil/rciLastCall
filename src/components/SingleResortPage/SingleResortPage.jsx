@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { AuthContext } from "../../context/AuthProvider";
@@ -24,7 +24,7 @@ const SingleResortPage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      handleSwipe('left');
+      handleSwipe("left");
     }, 5000);
 
     return () => clearInterval(interval);
@@ -52,12 +52,13 @@ const SingleResortPage = () => {
     reviews_amount
   } = currentResort;
 
+  // Declare and initialize additional_images here
   const additional_images = [img, img2, img3];
 
   const handleSwipe = (direction) => {
-    if (direction === 'left') {
+    if (direction === "left") {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % additional_images.length);
-    } else if (direction === 'right') {
+    } else if (direction === "right") {
       setCurrentIndex((prevIndex) => (prevIndex - 1 + additional_images.length) % additional_images.length);
     }
   };
@@ -67,10 +68,10 @@ const SingleResortPage = () => {
     e.target.ontouchmove = (moveEvent) => {
       const touchEndX = moveEvent.touches[0].clientX;
       if (touchStartX - touchEndX > 50) {
-        handleSwipe('left');
+        handleSwipe("left");
         e.target.ontouchmove = null;
       } else if (touchStartX - touchEndX < -50) {
-        handleSwipe('right');
+        handleSwipe("right");
         e.target.ontouchmove = null;
       }
     };
@@ -81,10 +82,10 @@ const SingleResortPage = () => {
     e.target.onmousemove = (moveEvent) => {
       const mouseMoveX = moveEvent.clientX;
       if (mouseDownX - mouseMoveX > 50) {
-        handleSwipe('left');
+        handleSwipe("left");
         e.target.onmousemove = null;
       } else if (mouseDownX - mouseMoveX < -50) {
-        handleSwipe('right');
+        handleSwipe("right");
         e.target.onmousemove = null;
       }
     };
@@ -113,10 +114,10 @@ const SingleResortPage = () => {
               key={index}
               className={`absolute w-full h-full transition-transform duration-500 ${
                 index === currentIndex
-                  ? 'translate-x-0'
+                  ? "translate-x-0"
                   : index < currentIndex
-                  ? '-translate-x-full'
-                  : 'translate-x-full'
+                  ? "-translate-x-full"
+                  : "translate-x-full"
               }`}
             >
               <img src={image} className="w-full h-full object-cover" alt={`Slide ${index}`} />
@@ -129,7 +130,7 @@ const SingleResortPage = () => {
             <div
               key={index}
               className={`h-2 w-2 rounded-full ${
-                index === currentIndex ? 'bg-[#037092]' : 'bg-gray-300'
+                index === currentIndex ? "bg-[#037092]" : "bg-gray-300"
               }`}
             ></div>
           ))}
@@ -141,17 +142,12 @@ const SingleResortPage = () => {
           <h1 className="text-3xl font-semibold mt-5">{place_name}</h1>
 
           <div className="mt-5">
-          {place_name.includes("Wyndham") && (
-            <div className="flex items-center gap-2">
-              <GiStarsStack />
-              <h1>Wyndham owner exclusive</h1>
-            </div>
-          )}
-            
-            {/* <div className="flex items-center gap-2">
-              <GiStarsStack />
-              <h1>Mandatory</h1>
-            </div> */}
+            {place_name.includes("Wyndham") && (
+              <div className="flex items-center gap-2">
+                <GiStarsStack />
+                <h1>Wyndham owner exclusive</h1>
+              </div>
+            )}
           </div>
 
           <div className="border-b border-gray-200"></div>
