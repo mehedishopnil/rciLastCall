@@ -20,7 +20,7 @@ const Search = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (searchTerm.trim() !== '') {
-        setLoading(true); // Set loading to true before fetching data
+        setLoading(false); // Set loading to true before fetching data
         try {
           const data = await searchResorts(searchTerm);
           setSearchData(data);
