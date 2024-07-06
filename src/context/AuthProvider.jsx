@@ -6,9 +6,9 @@ export const useAuth = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [resortData, setResortData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalResorts, setTotalResorts] = useState(0);
 
   const fetchResortData = async (page = 1, limit = 15) => {
     setLoading(true);
@@ -19,9 +19,9 @@ const AuthProvider = ({ children }) => {
       }
       const data = await response.json();
       setResortData(data.resorts);
+      setFilteredData(data.resorts); // Initialize filteredData with fetched resortData
       setTotalPages(data.totalPages);
       setCurrentPage(data.currentPage);
-      setTotalResorts(data.totalResorts); // Assuming your backend response includes this
     } catch (error) {
       console.error('Error fetching resort data:', error.message);
     } finally {
@@ -52,10 +52,12 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     loading,
+    setLoading,
     resortData,
+    filteredData,
+    setFilteredData,
     totalPages,
     currentPage,
-    totalResorts,
     fetchResortData,
     searchResorts,
   };

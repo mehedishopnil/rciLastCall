@@ -1,17 +1,17 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoSearch, IoClose } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthProvider';
+import { useAuth } from '../../../context/AuthProvider'; // Import useAuth hook
 
 const SearchBarMobile = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
     const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
     const navigate = useNavigate();
-    const { resortData, searchResorts, setFilteredData } = useContext(AuthContext);
+    const { resortData, searchResorts, setFilteredData, setLoading } = useAuth(); // Use useAuth hook to access context
 
+    // Load search history from localStorage on component mount
     useEffect(() => {
-        // Load search history from localStorage on component mount
         const savedHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
         setSearchHistory(savedHistory);
     }, []);
@@ -38,15 +38,21 @@ const SearchBarMobile = () => {
                 }
                 return;
             }
+            setLoading(true); // Set loading to true before fetching data
+            if (setFilteredData) {
+                setFilteredData([]); // Clear existing search results before new search
+            }
             const data = await searchResorts(searchQuery);
             if (setFilteredData) {
-                setFilteredData(data || []);
+                setFilteredData(data || []); // Set filtered data based on search results
             }
             const ids = data.map(item => item._id);
             navigate(`/search?q=${encodeURIComponent(searchQuery)}&ids=${encodeURIComponent(ids.join(','))}`);
             saveSearchQuery(searchQuery); // Save search query to history
         } catch (error) {
             console.error('Error fetching search results:', error.message);
+        } finally {
+            setLoading(false); // Set loading to false after data fetching is complete or on error
         }
     };
 
@@ -80,7 +86,7 @@ const SearchBarMobile = () => {
                 />
                 <button
                     className="absolute right-[7%] top-4 text-xl text-white bg-yellow-500 px-3 py-[6px] rounded-r-full"
-                    onClick={handleSearch}
+                    onClick={handleSearch} // Trigger search on button click
                 >
                     <IoSearch />
                 </button>
