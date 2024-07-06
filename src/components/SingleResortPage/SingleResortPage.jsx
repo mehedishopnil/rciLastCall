@@ -9,18 +9,30 @@ import FilterContent from "./FilterContent/FilterContent";
 import Loading from "../Loading";
 
 const SingleResortPage = () => {
-  const { resortData } = useContext(AuthContext);
+  const { allResortData } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentResort, setCurrentResort] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Declare and initialize additional_images here
+  let additional_images = [];
+  
   useEffect(() => {
-    if (resortData && id) {
-      const foundResort = resortData.find((resort) => resort._id === id);
+    if (allResortData && id) {
+      const foundResort = allResortData.find((resort) => resort._id === id);
       setCurrentResort(foundResort);
     }
-  }, [resortData, id]);
+  }, [allResortData, id]);
+
+  useEffect(() => {
+    if (currentResort) {
+      const { img, img2, img3 } = currentResort;
+      additional_images = [img, img2, img3];
+    }
+  }, [currentResort]);
+  
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,37 +42,16 @@ const SingleResortPage = () => {
     return () => clearInterval(interval);
   }, [currentIndex]);
 
-  const goBack = () => {
-    navigate(-1);
-  };
-
-  if (!currentResort) {
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
-  }
-
-  const {
-    img,
-    img2,
-    img3,
-    location,
-    place_name,
-    resort_ID,
-    reviews_amount
-  } = currentResort;
-
-  // Declare and initialize additional_images here
-  const additional_images = [img, img2, img3];
-
   const handleSwipe = (direction) => {
-    if (direction === "left") {
+    if (direction === "left" && additional_images.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % additional_images.length);
-    } else if (direction === "right") {
+    } else if (direction === "right" && additional_images.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex - 1 + additional_images.length) % additional_images.length);
     }
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   const handleTouchStart = (e) => {
@@ -95,6 +86,23 @@ const SingleResortPage = () => {
     e.target.onmousemove = null;
   };
 
+  if (!currentResort) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
+
+  const {img, img2, img3,
+    location,
+    place_name,
+    resort_ID,
+    reviews_amount,
+  } = currentResort;
+
+  console.log(img, img2, img3);
+
   return (
     <div>
       <button onClick={goBack} className="flex items-center m-2 text-[#037092] font-bold">
@@ -110,19 +118,20 @@ const SingleResortPage = () => {
           onMouseUp={handleMouseUp}
         >
           {additional_images.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute w-full h-full transition-transform duration-500 ${
-                index === currentIndex
-                  ? "translate-x-0"
-                  : index < currentIndex
-                  ? "-translate-x-full"
-                  : "translate-x-full"
-              }`}
-            >
-              <img src={image} className="w-full h-full object-cover" alt={`Slide ${index}`} />
-            </div>
-          ))}
+  <div
+    key={index}
+    className={`absolute w-full h-full transition-transform duration-500 ${
+      index === currentIndex
+        ? "translate-x-0"
+        : index < currentIndex
+        ? "-translate-x-full"
+        : "translate-x-full"
+    }`}
+  >
+    <img src={image} className="w-full h-full object-cover" alt={`Slide ${index}`} />
+  </div>
+))}
+
         </div>
 
         <div className="flex justify-center py-2 gap-2">
