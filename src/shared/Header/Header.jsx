@@ -39,11 +39,7 @@ const Header = () => {
 
           {/* Search bar visible only on lg screens */}
           <div className="hidden lg:block">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="px-2 py-1 rounded-full bg-gray-200 ml-4"
-            />
+            
           </div>
         </div>
 

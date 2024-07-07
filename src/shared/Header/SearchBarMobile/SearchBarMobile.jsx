@@ -87,7 +87,7 @@ const SearchBarMobile = () => {
 
     return (
         <div className="search-bar-container">
-            <div className="block relative container flex justify-center pb-5 mx-auto lg:hidden">
+            <div className=" relative container flex justify-center pb-5 mx-auto ">
                 <input
                     type="text"
                     placeholder="Search by resort Name, Location, ID"
@@ -107,9 +107,9 @@ const SearchBarMobile = () => {
             {showHistoryDropdown && (
                 <div className="search-history-dropdown bg-white border mb-2 p-4">
                     <h1 className="text-center mb-2">Your Search History</h1>
-                    <ul>
+                    <ul >
                         {searchHistory.map((query, index) => (
-                            <li key={index} className="flex justify-between items-center">
+                            <li  key={index} className="flex justify-between md:justify-center md:gap-10">
                                 <span onClick={() => handleSearchHistorySelect(query)}>{query}</span>
                                 <IoClose onClick={() => removeSearchHistoryItem(index)} className="cursor-pointer" />
                             </li>

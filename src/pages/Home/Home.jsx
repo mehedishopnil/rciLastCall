@@ -21,10 +21,10 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="lg:container lg:mx-auto text-center space-y-5 border my-10 p-4">
-        <div className="lg:grid lg:grid-cols-2">
-        <div>
-        <h1 className="text-3xl font-normal">
+      <div className="lg:container lg:mx-auto text-center space-y-5  border my-10 p-4">
+        <div className="lg:grid lg:grid-cols-2 md:space-x-5 ">
+        <div className="md:text-right md:p-5">
+        <h1 className="text-3xl font-normal md:font-semibold mb-2">
           You have ZERO points in your RCI account!
         </h1>
         <p className="text-base">

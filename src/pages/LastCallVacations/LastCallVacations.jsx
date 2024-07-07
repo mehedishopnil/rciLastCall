@@ -5,7 +5,14 @@ import { AuthContext } from "../../context/AuthProvider";
 import Loading from "../../components/Loading";
 
 const LastCallVacations = () => {
-  const { resortData, allResortData, loading, totalPages, currentPage, fetchResortData } = useContext(AuthContext);
+  const {
+    resortData,
+    allResortData,
+    loading,
+    totalPages,
+    currentPage,
+    fetchResortData,
+  } = useContext(AuthContext);
   const [localCurrentPage, setLocalCurrentPage] = useState(currentPage);
   const [pageNumberLimit] = useState(10);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(10);
@@ -56,22 +63,28 @@ const LastCallVacations = () => {
     setFilteredData(filteredResults);
   };
 
-  const renderPageNumbers = Array.from({ length: totalPages }).map((_, index) => {
-    const pageNumber = index + 1;
-    if (pageNumber <= maxPageNumberLimit && pageNumber > minPageNumberLimit) {
-      return (
-        <li key={pageNumber}>
-          <button
-            className={`px-3 py-1 rounded-md ${localCurrentPage === pageNumber ? "bg-blue-500 text-white" : "border text-gray-200"}`}
-            onClick={() => handlePageChange(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        </li>
-      );
+  const renderPageNumbers = Array.from({ length: totalPages }).map(
+    (_, index) => {
+      const pageNumber = index + 1;
+      if (pageNumber <= maxPageNumberLimit && pageNumber > minPageNumberLimit) {
+        return (
+          <li key={pageNumber}>
+            <button
+              className={`px-3 py-1 rounded-md ${
+                localCurrentPage === pageNumber
+                  ? "bg-blue-500 text-white"
+                  : "border text-gray-200"
+              }`}
+              onClick={() => handlePageChange(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          </li>
+        );
+      }
+      return null;
     }
-    return null;
-  });
+  );
 
   return (
     <div className="container mx-auto p-4 space-y-5 pb-20">
@@ -80,11 +93,12 @@ const LastCallVacations = () => {
           <h1 className="text-xl">{filteredData.length} Resorts</h1>
         </div>
       )}
-      {/* Filter Section */}
 
       <div className="divider"></div>
+      {/* Filter Section */}
 
-      <div className="mb-4 flex">
+      <div className="w-full md:flex md:justify-center">
+      <div className="mb-4 flex md:w-1/2 ">
         <input
           type="text"
           placeholder="Filter by location"
@@ -98,6 +112,7 @@ const LastCallVacations = () => {
         >
           Filter
         </button>
+      </div>
       </div>
 
       {/* Data showing section */}
@@ -114,10 +129,12 @@ const LastCallVacations = () => {
       </div>
 
       {/* Pagination section */}
-      <div className="flex flex-col items-center mt-4 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+      <div className="flex flex-col items-center md:justify-center md:pt-10 mt-4 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
         <button
           onClick={handlePrevbtn}
-          className={`px-3 py-1 rounded-md ${localCurrentPage === 1 ? "bg-gray-200" : "bg-blue-500 text-white"}`}
+          className={`px-3 py-1 rounded-md ${
+            localCurrentPage === 1 ? "bg-gray-200" : "bg-blue-500 text-white"
+          }`}
           disabled={localCurrentPage === 1}
         >
           Prev
@@ -125,7 +142,11 @@ const LastCallVacations = () => {
         <ul className="flex space-x-2">{renderPageNumbers}</ul>
         <button
           onClick={handleNextbtn}
-          className={`px-3 py-1 rounded-md ${localCurrentPage === totalPages ? "bg-gray-200" : "bg-blue-500 text-white"}`}
+          className={`px-3 py-1 rounded-md ${
+            localCurrentPage === totalPages
+              ? "bg-gray-200"
+              : "bg-blue-500 text-white"
+          }`}
           disabled={localCurrentPage === totalPages}
         >
           Next
