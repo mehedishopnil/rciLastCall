@@ -20,36 +20,36 @@ const ProfilePage = () => {
       </div>
 
 
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center lg:my-10  lg:grid lg:grid-cols-2 lg:items-center lg:justify-center lg:gap-5 lg:px-5">
 
-      <div className="w-10/12 flex justify-between items-center gap-5 mt-10 py-4 px-5 rounded-3xl bg-slate-100 border">
+      <div className="w-10/12 lg:w-full flex justify-between items-center gap-5 mt-10 lg:mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
         <h1 className="text-base flex items-center gap-3 "><span className="font-semibold"><FaUser /></span> SK Mehedi Hasan</h1>
         <FaRegEdit />
       </div>
 
-      <div className="w-10/12 flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
+      <div className="w-10/12 lg:w-full flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
         <h1 className="text-base flex items-center gap-3 "><span className="font-semibold"><MdEmail /></span> skmehedihasan.jr1@gmail.com</h1>
         <FaRegEdit />
       </div>
 
-      <div className="w-10/12 flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
+      <div className="w-10/12 lg:w-full flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
         <h1 className="text-base flex items-center gap-3 font-bold"><span className="font-semibold"><FaLock /></span> *********</h1>
         <FaRegEdit />
       </div>
 
-      <div className="w-10/12 flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
+      <div className="w-10/12 lg:w-full flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
         <h1 className="text-base flex items-center gap-3 "><span className="text-lg font-semibold"><IoLocation />
 </span> USA</h1>
         <FaRegEdit />
       </div>
 
-      <div className="w-10/12 flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
+      <div className="w-10/12 lg:w-full flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
         <h1 className="text-base flex items-center gap-3 "><span className="text-xl font-semibold"><MdOutlineSupportAgent />
 </span> Support</h1>
         <FaRegEdit />
       </div>
 
-      <div className="w-10/12 flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
+      <div className="w-10/12 lg:w-full flex justify-between items-center gap-5 mt-5 py-4 px-5 rounded-3xl bg-slate-100 border">
         <h1 className="text-base flex items-center gap-3 "><span className="text-lg font-semibold"><MdLogout />
 </span> Log Out</h1>
         <FaRegEdit />

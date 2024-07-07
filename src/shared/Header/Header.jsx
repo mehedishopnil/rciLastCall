@@ -16,6 +16,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
 import SearchBarMobile from "./SearchBarMobile/SearchBarMobile";
+import { MdAccountBalanceWallet } from "react-icons/md";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -179,7 +180,8 @@ const Header = () => {
                     <Link to="/myAccount" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
                         <div className="">
-                          <FaRegUserCircle className="text-2xl" />
+                          
+                          <MdAccountBalanceWallet className="text-2xl"/>
                           <a>My Account</a>
                         </div>
                       </li>
