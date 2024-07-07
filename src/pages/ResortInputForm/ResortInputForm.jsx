@@ -61,7 +61,7 @@ const {allResortData} = useContext(AuthContext);
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:5000/resorts",
+        "https://rci-last-call-server.vercel.app/resorts",
         {
           method: "POST",
           headers: {

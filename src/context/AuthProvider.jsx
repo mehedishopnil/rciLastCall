@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const fetchResortData = async (page = 1, limit = 15) => {
     setLoading(true);
     try {
-        const response = await fetch(`http://localhost:5000/resorts?page=${page}&limit=${limit}`);
+        const response = await fetch(`https://rci-last-call-server.vercel.app/resorts?page=${page}&limit=${limit}`);
         if (!response.ok) {
             throw new Error(`Error fetching resort data: ${response.status} ${response.statusText}`);
         }
@@ -40,7 +40,7 @@ useEffect(() => {
   const fetchAllResorts = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/all-resorts');
+      const response = await fetch('https://rci-last-call-server.vercel.app/all-resorts');
       if (!response.ok) {
         throw new Error(`Error fetching all resort data: ${response.status} ${response.statusText}`);
       }
