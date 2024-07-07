@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { Link, } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/Images/logo.svg";
 import {
   IoIosHelpCircleOutline,
   IoMdNotificationsOutline,
 } from "react-icons/io";
-import { FaUserCircle, FaTimes, FaBars, FaRegUserCircle, FaWpforms } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaTimes,
+  FaBars,
+  FaRegUserCircle,
+  FaWpforms,
+} from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { PiSignOutFill } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
@@ -18,29 +24,25 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
- 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <div className="bg-[#037092]">
       {/* Desktop Navbar */}
-      <div className="container mx-auto hidden lg:flex justify-between items-center navbar">
+      <div className="container mx-auto hidden md:px-10 lg:flex justify-between items-center navbar">
         {/* Logo and Search Bar */}
         <div className="navbar-start flex items-center justify-between">
           <Link to="/" className="z-20">
-            {" "}
-            <img src={logo} alt="Logo" className="w-12 h-12" />{" "}
+            <img src={logo} alt="Logo" className="w-12 h-12" />
           </Link>
           <div className="w-[1px] h-14 bg-white"></div>
           <img
             src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
             alt=""
-            className="w-[80px] "
+            className="w-[80px]"
           />
-
-          {/* Search bar visible only on lg screens */}
-          <div className="hidden lg:block">
-            
-          </div>
         </div>
 
         {/* Desktop Menu */}
@@ -61,36 +63,33 @@ const Header = () => {
                 <p className="text-xl">Resort Input Form</p>
               </Link>
             </li>
-            
           </ul>
         </div>
 
         {/* User Icons */}
         <div className="navbar-end text-white flex gap-5 items-center">
           <IoMdNotificationsOutline className="text-3xl" />
-          <FaUserCircle className="text-3xl" />
+          <Link to="/profile">
+            <FaUserCircle className="text-3xl" />
+          </Link>
         </div>
       </div>
 
       {/* Mobile Navbar */}
       <div className="">
         <div className="container mx-auto flex lg:hidden justify-between items-center navbar">
-          
           <div className="space-x-4">
-          
             {/* Logo */}
             <Link to="/" className="z-20">
-            <img src={logo} alt="" className="w-[52px] h-[52px]" />
+              <img src={logo} alt="" className="w-[52px] h-[52px]" />
             </Link>
             <div className="w-[1px] h-14 bg-white"></div>
             <img
               src="https://www.rci.com/static/images/content/header/RCI-ClubWyndham-new.png"
               alt=""
-              className="w-[80px] "
+              className="w-[80px]"
             />
-       
           </div>
-          
 
           {/* Mobile Dropdown */}
           <div className="dropdown relative">
@@ -107,10 +106,10 @@ const Header = () => {
               )}
             </div>
             {isMenuOpen && (
-              <div className=" p-5">
-                <ul className="absolute right-0 menu menu-lg dropdown-content mt-5  p-2 shadow bg-white rounded-box w-screen z-10 h-fit flex flex-col ">
+              <div className="p-5">
+                <ul className="absolute right-0 menu menu-lg dropdown-content mt-5 p-2 shadow bg-white rounded-box w-screen z-10 h-fit flex flex-col">
                   <div>
-                    <Link to="/lastCallVacation">
+                    <Link to="/lastCallVacation" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
                         <div className="">
                           <img
@@ -122,27 +121,31 @@ const Header = () => {
                       </li>
                     </Link>
 
-                    <li className="flex font-regular text-gray-600">
-                      <div className="">
-                        <img
-                          src="https://www.rci.com/static/images/content/icons-header/trips.svg"
-                          alt=""
-                        />
-                        <a>TRIPS</a>
-                      </div>
-                    </li>
+                    <Link to="/" onClick={closeMenu}>
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <img
+                            src="https://www.rci.com/static/images/content/icons-header/trips.svg"
+                            alt=""
+                          />
+                          <a>TRIPS</a>
+                        </div>
+                      </li>
+                    </Link>
 
-                    <li className="flex font-regular text-gray-600">
-                      <div className="">
-                        <img
-                          src="https://www.rci.com/static/images/content/icons-header/offers.svg"
-                          alt=""
-                        />
-                        <a>DEALS</a>
-                      </div>
-                    </li>
+                    <Link to="/deals" onClick={closeMenu}>
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <img
+                            src="https://www.rci.com/static/images/content/icons-header/offers.svg"
+                            alt=""
+                          />
+                          <a>DEALS</a>
+                        </div>
+                      </li>
+                    </Link>
 
-                    <Link to="/">
+                    <Link to="/" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
                         <div className="">
                           <IoHomeOutline className="text-2xl" />
@@ -151,7 +154,7 @@ const Header = () => {
                       </li>
                     </Link>
 
-                    <Link to="/resort_data_input">
+                    <Link to="/resort_data_input" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
                         <div className="">
                           <FaWpforms className="text-2xl" />
@@ -162,7 +165,7 @@ const Header = () => {
                   </div>
 
                   <div className="flex justify-center">
-                    <span className="w-11/12 h-[1px]  bg-slate-400"></span>
+                    <span className="w-11/12 h-[1px] bg-slate-400"></span>
                   </div>
 
                   <div>
@@ -173,14 +176,23 @@ const Header = () => {
                       </div>
                     </li>
 
-                    <li className="flex font-regular text-gray-600">
-                      <div className="">
-                        <FaRegUserCircle className="text-2xl" />
-                        <Link to="/myAccount">
+                    <Link to="/myAccount" onClick={closeMenu}>
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <FaRegUserCircle className="text-2xl" />
                           <a>My Account</a>
-                        </Link>
-                      </div>
-                    </li>
+                        </div>
+                      </li>
+                    </Link>
+
+                    <Link to="/profile" onClick={closeMenu}>
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <FaRegUserCircle className="text-2xl" />
+                          <a>Profile</a>
+                        </div>
+                      </li>
+                    </Link>
 
                     <li className="flex font-regular text-gray-600">
                       <div className="">
@@ -195,6 +207,7 @@ const Header = () => {
                         <a>Help</a>
                       </div>
                     </li>
+
                     <li className="flex font-regular text-gray-600">
                       <div className="">
                         <PiSignOutFill className="text-2xl" />
@@ -207,7 +220,7 @@ const Header = () => {
             )}
           </div>
         </div>
-       <SearchBarMobile />
+        <SearchBarMobile />
       </div>
     </div>
   );
