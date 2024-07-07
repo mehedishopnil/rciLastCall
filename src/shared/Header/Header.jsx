@@ -134,7 +134,7 @@ const Header = () => {
                       </li>
                     </Link>
 
-                    <Link to="/deals" onClick={closeMenu}>
+                    <Link to="/" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
                         <div className="">
                           <img
@@ -170,12 +170,14 @@ const Header = () => {
                   </div>
 
                   <div>
+                    <Link to="/" onClick={closeMenu}>
                     <li className="flex font-regular text-gray-600">
                       <div className="">
                         <IoMdNotificationsOutline className="text-3xl" />
                         <a>Notifications</a>
                       </div>
                     </li>
+                    </Link>
 
                     <Link to="/myAccount" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
