@@ -2,7 +2,7 @@ import { FaLock, FaRegEdit, FaUser } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
 import { MdEmail, MdLogout, MdOutlineSupportAgent } from "react-icons/md";
 
-const Profile = () => {
+const ProfilePage = () => {
   return (
     <div className=" my-5">
       <h1 className="text-xl text-center font-semibold ">My Profile</h1>
@@ -61,4 +61,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

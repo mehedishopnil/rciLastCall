@@ -9,7 +9,7 @@ import SingleResortPage from "../components/SingleResortPage/SingleResortPage";
 import Search from "../pages/Search/Search";
 import SearchBarMobile from "../shared/Header/SearchBarMobile/SearchBarMobile";
 import ResortInputForm from "../pages/ResortInputForm/ResortInputForm";
-import Profile from "../pages/Profile/Profile";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
 
  export  const router = createBrowserRouter([
     {
@@ -45,8 +45,8 @@ import Profile from "../pages/Profile/Profile";
           element: <ResortInputForm />
         },
         {
-          path: "/profile",
-          element: <Profile/>
+          path: 'profile',
+          element: <ProfilePage/>
         }
       ],
     },
