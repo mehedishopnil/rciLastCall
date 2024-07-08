@@ -34,7 +34,7 @@ const FilterContent = ({ currentResort }) => {
   const menuContent = {
     "Available Units": <AvailableUnits available_amount={available_amount} />,
 
-    "All-inclusive info": <AllInclusiveInfo />,
+    // "All-inclusive info": <AllInclusiveInfo />,
 
     "Room Details": <RoomDetails room_details={room_details} />,
     "Resort Details": (

@@ -176,10 +176,11 @@ const SingleResortPage = () => {
           <div className="border-b border-gray-200"></div>
 
           <div className="mt-2">
-            <h1 className="font-semibold">TripAdvisor Traveler Rating</h1>
+            <h1 className="text-xl font-semibold">TripAdvisor Traveler Rating</h1>
             <div className="flex gap-3">
-              <img
-                src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/5.0-32772-5.svg"
+              <img 
+              className=""
+                src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.5-32772-5.svg"
                 alt="Traveler Rating"
               />
               <p className="font-bold">{reviews_amount} reviews</p>

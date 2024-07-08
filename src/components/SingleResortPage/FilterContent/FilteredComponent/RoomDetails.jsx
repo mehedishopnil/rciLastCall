@@ -26,7 +26,7 @@ const RoomDetails = ({ room_details }) => {
       <p>{room_Description}</p>
 
       <h2 className="font-semibold my-2">
-        Actual room configurations may vary
+        Actual room configurations may vary from descriptions below.
       </h2>
 
       {/* Bedroom */}
