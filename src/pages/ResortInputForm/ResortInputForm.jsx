@@ -133,7 +133,7 @@ const {allResortData} = useContext(AuthContext);
   };
 
   return (
-    <div className="max-w-md p-4 mx-auto">
+    <div className="max-w-md p-4 mx-auto my-5">
       <h2 className="text-xl text-center font-semibold mb-4">
         Resort Input Form
       </h2>

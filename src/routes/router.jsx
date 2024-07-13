@@ -60,7 +60,7 @@ import Overview from "../pages/Overview/Overview";
               element: <Overview/>
           },
           {
-              path: 'input-form',
+              path: 'resort-input-form',
               element: <ResortInputForm/>
           },
          
