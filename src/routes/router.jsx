@@ -10,6 +10,8 @@ import Search from "../pages/Search/Search";
 import SearchBarMobile from "../shared/Header/SearchBarMobile/SearchBarMobile";
 import ResortInputForm from "../pages/ResortInputForm/ResortInputForm";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import Dashboard from "../layout/Dashboard";
+import Overview from "../pages/Overview/Overview";
 
  export  const router = createBrowserRouter([
     {
@@ -40,14 +42,28 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
           path: "/search",
           element: <Search />,
         },
-        {
-          path: "/resort_data_input",
-          element: <ResortInputForm />
-        },
+        
         {
           path: 'profile',
           element: <ProfilePage/>
         }
       ],
     },
+
+    // Dashboard Part
+    {
+      path: 'dashboard',
+      element: <Dashboard></Dashboard>,
+      children: [
+          {
+              path: 'overview',
+              element: <Overview/>
+          },
+          {
+              path: 'input-form',
+              element: <ResortInputForm/>
+          },
+         
+      ]
+  },
   ]);

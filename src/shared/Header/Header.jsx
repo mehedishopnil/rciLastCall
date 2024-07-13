@@ -34,7 +34,8 @@ const Header = () => {
       {/* Desktop Navbar */}
       <div className="container mx-auto hidden md:px-10 lg:flex justify-between items-center navbar">
         {/* Logo and Search Bar */}
-        <div className="navbar-start flex items-center justify-between">
+        <div className="navbar-start flex items-center gap-5">
+          
           <Link to="/" className="z-20">
             <img src={logo} alt="Logo" className="w-12 h-12" />
           </Link>
@@ -60,8 +61,8 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="/resort_data_input">
-                <p className="text-xl">Resort Input Form</p>
+              <Link to="/dashboard">
+                <p className="text-xl">Dashboard</p>
               </Link>
             </li>
           </ul>
@@ -155,21 +156,23 @@ const Header = () => {
                       </li>
                     </Link>
 
-                    <Link to="/resort_data_input" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <FaWpforms className="text-2xl" />
-                          <a>Resort Input Form</a>
-                        </div>
-                      </li>
-                    </Link>
                   </div>
 
                   <div className="flex justify-center">
                     <span className="w-11/12 h-[1px] bg-slate-400"></span>
                   </div>
 
+                {/* Another Part */}
                   <div>
+                  <Link to="/dashboard/overview" onClick={closeMenu}>
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <FaWpforms className="text-2xl" />
+                          <a>Dashboard</a>
+                        </div>
+                      </li>
+                    </Link> 
+
                     <Link to="/" onClick={closeMenu}>
                     <li className="flex font-regular text-gray-600">
                       <div className="">

@@ -42,7 +42,11 @@ const AvailableUnits = ({available_amount}) => {
 
       {/* Available Units */}
       <div>
-        <h1 className="text-center font-semibold">{available_amount} Available Units</h1>
+      <div className="card text-center bg-[#c8ebff] border py-3">
+        <h1 className="text-lg font-bold text-[#0f2f75]">This Resort is Available</h1>
+      </div>
+
+        {/* <h1 className="text-center font-semibold">{available_amount} Available Units</h1>
         <div className="relative flex justify-center  my-3 ">
           <h1 className="absolute left-0 w-1/2 text-center rounded-l-full bg-[#037092] text-white font-semibold border border-gray-500">
             TYPE OF UNIT
@@ -50,7 +54,7 @@ const AvailableUnits = ({available_amount}) => {
           <h1 className="absolute right-0 w-1/2 text-center rounded-r-full bg-white font-semibold border border-gray-500">
             DATE AVAILABLE
           </h1>
-        </div>
+        </div> */}
       </div>
 
       {/* Divider */}
