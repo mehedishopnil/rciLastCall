@@ -42,9 +42,11 @@ const AvailableUnits = ({available_amount}) => {
 
       {/* Available Units */}
       <div>
-      <div className="card text-center bg-[#c8ebff] border py-3">
+      <div className="card text-center bg-[#c8ebff8a] border py-3">
         <h1 className="text-lg font-bold text-[#0f2f75]">This Resort is Available</h1>
       </div>
+
+     
 
         {/* <h1 className="text-center font-semibold">{available_amount} Available Units</h1>
         <div className="relative flex justify-center  my-3 ">
@@ -58,7 +60,7 @@ const AvailableUnits = ({available_amount}) => {
       </div>
 
       {/* Divider */}
-      <div className="divider my-10"></div>
+      <div className="divider "></div>
 
       {/* Mandatory All-Inclusive Fee */}
       {/* <p className="text-center">

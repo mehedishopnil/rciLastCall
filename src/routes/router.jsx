@@ -12,6 +12,7 @@ import ResortInputForm from "../pages/ResortInputForm/ResortInputForm";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import Dashboard from "../layout/Dashboard";
 import Overview from "../pages/Overview/Overview";
+import Checkout from "../pages/Checkout/Checkout";
 
  export  const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ import Overview from "../pages/Overview/Overview";
         {
           path: 'profile',
           element: <ProfilePage/>
+        },
+        {
+          path: 'checkout',
+          element: <Checkout/>
         }
       ],
     },

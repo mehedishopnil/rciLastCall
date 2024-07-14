@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -82,6 +82,10 @@ const SingleResortPage = () => {
     e.target.onmousemove = null;
   };
 
+  const handleAddToCheckout = () => {
+    navigate("/checkout", { state: { resort: currentResort } });
+  };
+
   if (!currentResort) {
     return (
       <div>
@@ -90,13 +94,7 @@ const SingleResortPage = () => {
     );
   }
 
-  const {
-    
-    location,
-    place_name,
-    resort_ID,
-    reviews_amount,
-  } = currentResort;
+  const { location, place_name, resort_ID, reviews_amount } = currentResort;
 
   return (
     <div>
@@ -178,8 +176,7 @@ const SingleResortPage = () => {
           <div className="mt-2">
             <h1 className="text-xl font-semibold">TripAdvisor Traveler Rating</h1>
             <div className="flex gap-3">
-              <img 
-              className=""
+              <img
                 src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.5-32772-5.svg"
                 alt="Traveler Rating"
               />
@@ -189,12 +186,15 @@ const SingleResortPage = () => {
         </div>
 
         <FilterContent currentResort={currentResort} />
+
+        <div className="flex justify-center gap-5">
+          <button onClick={handleAddToCheckout} className="border-2 border-[#21509642] rounded bg-[#c8ebff] hover:bg-[#7bceff] font-bold p-3">
+            Add to Checkout
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default SingleResortPage;
-
-
-
