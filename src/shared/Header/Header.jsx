@@ -22,6 +22,7 @@ import { AuthContext } from "../../context/AuthProvider";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useContext(AuthContext);
+  console.log(user)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -74,9 +75,19 @@ const Header = () => {
           {user ? (
             <>
               <IoMdNotificationsOutline className="text-3xl" />
+
               <Link to="/profile">
-                <FaUserCircle className="text-3xl" />
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt="User Profile"
+                    className="text-3xl w-[50px] rounded-full"
+                  />
+                ) : (
+                  <FaUserCircle className="text-3xl" />
+                )}
               </Link>
+
               <div>
                 <button
                   onClick={signOut}
@@ -88,10 +99,16 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link to="/login" className="bg-white text-gray-700 rounded px-3 py-1">
+              <Link
+                to="/login"
+                className="bg-white text-gray-700 rounded px-3 py-1"
+              >
                 Login
               </Link>
-              <Link to="/registration" className="bg-white text-gray-700 rounded px-3 py-1">
+              <Link
+                to="/registration"
+                className="bg-white text-gray-700 rounded px-3 py-1"
+              >
                 Registration
               </Link>
             </>
@@ -120,7 +137,18 @@ const Header = () => {
             <div className="flex gap-4">
               {user ? (
                 <>
-                  <FaRegUserCircle className="text-3xl text-white" />
+                  <Link to="/profile">
+                  {user.photoURL?(
+                    <img
+                    src={user.photoURL}
+                    alt="User Profile"
+                    className="text-2xl w-[30px] rounded-full"
+                  />
+                  ) :
+                  (
+                    <FaRegUserCircle className="text-3xl text-white" />
+                  )}
+                  </Link>
                   <PiSignOut
                     onClick={signOut}
                     className="text-3xl cursor-pointer text-white"

@@ -24,17 +24,16 @@ const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
 
-  // Create User
-  const createUser = async (name, email, password) => {
+  // Signup process (create user with email and password)
+  const signup = async (name, email, password) => {
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const newUser = userCredential.user;
       await newUser.updateProfile({ displayName: name });
-      setUser({ name, email });
 
       // Send user data to backend
-      await fetch('http://localhost:5000/users', {
+      const backendResponse = await fetch('http://localhost:5000/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -42,23 +41,32 @@ const AuthProvider = ({ children }) => {
         body: JSON.stringify({ name, email })
       });
 
-      console.log('User created:', newUser);
+      if (!backendResponse.ok) {
+        throw new Error('Failed to create user or update backend data');
+      }
+
+      // Fetch specific user data from backend based on email
+      const userDataResponse = await fetch(`http://localhost:5000/users?email=${email}`);
+      if (!userDataResponse.ok) {
+        throw new Error('Failed to fetch user data from backend');
+      }
+
+      const userData = await userDataResponse.json();
+      setUser(userData); // Set user state with fetched userData
+
+      console.log('User signed up and data fetched:', newUser, userData);
     } catch (error) {
-      console.error('Error creating user:', error.message);
+      console.error('Error signing up:', error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // Login process
+  // Login process (sign in with email and password)
   const login = async (email, password) => {
     setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      setUser({
-        name: userCredential.user.displayName,
-        email: userCredential.user.email
-      });
       console.log('User logged in:', userCredential.user);
     } catch (error) {
       console.error('Error logging in:', error.message);
@@ -68,43 +76,50 @@ const AuthProvider = ({ children }) => {
   };
 
   // Google Login
-const googleLogin = async () => {
-  setLoading(true);
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
+  const googleLogin = async () => {
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
 
-    // Check if user exists
-    if (user) {
-      // Update local state
-      setUser({
-        name: user.displayName || '',  // Use displayName if available
-        email: user.email
-      });
+      // Check if user exists
+      if (user) {
+        // Send user data to backend
+        const backendResponse = await fetch('http://localhost:5000/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            name: user.displayName || '',  // Use displayName if available
+            email: user.email,
+            photoURL: user.photoURL 
+          })
+        });
 
-      // Send user data to backend
-      await fetch('http://localhost:5000/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          name: user.displayName || '',  // Use displayName if available
-          email: user.email 
-        })
-      });
+        if (!backendResponse.ok) {
+          throw new Error('Failed to update backend data with Google user');
+        }
 
-      console.log('User logged in with Google:', user);
-      return result;
+        // Fetch user data from backend based on email
+        const userDataResponse = await fetch(`http://localhost:5000/users?email=${user.email}`);
+        if (!userDataResponse.ok) {
+          throw new Error('Failed to fetch user data from backend');
+        }
+
+        const userData = await userDataResponse.json();
+        setUser(userData); // Set user state with fetched userData
+
+        console.log('User logged in with Google:', user);
+        return result;
+      }
+    } catch (error) {
+      console.error('Error logging in with Google:', error.message);
+      throw error;
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error('Error logging in with Google:', error.message);
-    throw error;
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   // Sign out process
   const signOut = async () => {
@@ -120,6 +135,7 @@ const googleLogin = async () => {
     }
   };
 
+  // Fetch resort data
   const fetchResortData = async (page = 1, limit = 15) => {
     setLoading(true);
     try {
@@ -139,6 +155,7 @@ const googleLogin = async () => {
     }
   };
 
+  // Fetch all resorts
   const fetchAllResorts = async () => {
     setLoading(true);
     try {
@@ -155,28 +172,43 @@ const googleLogin = async () => {
     }
   };
 
+  // Effect to listen for auth state changes
   useEffect(() => {
     fetchResortData();
     fetchAllResorts();
-    // Listen for auth state changes
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        setUser({
-          name: currentUser.displayName,
-          email: currentUser.email
-        });
+        // Fetch user data from backend based on email
+        const fetchUserData = async () => {
+          try {
+            const userDataResponse = await fetch(`http://localhost:5000/users?email=${currentUser.email}`);
+            if (!userDataResponse.ok) {
+              throw new Error('Failed to fetch user data from backend');
+            }
+            const userData = await userDataResponse.json();
+            setUser(userData); // Set user state with fetched userData
+          } catch (error) {
+            console.error('Error fetching user data:', error.message);
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        fetchUserData();
       } else {
         setUser(null);
+        setLoading(false);
       }
-      setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
 
   const authInfo = {
     loading,
     user,
-    createUser,
+    signup,
     login,
     googleLogin,
     signOut,
