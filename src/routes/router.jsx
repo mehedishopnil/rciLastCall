@@ -15,6 +15,7 @@ import Overview from "../pages/Overview/Overview";
 import Checkout from "../pages/Checkout/Checkout";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SingUp/SingUp";
+import Payment from "../pages/Payment/Payment";
 
  export  const router = createBrowserRouter([
     {
@@ -61,6 +62,10 @@ import SignUp from "../pages/SingUp/SingUp";
         {
           path: 'signup',
           element: <SignUp/>
+        }, 
+        {
+          path: 'payment',
+          element: <Payment/>
         }
       ],
     },
