@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
   const [allResortData, setAllResortData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [bookingsData, setBookingsData] = useState([]);
 
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
@@ -33,7 +34,7 @@ const AuthProvider = ({ children }) => {
       await newUser.updateProfile({ displayName: name });
 
       // Send user data to backend
-      const backendResponse = await fetch('http://localhost:5000/users/signup', {
+      const backendResponse = await fetch('https://rci-last-call-server.vercel.app/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -46,7 +47,7 @@ const AuthProvider = ({ children }) => {
       }
 
       // Fetch specific user data from backend based on email
-      const userDataResponse = await fetch(`http://localhost:5000/users?email=${email}`);
+      const userDataResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${email}`);
       if (!userDataResponse.ok) {
         throw new Error('Failed to fetch user data from backend');
       }
@@ -85,7 +86,7 @@ const AuthProvider = ({ children }) => {
       // Check if user exists
       if (user) {
         // Send user data to backend
-        const backendResponse = await fetch('http://localhost:5000/users', {
+        const backendResponse = await fetch('https://rci-last-call-server.vercel.app/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -102,7 +103,7 @@ const AuthProvider = ({ children }) => {
         }
 
         // Fetch user data from backend based on email
-        const userDataResponse = await fetch(`http://localhost:5000/users?email=${user.email}`);
+        const userDataResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${user.email}`);
         if (!userDataResponse.ok) {
           throw new Error('Failed to fetch user data from backend');
         }
@@ -127,6 +128,7 @@ const AuthProvider = ({ children }) => {
     try {
       await firebaseSignOut(auth);
       setUser(null);
+      setBookingsData([]); // Clear bookings data on sign out
       console.log('User signed out');
     } catch (error) {
       console.error('Error signing out:', error.message);
@@ -172,6 +174,23 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // Fetch bookings data based on user's email
+  const fetchBookingsData = async (email) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`https://rci-last-call-server.vercel.app/bookings?email=${email}`);
+      if (!response.ok) {
+        throw new Error(`Error fetching bookings data: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setBookingsData(data);
+    } catch (error) {
+      console.error('Error fetching bookings data:', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Effect to listen for auth state changes
   useEffect(() => {
     fetchResortData();
@@ -182,12 +201,15 @@ const AuthProvider = ({ children }) => {
         // Fetch user data from backend based on email
         const fetchUserData = async () => {
           try {
-            const userDataResponse = await fetch(`http://localhost:5000/users?email=${currentUser.email}`);
+            const userDataResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${currentUser.email}`);
             if (!userDataResponse.ok) {
               throw new Error('Failed to fetch user data from backend');
             }
             const userData = await userDataResponse.json();
             setUser(userData); // Set user state with fetched userData
+
+            // Fetch bookings data for the current user
+            await fetchBookingsData(currentUser.email);
           } catch (error) {
             console.error('Error fetching user data:', error.message);
           } finally {
@@ -198,6 +220,7 @@ const AuthProvider = ({ children }) => {
         fetchUserData();
       } else {
         setUser(null);
+        setBookingsData([]);
         setLoading(false);
       }
     });
@@ -219,6 +242,7 @@ const AuthProvider = ({ children }) => {
     totalPages,
     currentPage,
     fetchResortData,
+    bookingsData,
   };
 
   return (
