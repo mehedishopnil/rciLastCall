@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/Images/logo.svg";
 import {
@@ -12,14 +12,16 @@ import {
   FaRegUserCircle,
   FaWpforms,
 } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa6";
-import { PiSignOutFill } from "react-icons/pi";
+import { FaRegHeart } from "react-icons/fa";
+import { PiSignOut } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
 import SearchBarMobile from "./SearchBarMobile/SearchBarMobile";
 import { MdAccountBalanceWallet } from "react-icons/md";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useContext(AuthContext);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,7 +37,6 @@ const Header = () => {
       <div className="container mx-auto hidden md:px-10 lg:flex justify-between items-center navbar">
         {/* Logo and Search Bar */}
         <div className="navbar-start flex items-center gap-5">
-          
           <Link to="/" className="z-20">
             <img src={logo} alt="Logo" className="w-12 h-12" />
           </Link>
@@ -70,10 +71,31 @@ const Header = () => {
 
         {/* User Icons */}
         <div className="navbar-end text-white flex gap-5 items-center">
-          <IoMdNotificationsOutline className="text-3xl" />
-          <Link to="/profile">
-            <FaUserCircle className="text-3xl" />
-          </Link>
+          {user ? (
+            <>
+              <IoMdNotificationsOutline className="text-3xl" />
+              <Link to="/profile">
+                <FaUserCircle className="text-3xl" />
+              </Link>
+              <div>
+                <button
+                  onClick={signOut}
+                  className="bg-white text-gray-700 rounded px-3 py-1"
+                >
+                  Logout
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="bg-white text-gray-700 rounded px-3 py-1">
+                Login
+              </Link>
+              <Link to="/registration" className="bg-white text-gray-700 rounded px-3 py-1">
+                Registration
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
@@ -94,7 +116,33 @@ const Header = () => {
           </div>
 
           {/* Mobile Dropdown */}
-          <div className="dropdown relative">
+          <div className="flex dropdown relative">
+            <div className="flex gap-4">
+              {user ? (
+                <>
+                  <FaRegUserCircle className="text-3xl text-white" />
+                  <PiSignOut
+                    onClick={signOut}
+                    className="text-3xl cursor-pointer text-white"
+                  />
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="text-white border rounded px-2 py-1 hover:bg-white hover:text-gray-500"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/registration"
+                    className="text-white border rounded px-2 py-1 hover:bg-white hover:text-gray-500"
+                  >
+                    SignUp
+                  </Link>
+                </>
+              )}
+            </div>
             <div
               tabIndex={0}
               role="button"
@@ -155,38 +203,35 @@ const Header = () => {
                         </div>
                       </li>
                     </Link>
-
                   </div>
 
                   <div className="flex justify-center">
                     <span className="w-11/12 h-[1px] bg-slate-400"></span>
                   </div>
 
-                {/* Another Part */}
                   <div>
-                  <Link to="/dashboard/overview" onClick={closeMenu}>
+                    <Link to="/dashboard/overview" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
                         <div className="">
                           <FaWpforms className="text-2xl" />
                           <a>Dashboard</a>
                         </div>
                       </li>
-                    </Link> 
+                    </Link>
 
                     <Link to="/" onClick={closeMenu}>
-                    <li className="flex font-regular text-gray-600">
-                      <div className="">
-                        <IoMdNotificationsOutline className="text-3xl" />
-                        <a>Notifications</a>
-                      </div>
-                    </li>
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <IoMdNotificationsOutline className="text-3xl" />
+                          <a>Notifications</a>
+                        </div>
+                      </li>
                     </Link>
 
                     <Link to="/myAccount" onClick={closeMenu}>
                       <li className="flex font-regular text-gray-600">
                         <div className="">
-                          
-                          <MdAccountBalanceWallet className="text-2xl"/>
+                          <MdAccountBalanceWallet className="text-2xl" />
                           <a>My Account</a>
                         </div>
                       </li>
@@ -217,7 +262,7 @@ const Header = () => {
 
                     <li className="flex font-regular text-gray-600">
                       <div className="">
-                        <PiSignOutFill className="text-2xl" />
+                        <PiSignOut className="text-2xl" />
                         <a>Sign Out</a>
                       </div>
                     </li>

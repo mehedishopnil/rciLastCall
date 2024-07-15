@@ -13,6 +13,8 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import Dashboard from "../layout/Dashboard";
 import Overview from "../pages/Overview/Overview";
 import Checkout from "../pages/Checkout/Checkout";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/SingUp/SingUp";
 
  export  const router = createBrowserRouter([
     {
@@ -51,6 +53,14 @@ import Checkout from "../pages/Checkout/Checkout";
         {
           path: 'checkout',
           element: <Checkout/>
+        },
+        {
+          path: 'login',
+          element: <Login/>
+        },
+        {
+          path: 'signup',
+          element: <SignUp/>
         }
       ],
     },
