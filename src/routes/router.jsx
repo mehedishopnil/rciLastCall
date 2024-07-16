@@ -17,6 +17,7 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/SingUp/SingUp";
 import Payment from "../pages/Payment/Payment";
 import SingleAvailableUnit from "../components/SingleResortPage/FilterContent/FilteredComponent/SingleAvailableUnit";
+import AvailableBooking from "../components/SingleResortPage/FilterContent/FilteredComponent/AvailableBooking";
 
  export  const router = createBrowserRouter([
     {
@@ -71,6 +72,10 @@ import SingleAvailableUnit from "../components/SingleResortPage/FilterContent/Fi
         {
           path: 'single-available-unit',
           element: <SingleAvailableUnit/>
+        },
+        {
+          path: 'available-booking',
+          element: <AvailableBooking/>
         }
       ],
     },

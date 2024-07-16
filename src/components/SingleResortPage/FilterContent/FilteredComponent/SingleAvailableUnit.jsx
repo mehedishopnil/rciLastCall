@@ -4,14 +4,16 @@ import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css"; // Main style file
 import "react-date-range/dist/theme/default.css"; // Theme CSS file
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
-const SingleAvailableUnit = () => {
+const SingleAvailableUnit = ({currentResort}) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: addDays(new Date(), 6),
     key: "selection",
   });
+  const navigate = useNavigate();
 
   const handleSelect = (ranges) => {
     const { selection } = ranges;
@@ -30,10 +32,23 @@ const SingleAvailableUnit = () => {
     setIsCalendarOpen(false);
   };
 
+  const handleShowUnits = () => {
+    navigate("/available-booking",{ state: { resort: currentResort } }); 
+  };
+
+  const handleClearDate = () => {
+    setSelectionRange({
+      startDate: new Date(),
+      endDate: addDays(new Date(), 6),
+      key: "selection",
+    });
+    setIsCalendarOpen(false);
+  };
+
   return (
     <div className="mt-10">
       <div className="hidden md:flex justify-center text-4xl text-white py-6 bg-[#037092]">
-        <h1>Available Units</h1>
+        <h1 className="">Available Units</h1>
       </div>
 
       <div className="md:hidden flex justify-center text-white py-6 bg-[#037092]">
@@ -120,8 +135,8 @@ const SingleAvailableUnit = () => {
       </div>
 
       {isCalendarOpen && (
-        <div className="fixed inset-0 flex flex-col justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-lg mx-auto mb-5">
+        <div className="fixed inset-0 flex flex-col justify-between bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-lg mx-auto mt-5">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold">Select Booking Dates</h2>
               <button
@@ -142,7 +157,25 @@ const SingleAvailableUnit = () => {
               months={1}
               className="w-full"
             />
+            <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-lg mx-auto mb-5">
+            <div className="flex justify-between">
+              <button
+                className="bg-blue-500 text-white py-2 px-4 rounded"
+                onClick={handleShowUnits}
+              >
+                Show Units
+              </button>
+              <button
+                className="bg-gray-500 text-white py-2 px-4 rounded"
+                onClick={handleClearDate}
+              >
+                Clear Date
+              </button>
+            </div>
           </div>
+          </div>
+
+          
         </div>
       )}
     </div>
