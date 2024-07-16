@@ -16,6 +16,7 @@ import Checkout from "../pages/Checkout/Checkout";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SingUp/SingUp";
 import Payment from "../pages/Payment/Payment";
+import SingleAvailableUnit from "../components/SingleResortPage/FilterContent/FilteredComponent/SingleAvailableUnit";
 
  export  const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ import Payment from "../pages/Payment/Payment";
         {
           path: 'payment',
           element: <Payment/>
+        },
+        {
+          path: 'single-available-unit',
+          element: <SingleAvailableUnit/>
         }
       ],
     },

@@ -7,7 +7,7 @@ const AvailableUnits = ({ currentResort }) => {
   const navigate = useNavigate();
 
   const handleAddToCheckout = () => {
-    navigate("/checkout", { state: { resort: currentResort } });
+    navigate("/single-available-unit", { state: { resort: currentResort } });
   };
 
   return (
