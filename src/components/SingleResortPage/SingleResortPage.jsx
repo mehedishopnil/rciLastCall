@@ -82,10 +82,6 @@ const SingleResortPage = () => {
     e.target.onmousemove = null;
   };
 
-  const handleAddToCheckout = () => {
-    navigate("/checkout", { state: { resort: currentResort } });
-  };
-
   if (!currentResort) {
     return (
       <div>
@@ -187,11 +183,6 @@ const SingleResortPage = () => {
 
         <FilterContent currentResort={currentResort} />
 
-        <div className="flex justify-center gap-5">
-          <button onClick={handleAddToCheckout} className="border-2 border-[#21509642] rounded bg-[#c8ebff] hover:bg-[#7bceff] font-bold p-3">
-            Add to Checkout
-          </button>
-        </div>
       </div>
     </div>
   );

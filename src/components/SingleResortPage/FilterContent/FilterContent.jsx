@@ -16,7 +16,8 @@ const FilterContent = ({ currentResort }) => {
     place_name,
     location,
     reviews_amount,
-    rating
+    rating,
+    resort_ID
   } = currentResort;
 
   // State to track the active menu
@@ -32,7 +33,9 @@ const FilterContent = ({ currentResort }) => {
 
   // Demo content for each menu
   const menuContent = {
-    "Available Units": <AvailableUnits available_amount={available_amount} />,
+    "Available Units": <AvailableUnits 
+    currentResort = {currentResort}
+     />,
 
     // "All-inclusive info": <AllInclusiveInfo />,
 
@@ -85,6 +88,9 @@ const FilterContent = ({ currentResort }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+
+  
 
   return (
     <div className="overflow-x-hidden">
