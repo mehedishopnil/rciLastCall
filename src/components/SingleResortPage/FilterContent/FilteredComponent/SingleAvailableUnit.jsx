@@ -88,7 +88,7 @@ const SingleAvailableUnit = () => {
         </div>
       </div>
 
-      <div className="flex justify-center my-10">
+      {/* <div className="flex justify-center my-10">
         <div className="w-10/12 flex flex-col items-center border-[1px] p-2 rounded shadow-md">
           <h1>ADDITIONAL FEES DUE AT CHECK-IN</h1>
           <div className="divider"></div>
@@ -112,7 +112,7 @@ const SingleAvailableUnit = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="divider"></div>
 
