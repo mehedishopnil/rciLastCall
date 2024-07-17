@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css"; // Main style file
 import "react-date-range/dist/theme/default.css"; // Theme CSS file
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
 
-const SingleAvailableUnit = ({currentResort}) => {
+
+const SingleAvailableUnit = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: addDays(new Date(), 6),
     key: "selection",
   });
+  const [selectedUnit, setSelectedUnit] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { currentResort } = location.state || {};
+
+  console.log(currentResort)
 
   const handleSelect = (ranges) => {
     const { selection } = ranges;
@@ -24,7 +30,8 @@ const SingleAvailableUnit = ({currentResort}) => {
     });
   };
 
-  const handleDateButtonClick = () => {
+  const handleDateButtonClick = (unitType) => {
+    setSelectedUnit(unitType);
     setIsCalendarOpen(true);
   };
 
@@ -33,7 +40,14 @@ const SingleAvailableUnit = ({currentResort}) => {
   };
 
   const handleShowUnits = () => {
-    navigate("/available-booking",{ state: { resort: currentResort } }); 
+    navigate("/available-booking", {
+      state: { 
+        resort: currentResort,
+        startDate: selectionRange.startDate,
+        endDate: selectionRange.endDate,
+        unitType: selectedUnit,
+      },
+    });
   };
 
   const handleClearDate = () => {
@@ -44,6 +58,7 @@ const SingleAvailableUnit = ({currentResort}) => {
     });
     setIsCalendarOpen(false);
   };
+
 
   return (
     <div className="mt-10">
@@ -56,7 +71,7 @@ const SingleAvailableUnit = ({currentResort}) => {
           <h1>TRAVEL DATES</h1>
           <button
             className="flex items-center text-2xl font-semibold"
-            onClick={handleDateButtonClick}
+            onClick={() => handleDateButtonClick('studio')}
           >
             Select check-in <IoIosArrowDown />
           </button>
@@ -107,7 +122,7 @@ const SingleAvailableUnit = ({currentResort}) => {
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">Studio</h1>
           <button
             className="mt-5 border-2 py-2 px-20 font-semibold text-[#0370ad] border-[#0370ad] rounded"
-            onClick={handleDateButtonClick}
+            onClick={() => handleDateButtonClick('studio')}
           >
             Select Date
           </button>
@@ -117,7 +132,7 @@ const SingleAvailableUnit = ({currentResort}) => {
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">1 bedroom</h1>
           <button
             className="mt-5 border-2 py-2 px-20 font-semibold text-[#0370ad] border-[#0370ad] rounded"
-            onClick={handleDateButtonClick}
+            onClick={() => handleDateButtonClick('1 bedroom')}
           >
             Select Date
           </button>
@@ -127,7 +142,7 @@ const SingleAvailableUnit = ({currentResort}) => {
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">2 bedroom</h1>
           <button
             className="mt-5 border-2 py-2 px-20 font-semibold text-[#0370ad] border-[#0370ad] rounded"
-            onClick={handleDateButtonClick}
+            onClick={() => handleDateButtonClick('2 bedroom')}
           >
             Select Date
           </button>
@@ -158,24 +173,22 @@ const SingleAvailableUnit = ({currentResort}) => {
               className="w-full"
             />
             <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-lg mx-auto mb-5">
-            <div className="flex justify-between">
-              <button
-                className="bg-blue-500 text-white py-2 px-4 rounded"
-                onClick={handleShowUnits}
-              >
-                Show Units
-              </button>
-              <button
-                className="bg-gray-500 text-white py-2 px-4 rounded"
-                onClick={handleClearDate}
-              >
-                Clear Date
-              </button>
+              <div className="flex justify-between">
+                <button
+                  className="bg-blue-500 text-white py-2 px-4 rounded"
+                  onClick={handleShowUnits}
+                >
+                  Show Units
+                </button>
+                <button
+                  className="bg-gray-500 text-white py-2 px-4 rounded"
+                  onClick={handleClearDate}
+                >
+                  Clear Date
+                </button>
+              </div>
             </div>
           </div>
-          </div>
-
-          
         </div>
       )}
     </div>

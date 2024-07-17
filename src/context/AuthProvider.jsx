@@ -21,7 +21,6 @@ const AuthProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [bookingsData, setBookingsData] = useState([]);
-
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
 
@@ -242,8 +241,9 @@ const AuthProvider = ({ children }) => {
     totalPages,
     currentPage,
     fetchResortData,
-    bookingsData,
+    bookingsData
   };
+  
 
   return (
     <AuthContext.Provider value={authInfo}>

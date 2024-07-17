@@ -1,14 +1,10 @@
-
 import { GrAnnounce } from "react-icons/gr";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AvailableUnits = ({ currentResort }) => {
   const { location, place_name, resort_ID } = currentResort;
-  const navigate = useNavigate();
 
-  const handleAddToCheckout = () => {
-    navigate("/single-available-unit", { state: { resort: currentResort } });
-  };
+  
 
   return (
     <div>
@@ -18,7 +14,10 @@ const AvailableUnits = ({ currentResort }) => {
       </p>
 
       <div className="border-[1px] rounded my-10 py-5 shadow-gray-200 shadow-md">
-        <Link onClick={handleAddToCheckout} className="">
+        <Link to={{
+          pathname: "/single-available-unit",
+          state: { currentResort }
+        }}>
           <h1>
             <span className="bg-[#037092] text-white py-2 px-4 rounded-r-full">Rental</span>
           </h1>
