@@ -70,8 +70,8 @@ import AvailableBooking from "../components/SingleResortPage/FilterContent/Filte
           element: <Payment/>
         },
         {
-          path: 'single-available-unit',
-          element: <SingleAvailableUnit/>
+          path: "single-available-unit",
+          element: <SingleAvailableUnit />,
         },
         {
           path: 'available-booking',

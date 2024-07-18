@@ -1,13 +1,15 @@
-import  { useState } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";
-import "react-date-range/dist/styles.css"; // Main style file
-import "react-date-range/dist/theme/default.css"; // Theme CSS file
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
-
+import { IoIosArrowDown } from "react-icons/io";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 const SingleAvailableUnit = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [currentResort, setCurrentResort] = useState(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
@@ -15,11 +17,16 @@ const SingleAvailableUnit = () => {
     key: "selection",
   });
   const [selectedUnit, setSelectedUnit] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { currentResort } = location.state || {};
 
-  console.log(currentResort)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const data = params.get("data");
+    if (data) {
+      setCurrentResort(JSON.parse(decodeURIComponent(data)));
+    }
+  }, [location.search]);
+
+  console.log("SingleAvailableUnit - currentResort:", currentResort);
 
   const handleSelect = (ranges) => {
     const { selection } = ranges;
@@ -40,8 +47,8 @@ const SingleAvailableUnit = () => {
   };
 
   const handleShowUnits = () => {
-    navigate("/available-booking", {
-      state: { 
+    navigate(`/available-booking`, {
+      state: {
         resort: currentResort,
         startDate: selectionRange.startDate,
         endDate: selectionRange.endDate,
@@ -59,11 +66,10 @@ const SingleAvailableUnit = () => {
     setIsCalendarOpen(false);
   };
 
-
   return (
     <div className="mt-10">
       <div className="hidden md:flex justify-center text-4xl text-white py-6 bg-[#037092]">
-        <h1 className="">Available Units</h1>
+        <h1>Available Units</h1>
       </div>
 
       <div className="md:hidden flex justify-center text-white py-6 bg-[#037092]">
@@ -71,7 +77,7 @@ const SingleAvailableUnit = () => {
           <h1>TRAVEL DATES</h1>
           <button
             className="flex items-center text-2xl font-semibold"
-            onClick={() => handleDateButtonClick('studio')}
+            onClick={() => handleDateButtonClick("studio")}
           >
             Select check-in <IoIosArrowDown />
           </button>
@@ -88,32 +94,6 @@ const SingleAvailableUnit = () => {
         </div>
       </div>
 
-      {/* <div className="flex justify-center my-10">
-        <div className="w-10/12 flex flex-col items-center border-[1px] p-2 rounded shadow-md">
-          <h1>ADDITIONAL FEES DUE AT CHECK-IN</h1>
-          <div className="divider"></div>
-          <div className="px-2">
-            <h1 className="text-left font-semibold">Mandatory Fees</h1>
-            <p>
-              Mandatory Security deposit is 300.00 U.S. dollars, . Only Credit
-              Cards accepted.Mandatory Amenities fee is 10.00 U.S. dollars, .
-              Cash or Credit is accepted.
-            </p>
-
-            <h1 className="text-left font-semibold pt-2">Housekeeping Fees</h1>
-            <p>
-              "Housekeeping fee for all RCI Points reservations: There may be a
-              fee of 47.69 U.S. dollars for Hotel, per stay. Cash or Credit is
-              accepted.""Housekeeping fee for all RCI Points reservations: There
-              may be a fee of 67.00 U.S. dollars for 1 Bedroom units, per stay.
-              Cash or Credit is accepted.""Housekeeping fee for all RCI Points
-              reservations: There may be a fee of 111.35 U.S. dollars for 2
-              Bedroom units, per stay. Cash or Credit is accepted."
-            </p>
-          </div>
-        </div>
-      </div> */}
-
       <div className="divider"></div>
 
       <div>
@@ -122,7 +102,7 @@ const SingleAvailableUnit = () => {
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">Studio</h1>
           <button
             className="mt-5 border-2 py-2 px-20 font-semibold text-[#0370ad] border-[#0370ad] rounded"
-            onClick={() => handleDateButtonClick('studio')}
+            onClick={() => handleDateButtonClick("studio")}
           >
             Select Date
           </button>
@@ -132,7 +112,7 @@ const SingleAvailableUnit = () => {
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">1 bedroom</h1>
           <button
             className="mt-5 border-2 py-2 px-20 font-semibold text-[#0370ad] border-[#0370ad] rounded"
-            onClick={() => handleDateButtonClick('1 bedroom')}
+            onClick={() => handleDateButtonClick("1 bedroom")}
           >
             Select Date
           </button>
@@ -142,7 +122,7 @@ const SingleAvailableUnit = () => {
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">2 bedroom</h1>
           <button
             className="mt-5 border-2 py-2 px-20 font-semibold text-[#0370ad] border-[#0370ad] rounded"
-            onClick={() => handleDateButtonClick('2 bedroom')}
+            onClick={() => handleDateButtonClick("2 bedroom")}
           >
             Select Date
           </button>
