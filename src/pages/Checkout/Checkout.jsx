@@ -8,18 +8,23 @@ const Checkout = () => {
   if (!resort) {
     return <div>Error: No booking information provided.</div>;
   }
+  
+  const { img, place_name, location: resortLocation, resort_ID } = resort;
+  const {bath,kitchen,privacy_room_amount,sleeps_room, studio_bath,studio_kitchen,studio_privacy_room_amount} = resort.room_details;
 
   return (
     <div className="p-4">
       <h1 className="text-center text-2xl font-semibold">Checkout</h1>
-      <div className="flex flex-col space-y-2 justify-center items-center p-4 shadow-lg">
-        <h2>{resort}</h2>
-        <h2 className="text-3xl text-[#0370ad]">{unitType}</h2>
-        <h2>
-          <span className="text-3xl">{price}</span> USD
-        </h2>
-        <h2>Start Date: {new Date(startDate).toLocaleDateString()}</h2>
-        <h2>End Date: {new Date(endDate).toLocaleDateString()}</h2>
+      <div className="divider"></div>
+      <div className="grid grid-cols-3 gap-4 space-y-2 p-4 shadow-lg">
+        <img src={img} alt={place_name} className="col-span-1" />
+        <div className="col-span-2">
+          <h1 className="font-bold">{place_name}</h1>
+          <p>Resort ID: {resort_ID}</p>
+          <p>Travel Dates: {new Date(startDate).toLocaleDateString()} - {new Date(endDate).toLocaleDateString()}</p>
+          <p>Unit Type: {unitType}</p>
+          <p>Price: ${price} USD</p>
+        </div>
       </div>
     </div>
   );

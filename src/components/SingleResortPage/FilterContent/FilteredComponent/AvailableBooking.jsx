@@ -4,11 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const AvailableBooking = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { resort, startDate, endDate, unitType } = location.state || {};
-
-  if (!resort) {
-    return <div>Loading...</div>;
-  }
+  const { resort, startDate, endDate, unitType } = location.state;
 
   const getPrice = (unitType) => {
     switch (unitType) {
@@ -39,8 +35,7 @@ const AvailableBooking = () => {
     <div className='p-4'>
       <h1 className='text-center text-2xl font-semibold'>Available Unit</h1>
       <div className='flex flex-col space-y-2 justify-center items-center p-4 shadow-lg'>
-        <h2>Resort: {resort.place_name}</h2>
-        <h2>Location: {resort.location}</h2>
+        <h2>{resort.place_name}</h2>
         <h2 className='text-3xl text-[#0370ad]'>{unitType}</h2>
         <h2><span className='text-3xl'>{getPrice(unitType)}</span> USD</h2>
         <h2>Start Date: {new Date(startDate).toLocaleDateString()}</h2>

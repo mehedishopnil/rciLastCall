@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";
 import { IoIosArrowDown } from "react-icons/io";
@@ -7,9 +7,6 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 const SingleAvailableUnit = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [currentResort, setCurrentResort] = useState(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
@@ -17,15 +14,13 @@ const SingleAvailableUnit = () => {
     key: "selection",
   });
   const [selectedUnit, setSelectedUnit] = useState(null);
+  const navigate = useNavigate()
+  const currentResort = JSON.parse(localStorage.getItem('currentResort'));
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const data = params.get("data");
-    if (data) {
-      setCurrentResort(JSON.parse(decodeURIComponent(data)));
-    }
-  }, [location.search]);
-
+  // Ensure currentResort is not null before using it
+  if (!currentResort) {
+    return <div>Error: No resort data found.</div>;
+  }
   console.log("SingleAvailableUnit - currentResort:", currentResort);
 
   const handleSelect = (ranges) => {
@@ -47,7 +42,12 @@ const SingleAvailableUnit = () => {
   };
 
   const handleShowUnits = () => {
-    navigate(`/available-booking`, {
+    if (!currentResort) {
+      console.error("Error: No currentResort data available.");
+      return;
+    }
+
+    navigate("/available-booking", {
       state: {
         resort: currentResort,
         startDate: selectionRange.startDate,
@@ -65,6 +65,7 @@ const SingleAvailableUnit = () => {
     });
     setIsCalendarOpen(false);
   };
+
 
   return (
     <div className="mt-10">
