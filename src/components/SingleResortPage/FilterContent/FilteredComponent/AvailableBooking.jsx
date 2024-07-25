@@ -37,7 +37,7 @@ const AvailableBooking = () => {
       <div className='flex flex-col space-y-2 justify-center items-center p-4 shadow-lg'>
         <h2>{resort.place_name}</h2>
         <h2 className='text-3xl text-[#0370ad]'>{unitType}</h2>
-        <h2><span className='text-3xl'>{getPrice(unitType)}</span> USD</h2>
+        <h2><span className='text-3xl'>${getPrice(unitType)}</span> USD + tax</h2>
         <h2>Start Date: {new Date(startDate).toLocaleDateString()}</h2>
         <h2>End Date: {new Date(endDate).toLocaleDateString()}</h2>
         
