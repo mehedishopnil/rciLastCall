@@ -40,7 +40,7 @@ const Checkout = () => {
   // Function to handle the continue button click
   const handleContinue = () => {
     if (selectedOption) {
-      navigate("/payment-method", {
+      navigate("/payment", {
         state: {
           resort,
           startDate,
