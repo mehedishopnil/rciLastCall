@@ -24,6 +24,8 @@ const Payment = () => {
   });
   const [loading, setLoading] = useState(false);
 
+  const {email} = user;
+
   const handleCardNumberChange = (e) => setCardNumber(e.target.value);
   const handleExpiryDateChange = (e) => setExpiryDate(e.target.value);
   const handleCvvChange = (e) => setCvv(e.target.value);
@@ -37,6 +39,7 @@ const Payment = () => {
     setLoading(true);
 
     const paymentInfo = {
+      email,
       cardNumber,
       expiryDate,
       cvv,
