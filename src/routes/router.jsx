@@ -18,6 +18,7 @@ import SignUp from "../pages/SingUp/SingUp";
 import Payment from "../pages/Payment/Payment";
 import SingleAvailableUnit from "../components/SingleResortPage/FilterContent/FilteredComponent/SingleAvailableUnit";
 import AvailableBooking from "../components/SingleResortPage/FilterContent/FilteredComponent/AvailableBooking";
+import PaymentConfirmation from "../pages/PaymentConfirmation/PaymentConfirmation";
 
  export  const router = createBrowserRouter([
     {
@@ -68,6 +69,10 @@ import AvailableBooking from "../components/SingleResortPage/FilterContent/Filte
         {
           path: 'payment',
           element: <Payment/>
+        },
+        {
+          path: 'payment-confirmation',
+          element: <PaymentConfirmation/>
         },
         {
           path: "single-available-unit",

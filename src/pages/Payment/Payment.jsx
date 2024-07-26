@@ -46,9 +46,10 @@ const Payment = () => {
       billingInfo,
       price,
     };
+    console.log(paymentInfo)
 
     try {
-      const response = await fetch("/payment-info", {
+      const response = await fetch("https://rci-last-call-server.vercel.app/payment-info", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +60,7 @@ const Payment = () => {
       if (response.ok) {
         setLoading(false);
         alert("Payment confirmed!");
-        navigate("/confirmation");
+        navigate("/payment-confirmation");
       } else {
         setLoading(false);
         alert("Payment failed. Please try again.");
