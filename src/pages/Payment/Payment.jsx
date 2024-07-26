@@ -1,43 +1,82 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthProvider';
+import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Payment = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  const { duration, roomType, totalPrice } = location.state || {};
+  const { price } = location.state || {};
 
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [billingInfo, setBillingInfo] = useState({
+    firstName: "",
+    lastName: "",
+    address1: "",
+    address2: "",
+    country: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    phoneNumber: "",
+  });
   const [loading, setLoading] = useState(false);
 
   const handleCardNumberChange = (e) => setCardNumber(e.target.value);
   const handleExpiryDateChange = (e) => setExpiryDate(e.target.value);
   const handleCvvChange = (e) => setCvv(e.target.value);
+  const handleBillingInfoChange = (e) => {
+    const { name, value } = e.target;
+    setBillingInfo({ ...billingInfo, [name]: value });
+  };
 
-  const handlePayment = async (e) => {
+  const handleContinue = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Here you would integrate with a payment processor like Stripe
-    // For this example, we'll just simulate a payment success
-    setTimeout(() => {
+    const paymentInfo = {
+      cardNumber,
+      expiryDate,
+      cvv,
+      billingInfo,
+      price,
+    };
+
+    try {
+      const response = await fetch("/payment-info", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(paymentInfo),
+      });
+
+      if (response.ok) {
+        setLoading(false);
+        alert("Payment confirmed!");
+        navigate("/confirmation");
+      } else {
+        setLoading(false);
+        alert("Payment failed. Please try again.");
+      }
+    } catch (error) {
       setLoading(false);
-      alert(`Payment of $${totalPrice} confirmed for ${duration} days in a ${roomType} room.`);
-      navigate('/confirmation');
-    }, 2000);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-4">Confirm Your Payment</h1>
-      
+
       {user ? (
-        <form onSubmit={handlePayment} className="mt-4">
+        <form onSubmit={handleContinue} className="mt-4">
           <div className="mb-4">
-            <label htmlFor="cardNumber" className="block text-lg font-medium">Card Number:</label>
+            <label htmlFor="cardNumber" className="block text-lg font-medium">
+              Card Number:
+            </label>
             <input
               type="text"
               id="cardNumber"
@@ -47,9 +86,11 @@ const Payment = () => {
               required
             />
           </div>
-          
+
           <div className="mb-4">
-            <label htmlFor="expiryDate" className="block text-lg font-medium">Expiry Date:</label>
+            <label htmlFor="expiryDate" className="block text-lg font-medium">
+              Expiry Date:
+            </label>
             <input
               type="text"
               id="expiryDate"
@@ -60,9 +101,11 @@ const Payment = () => {
               required
             />
           </div>
-          
+
           <div className="mb-4">
-            <label htmlFor="cvv" className="block text-lg font-medium">CVV:</label>
+            <label htmlFor="cvv" className="block text-lg font-medium">
+              CVV:
+            </label>
             <input
               type="text"
               id="cvv"
@@ -72,18 +115,113 @@ const Payment = () => {
               required
             />
           </div>
-          
+
           <div className="mb-4">
-            <h3 className="text-lg font-semibold">Total Price: ${totalPrice}</h3>
+            <h3 className="text-lg font-semibold">Billing Information</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={billingInfo.firstName}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={billingInfo.lastName}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="text"
+                name="address1"
+                placeholder="Address Line 1"
+                value={billingInfo.address1}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="text"
+                name="address2"
+                placeholder="Address Line 2 (Optional)"
+                value={billingInfo.address2}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+              />
+              <input
+                type="text"
+                name="country"
+                placeholder="Country"
+                value={billingInfo.country}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={billingInfo.city}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="text"
+                name="state"
+                placeholder="State"
+                value={billingInfo.state}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="text"
+                name="postalCode"
+                placeholder="Postal Code"
+                value={billingInfo.postalCode}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="text"
+                name="phoneNumber"
+                placeholder="Phone Number"
+                value={billingInfo.phoneNumber}
+                onChange={handleBillingInfoChange}
+                className="mt-1 block w-full p-2 border rounded"
+                required
+              />
+            </div>
           </div>
-          
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
-            disabled={loading}
-          >
-            {loading ? 'Processing...' : 'Confirm Payment'}
-          </button>
+
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold">Total Price: USD {price}</h3>
+          </div>
+
+          <div className="md:grid grid-cols-2 items-center justify-between px-4 py-4 h-auto z-50 sticky bottom-0 bg-slate-100">
+            <div className="flex justify-between font-semibold py-2 gap-10 row-span-1">
+              <h1>View RCI Charges</h1>
+              <h1>USD {price}</h1>
+            </div>
+
+            <div className="flex w-full row-span-1">
+              <button
+                type="submit"
+                className="w-full py-2 rounded font-bold bg-yellow-400"
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Continue"}
+              </button>
+            </div>
+          </div>
         </form>
       ) : (
         <p className="text-center text-red-500">You must be logged in to make a payment.</p>
