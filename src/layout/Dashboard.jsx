@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate, Outlet } from "react-router-dom";
 import { Transition } from "@headlessui/react";
 import { HiOutlineHomeModern } from "react-icons/hi2";
@@ -6,10 +6,15 @@ import { BsFillMenuButtonWideFill } from "react-icons/bs";
 import { FaHome, FaWpforms } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import logo from "../assets/Images/logo.svg";
+import { AuthContext } from "../context/AuthProvider";
 
 const Dashboard = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  
+
+
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
