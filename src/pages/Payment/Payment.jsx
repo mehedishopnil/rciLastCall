@@ -52,7 +52,6 @@ const Payment = () => {
       billingInfo: guestInfo ? { isGuest: true, ...guestInfo } : billingInfo,
     };
 
-    console.log(resort);
 
     try {
       const response = await fetch(

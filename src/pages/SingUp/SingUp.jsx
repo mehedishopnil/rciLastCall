@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/AuthProvider';
 
 const SignUp = () => {
   const [isRegistered, setIsRegistered] = useState(false);
+  const [membership, setMembership] = useState(''); // State for membership selection
   const location = useLocation();
   const navigate = useNavigate();
   const { createUser, googleLogin } = useContext(AuthContext);
@@ -18,8 +19,9 @@ const SignUp = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    const membership = form.membership.value; // Retrieve membership value
 
-    createUser(name, email, password)
+    createUser(name,membership, email, password)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
@@ -137,6 +139,24 @@ const SignUp = () => {
                   className="input input-bordered"
                   required
                 />
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Membership</span>
+                </label>
+                <select
+                  name="membership"
+                  className="select select-bordered"
+                  value={membership}
+                  onChange={(e) => setMembership(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Select membership
+                  </option>
+                  <option value="Member">Wyndham Member</option>
+                </select>
               </div>
 
               <div className="form-control mt-6">

@@ -13,7 +13,6 @@ const Overview = () => {
     ); // or any loading indicator you prefer
   }
 
-  console.log(bookingsData);
   const { name, email, photoURL } = user;
 
   // Ensure bookingsData is an array
