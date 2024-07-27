@@ -6,7 +6,7 @@ const Payment = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  const { price } = location.state || {};
+  const { price, guestInfo, isGuest } = location.state || {};
 
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -24,7 +24,7 @@ const Payment = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const {email} = user;
+  const { email } = user;
 
   const handleCardNumberChange = (e) => setCardNumber(e.target.value);
   const handleExpiryDateChange = (e) => setExpiryDate(e.target.value);
@@ -43,10 +43,11 @@ const Payment = () => {
       cardNumber,
       expiryDate,
       cvv,
-      billingInfo,
       price,
+      ...(guestInfo ? { isGuest: true, guestInfo } : { billingInfo }),
     };
-    console.log(paymentInfo)
+
+    console.log(paymentInfo);
 
     try {
       const response = await fetch("https://rci-last-call-server.vercel.app/payment-info", {
@@ -120,91 +121,93 @@ const Payment = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Billing Information</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={billingInfo.firstName}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={billingInfo.lastName}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="address1"
-                placeholder="Address Line 1"
-                value={billingInfo.address1}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="address2"
-                placeholder="Address Line 2 (Optional)"
-                value={billingInfo.address2}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-              />
-              <input
-                type="text"
-                name="country"
-                placeholder="Country"
-                value={billingInfo.country}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="city"
-                placeholder="City"
-                value={billingInfo.city}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="state"
-                placeholder="State"
-                value={billingInfo.state}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="postalCode"
-                placeholder="Postal Code"
-                value={billingInfo.postalCode}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="phoneNumber"
-                placeholder="Phone Number"
-                value={billingInfo.phoneNumber}
-                onChange={handleBillingInfoChange}
-                className="mt-1 block w-full p-2 border rounded"
-                required
-              />
+          {!guestInfo && (
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold">Billing Information</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={billingInfo.firstName}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={billingInfo.lastName}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  name="address1"
+                  placeholder="Address Line 1"
+                  value={billingInfo.address1}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  name="address2"
+                  placeholder="Address Line 2 (Optional)"
+                  value={billingInfo.address2}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  name="country"
+                  placeholder="Country"
+                  value={billingInfo.country}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={billingInfo.city}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  name="state"
+                  placeholder="State"
+                  value={billingInfo.state}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  name="postalCode"
+                  placeholder="Postal Code"
+                  value={billingInfo.postalCode}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  value={billingInfo.phoneNumber}
+                  onChange={handleBillingInfoChange}
+                  className="mt-1 block w-full p-2 border rounded"
+                  required
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="mb-4">
             <h3 className="text-lg font-semibold">Total Price: USD {price}</h3>

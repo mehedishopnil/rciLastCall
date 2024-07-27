@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { FaBed, FaUserTie, FaCheckCircle } from "react-icons/fa";
 import { MdBathtub, MdKitchen, MdMeetingRoom } from "react-icons/md";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import GuestInfo from "./guestInfo";
 
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { resort, startDate, endDate, unitType, price } = location.state || {};
   const [selectedOption, setSelectedOption] = useState(null);
+  const [guestInfo, setGuestInfo] = useState(null);
 
   if (!resort) {
     return <div>Error: No booking information provided.</div>;
@@ -40,15 +42,24 @@ const Checkout = () => {
   // Function to handle the continue button click
   const handleContinue = () => {
     if (selectedOption) {
+      if (selectedOption === "A Guest" && !guestInfo) {
+        alert("Please fill out the guest information before continuing.");
+        return;
+      }
+
+      // Prepare the data to send to the payment route
+      const bookingData = {
+        resort,
+        startDate,
+        endDate,
+        unitType,
+        price,
+        isGuest: selectedOption === "A Guest" ? "True" : "False",
+        guestInfo: selectedOption === "A Guest" ? guestInfo : null,
+      };
+
       navigate("/payment", {
-        state: {
-          resort,
-          startDate,
-          endDate,
-          unitType,
-          price,
-          selectedOption,
-        },
+        state: bookingData,
       });
     } else {
       alert("Please select an option before continuing.");
@@ -124,8 +135,11 @@ const Checkout = () => {
               <FaUserTie className="text-6xl" />
               <h1 className="font-semibold pt-2">A Guest</h1>
               {selectedOption === "A Guest" && <FaCheckCircle className="text-green-500 mt-2" />}
+              {/* When user will select a guest then this form will show below of the options */}
+              
             </div>
           </div>
+          {selectedOption === "A Guest" && <GuestInfo onGuestInfoChange={setGuestInfo} />}
           <div className="p-6">
             <p>
               If you have selected RCI Member, that individual must check-in for
