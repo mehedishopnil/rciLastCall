@@ -37,18 +37,18 @@ const Payment = () => {
   const handleContinue = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     const paymentInfo = {
       email,
       cardNumber,
       expiryDate,
       cvv,
       price,
-      ...(guestInfo ? { isGuest: true, guestInfo } : { billingInfo }),
+      billingInfo: guestInfo ? { isGuest: true, ...guestInfo } : billingInfo,
     };
-
+  
     console.log(paymentInfo);
-
+  
     try {
       const response = await fetch("https://rci-last-call-server.vercel.app/payment-info", {
         method: "POST",
@@ -57,7 +57,7 @@ const Payment = () => {
         },
         body: JSON.stringify(paymentInfo),
       });
-
+  
       if (response.ok) {
         setLoading(false);
         alert("Payment confirmed!");
@@ -71,6 +71,7 @@ const Payment = () => {
       alert("An error occurred. Please try again.");
     }
   };
+  
 
   return (
     <div className="container mx-auto p-4">

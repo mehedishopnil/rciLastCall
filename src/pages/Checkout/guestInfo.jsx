@@ -10,7 +10,7 @@ const GuestInfo = ({ onGuestInfoChange }) => {
     city: '',
     postalCode: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     workPhone: '',
     sendConfirmation: false,
     agreeTerms: false,
