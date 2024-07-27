@@ -53,7 +53,7 @@ const Checkout = () => {
         startDate,
         endDate,
         unitType,
-        price,
+        price,  
         isGuest: selectedOption === "A Guest" ? "True" : "False",
         guestInfo: selectedOption === "A Guest" ? guestInfo : null,
       };

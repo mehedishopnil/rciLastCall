@@ -21,7 +21,6 @@ const SingleAvailableUnit = () => {
   if (!currentResort) {
     return <div>Error: No resort data found.</div>;
   }
-  console.log("SingleAvailableUnit - currentResort:", currentResort);
 
   const handleSelect = (ranges) => {
     const { selection } = ranges;

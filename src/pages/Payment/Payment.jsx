@@ -6,7 +6,8 @@ const Payment = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  const { price, guestInfo, isGuest, resort } = location.state || {};
+  const { price, guestInfo, isGuest, resort, startDate, endDate, unitType } =
+    location.state || {};
 
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -37,7 +38,7 @@ const Payment = () => {
   const handleContinue = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     const bookingInfo = {
       resort,
       email,
@@ -45,20 +46,26 @@ const Payment = () => {
       expiryDate,
       cvv,
       price,
+      startDate,
+      endDate,
+      unitType,
       billingInfo: guestInfo ? { isGuest: true, ...guestInfo } : billingInfo,
     };
-  
+
     console.log(resort);
-  
+
     try {
-      const response = await fetch("https://rci-last-call-server.vercel.app/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookingInfo),
-      });
-  
+      const response = await fetch(
+        "https://rci-last-call-server.vercel.app/bookings",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bookingInfo),
+        }
+      );
+
       if (response.ok) {
         setLoading(false);
         alert("Payment confirmed!");
@@ -77,7 +84,9 @@ const Payment = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">Confirm Your Payment</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">
+        Confirm Your Payment
+      </h1>
 
       {user ? (
         <form onSubmit={handleContinue} className="mt-4">
@@ -234,7 +243,9 @@ const Payment = () => {
           </div>
         </form>
       ) : (
-        <p className="text-center text-red-500">You must be logged in to make a payment.</p>
+        <p className="text-center text-red-500">
+          You must be logged in to make a payment.
+        </p>
       )}
     </div>
   );
