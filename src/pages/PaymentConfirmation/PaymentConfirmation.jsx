@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import Loading from '../../components/Loading';
 
 const PaymentConfirmation = () => {
   const { bookingsData } = useContext(AuthContext);
@@ -12,24 +13,26 @@ const PaymentConfirmation = () => {
   const [matchingBooking, setMatchingBooking] = useState(null);
 
   useEffect(() => {
-    const bookingsArray = Array.isArray(bookingsData) ? bookingsData : [bookingsData];
-    if (bookingsArray.length > 0 && resort) {
-      // Ensure both IDs are compared as strings
+    // Check if both bookingsData and resort are available
+    if (bookingsData && resort) {
+      // Convert bookingsData to an array if it's not already
+      const bookingsArray = Array.isArray(bookingsData) ? bookingsData : [bookingsData];
+      
+      // Find the matching booking
       const foundBooking = bookingsArray.find((booking) => {
         const bookingResortId = booking.resort.resort_ID;
         const resortId = resort.resort_ID;
         return bookingResortId === resortId;
       });
 
+      // Set state with the found booking and update loading state
       setMatchingBooking(foundBooking);
-      setLoading(false);
-    } else {
-      setLoading(false);
     }
+    setLoading(false); // Ensure loading state is set to false after processing
   }, [bookingsData, resort]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   if (!resort) {
