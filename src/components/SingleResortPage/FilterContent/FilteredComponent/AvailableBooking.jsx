@@ -33,7 +33,7 @@ const AvailableBooking = () => {
 
   return (
     <div className='p-4'>
-      <h1 className='text-center text-2xl font-semibold'>Available Unit</h1>
+      <h1 className='text-center text-2xl font-semibold'>Available Unit (<span className="text-[#0370ad]">3+</span>) </h1>
       <div className='flex flex-col space-y-2 justify-center items-center p-4 shadow-lg'>
         <h2>{resort.place_name}</h2>
         <h2 className='text-3xl text-[#0370ad]'>{unitType}</h2>
