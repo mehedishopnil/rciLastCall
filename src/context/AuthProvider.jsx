@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
 
-console.log(role)
+
   //Set User Role
   const setUserRole = async (email) => {
     try {

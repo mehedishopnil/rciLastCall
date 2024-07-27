@@ -1,14 +1,29 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
 const PaymentConfirmation = () => {
-     const { paymentInfoData } = useContext(AuthContext);
-     const { cardNumber, cvv, email, price, expiryDate } = paymentInfoData;
-     const { firstName, lastName, address1, address2, country, city, state, postalCode, phoneNumber } = paymentInfoData.billingInfo || {};
-     const navigate = useNavigate();
+  const { bookingsData } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { resort } = location.state || {};
+ 
 
-  console.log(paymentInfoData.billingInfo)
+  console.log(resort)
+  // Ensure bookingsData is an array
+  if (!Array.isArray(bookingsData)) {
+    return <div>Error: Bookings data is not available.</div>;
+  }
+
+  // Find matching booking data based on resort ID
+  const matchingBooking = bookingsData.find((booking) => booking.resort && booking.resort._id === resort._id);
+
+  if (!matchingBooking) {
+    return <div>No matching booking found.</div>;
+  }
+
+  const { cardNumber, cvv, email, price, expiryDate } = matchingBooking;
+  const { firstName, lastName, address1, address2, country, city, state, postalCode, phoneNumber } = matchingBooking.billingInfo || {};
 
   return (
     <div className="container mx-auto p-4">
