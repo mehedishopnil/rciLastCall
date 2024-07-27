@@ -19,6 +19,9 @@ import Payment from "../pages/Payment/Payment";
 import SingleAvailableUnit from "../components/SingleResortPage/FilterContent/FilteredComponent/SingleAvailableUnit";
 import AvailableBooking from "../components/SingleResortPage/FilterContent/FilteredComponent/AvailableBooking";
 import PaymentConfirmation from "../pages/PaymentConfirmation/PaymentConfirmation";
+import AdminPanel from "../layout/AdminPanel/AdminPanel";
+import AdminControl from "../pages/AdminControl/AdminControl";
+import UserControl from "../pages/UserControl/UserControl";
 
  export  const router = createBrowserRouter([
     {
@@ -101,4 +104,23 @@ import PaymentConfirmation from "../pages/PaymentConfirmation/PaymentConfirmatio
          
       ]
   },
+
+  //Admin Panel Part::
+
+  {
+    path: 'admin-panel',
+    element: <AdminPanel/>,
+    children: [
+      {
+        path: 'admin-control',
+        element: <AdminControl/>
+      },
+      {
+        path: 'user-control',
+        element: <UserControl/>
+      }
+    ]
+  }
+
+
   ]);

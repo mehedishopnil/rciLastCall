@@ -70,7 +70,7 @@ const SingleAvailableUnit = () => {
   return (
     <div className="mt-10">
       <div className="hidden md:flex justify-center text-4xl text-white py-6 bg-[#037092]">
-        <h1>Available Units</h1>
+        <h1> Available Units</h1>
       </div>
 
       <div className="md:hidden flex justify-center text-white py-6 bg-[#037092]">
@@ -98,7 +98,7 @@ const SingleAvailableUnit = () => {
       <div className="divider"></div>
 
       <div>
-        <h1 className="text-center text-xl font-semibold">Available Units</h1>
+        <h1 className="text-center text-xl font-semibold"> Available Units (<span className="text-[#0370ad]">3+</span>)</h1>
         <div className="text-center mt-5 py-3 shadow-md">
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">Studio</h1>
           <button

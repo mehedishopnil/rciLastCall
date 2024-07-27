@@ -4,8 +4,7 @@ import { Transition } from "@headlessui/react";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { BsFillMenuButtonWideFill } from "react-icons/bs";
 import { FaHome, FaWpforms } from "react-icons/fa";
-import { MdDateRange } from "react-icons/md";
-import { IoMdClose } from "react-icons/io"; // Import close icon
+import { IoMdClose } from "react-icons/io";
 import logo from "../assets/Images/logo.svg";
 
 const Dashboard = () => {
@@ -33,9 +32,6 @@ const Dashboard = () => {
           </li>
           <li>
             <Link to="resort-input-form">Resort Input Form</Link>
-          </li>
-          <li>
-            <Link to="available-date-input">Available Date Input</Link>
           </li>
         </ul>
       </div>
@@ -78,11 +74,6 @@ const Dashboard = () => {
               <li>
                 <button onClick={() => handleMenuItemClick("/dashboard/resort-input-form")}>
                   <FaWpforms /> Resort Input Form
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleMenuItemClick("/dashboard/available-date-input")}>
-                  <MdDateRange /> Available Date Input
                 </button>
               </li>
               <li>

@@ -20,19 +20,7 @@ const Overview = () => {
             <FaWpforms /> Resort Input Form
             </div>
           </Link>
-
-          <h1 className="mt-5 text-base">
-            Select button to input{" "}
-            <span className="font-bold ">Available Resort Date:</span>
-          </h1>
-          <Link
-            to="/dashboard/resort-input-form"
-            
-          >
-            <div className="w-full flex justify-center items-center gap-5 border-2 rounded-lg bg-slate-100 hover:bg-slate-300 mt-2 py-2">
-              <MdDateRange /> Available Date Input
-            </div>
-          </Link>
+          
         </ul>
       </div>
     </div>

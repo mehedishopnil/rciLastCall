@@ -21,7 +21,7 @@ import { AuthContext } from "../../context/AuthProvider";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, signOut } = useContext(AuthContext);
+  const { user, signOut, role } = useContext(AuthContext);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -56,16 +56,75 @@ const Header = () => {
                 <p className="text-xl">BOOK</p>
               </Link>
             </li>
-            <li>
-              <Link to="/">
-                <p className="text-xl">TRIPS</p>
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard">
-                <p className="text-xl">Dashboard</p>
-              </Link>
-            </li>
+            {user && role ? (
+              <>
+                <li>
+                  <Link to="/">
+                    <p className="text-xl">TRIPS</p>
+                  </Link>
+                </li>
+                {role === "admin" ? (
+                  <>
+                    <li>
+                      <Link to="/adminPanel">
+                        <p className="text-xl">AdminPanel</p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/profile">
+                        <p className="text-xl">Profile</p>
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link to="/dashboard">
+                        <p className="text-xl">Dashboard</p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/notifications">
+                        <p className="text-xl">Notifications</p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/myAccount">
+                        <p className="text-xl">My Account</p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/profile">
+                        <p className="text-xl">Profile</p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/myFavorites">
+                        <p className="text-xl">My Favorites</p>
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/">
+                    <p className="text-xl">HOME</p>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/login">
+                    <p className="text-xl">LOGIN</p>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup">
+                    <p className="text-xl">SIGN UP</p>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
@@ -137,16 +196,15 @@ const Header = () => {
               {user ? (
                 <>
                   <Link to="/profile">
-                  {user.photoURL?(
-                    <img
-                    src={user.photoURL}
-                    alt="User Profile"
-                    className="text-2xl w-[30px] rounded-full"
-                  />
-                  ) :
-                  (
-                    <FaRegUserCircle className="text-3xl text-white" />
-                  )}
+                    {user.photoURL ? (
+                      <img
+                        src={user.photoURL}
+                        alt="User Profile"
+                        className="text-2xl w-[30px] rounded-full"
+                      />
+                    ) : (
+                      <FaRegUserCircle className="text-3xl text-white" />
+                    )}
                   </Link>
                   <PiSignOut
                     onClick={signOut}
@@ -162,7 +220,7 @@ const Header = () => {
                     Login
                   </Link>
                   <Link
-                    to="/signupnpm ru"
+                    to="/signup"
                     className="text-white border rounded px-2 py-1 hover:bg-white hover:text-gray-500"
                   >
                     SignUp
@@ -197,88 +255,137 @@ const Header = () => {
                         </div>
                       </li>
                     </Link>
+                    {user && role ? (
+                      <>
+                        <Link to="/" onClick={closeMenu}>
+                          <li className="flex font-regular text-gray-600">
+                            <div className="">
+                              <img
+                                src="https://www.rci.com/static/images/content/icons-header/trips.svg"
+                                alt=""
+                              />
+                              <a>TRIPS</a>
+                            </div>
+                          </li>
+                        </Link>
 
-                    <Link to="/" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <img
-                            src="https://www.rci.com/static/images/content/icons-header/trips.svg"
-                            alt=""
-                          />
-                          <a>TRIPS</a>
-                        </div>
-                      </li>
-                    </Link>
-
-                    <Link to="/" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <img
-                            src="https://www.rci.com/static/images/content/icons-header/offers.svg"
-                            alt=""
-                          />
-                          <a>DEALS</a>
-                        </div>
-                      </li>
-                    </Link>
-
-                    <Link to="/" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <IoHomeOutline className="text-2xl" />
-                          <a>Home</a>
-                        </div>
-                      </li>
-                    </Link>
+                        <Link to="/" onClick={closeMenu}>
+                          <li className="flex font-regular text-gray-600">
+                            <div className="">
+                              <img
+                                src="https://www.rci.com/static/images/content/icons-header/offers.svg"
+                                alt=""
+                              />
+                              <a>DEALS</a>
+                            </div>
+                          </li>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/" onClick={closeMenu}>
+                          <li className="flex font-regular text-gray-600">
+                            <div className="">
+                              <IoHomeOutline className="text-2xl" />
+                              <a>Home</a>
+                            </div>
+                          </li>
+                        </Link>
+                      </>
+                    )}
                   </div>
+                      <div className="divider"></div>
+                  <div className="flex justify-start  flex-col gap-3 ">
+                    {user && role ? (
+                      <>
+                        {role === "admin" ? (
+                          <div>
+                            
+                            <Link to="/adminPanel" onClick={closeMenu}>
+                              <li className="flex font-regular text-gray-600">
+                                <div className="">
+                                  <FaWpforms className="text-2xl" />
+                                  <a>AdminPanel</a>
+                                </div>
+                              </li>
+                            </Link>
+                            <Link to="/profile" onClick={closeMenu}>
+                              <li className="flex font-regular text-gray-600">
+                                <div className="">
+                                  <FaRegUserCircle className="text-2xl" />
+                                  <a>Profile</a>
+                                </div>
+                              </li>
+                            </Link>
+                          </div>
+                        ) : (
+                          <>
+                            <Link to="/dashboard/overview" onClick={closeMenu}>
+                              <li className="flex font-regular text-gray-600">
+                                <div className="">
+                                  <FaWpforms className="text-2xl" />
+                                  <a>Dashboard</a>
+                                </div>
+                              </li>
+                            </Link>
 
-                  <div className="flex justify-center">
-                    <span className="w-11/12 h-[1px] bg-slate-400"></span>
-                  </div>
+                            <Link to="/" onClick={closeMenu}>
+                              <li className="flex font-regular text-gray-600">
+                                <div className="">
+                                  <IoMdNotificationsOutline className="text-3xl" />
+                                  <a>Notifications</a>
+                                </div>
+                              </li>
+                            </Link>
 
-                  <div>
-                    <Link to="/dashboard/overview" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <FaWpforms className="text-2xl" />
-                          <a>Dashboard</a>
-                        </div>
-                      </li>
-                    </Link>
+                            <Link to="/myAccount" onClick={closeMenu}>
+                              <li className="flex font-regular text-gray-600">
+                                <div className="">
+                                  <MdAccountBalanceWallet className="text-2xl" />
+                                  <a>My Account</a>
+                                </div>
+                              </li>
+                            </Link>
 
-                    <Link to="/" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <IoMdNotificationsOutline className="text-3xl" />
-                          <a>Notifications</a>
-                        </div>
-                      </li>
-                    </Link>
+                            <Link to="/profile" onClick={closeMenu}>
+                              <li className="flex font-regular text-gray-600">
+                                <div className="">
+                                  <FaRegUserCircle className="text-2xl" />
+                                  <a>Profile</a>
+                                </div>
+                              </li>
+                            </Link>
 
-                    <Link to="/myAccount" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <MdAccountBalanceWallet className="text-2xl" />
-                          <a>My Account</a>
-                        </div>
-                      </li>
-                    </Link>
+                            <li className="flex font-regular text-gray-600">
+                              <div className="">
+                                <FaRegHeart className="text-2xl" />
+                                <a>My Favorites</a>
+                              </div>
+                            </li>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/login" onClick={closeMenu}>
+                          <li className="flex font-regular text-gray-600">
+                            <div className="">
+                              <FaWpforms className="text-2xl" />
+                              <a>Login</a>
+                            </div>
+                          </li>
+                        </Link>
 
-                    <Link to="/profile" onClick={closeMenu}>
-                      <li className="flex font-regular text-gray-600">
-                        <div className="">
-                          <FaRegUserCircle className="text-2xl" />
-                          <a>Profile</a>
-                        </div>
-                      </li>
-                    </Link>
-
-                    <li className="flex font-regular text-gray-600">
-                      <div className="">
-                        <FaRegHeart className="text-2xl" />
-                        <a>My Favorites</a>
-                      </div>
-                    </li>
+                        <Link to="/signup" onClick={closeMenu}>
+                          <li className="flex font-regular text-gray-600">
+                            <div className="">
+                              <FaRegUserCircle className="text-2xl" />
+                              <a>Sign Up</a>
+                            </div>
+                          </li>
+                        </Link>
+                      </>
+                    )}
 
                     <li className="flex font-regular text-gray-600">
                       <div className="">
@@ -287,12 +394,14 @@ const Header = () => {
                       </div>
                     </li>
 
-                    <li className="flex font-regular text-gray-600">
-                      <div className="">
-                        <PiSignOut className="text-2xl" />
-                        <a>Sign Out</a>
-                      </div>
-                    </li>
+                    {user ? (
+                      <li className="flex font-regular text-gray-600">
+                        <div className="">
+                          <PiSignOut className="text-2xl" />
+                          <a onClick={signOut}>Sign Out</a>
+                        </div>
+                      </li>
+                    ) : null}
                   </div>
                 </ul>
               </div>
