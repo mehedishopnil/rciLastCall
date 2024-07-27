@@ -66,21 +66,28 @@ const Dashboard = () => {
               </button>
             </div>
             <ul className="menu text-gray-700 font-bold text-xl">
+
               <li>
                 <button onClick={() => handleMenuItemClick("/dashboard/overview")}>
                   <HiOutlineHomeModern /> Overview
                 </button>
               </li>
+              
+
               <li>
-                <button onClick={() => handleMenuItemClick("/dashboard/resort-input-form")}>
-                  <FaWpforms /> Resort Input Form
+                <button onClick={() => handleMenuItemClick("/dashboard/my-bookings")}>
+                  <FaWpforms /> My Bookings
                 </button>
               </li>
+
+              <div className="divider"></div>
+
               <li>
                 <button onClick={() => handleMenuItemClick("/")}>
                   <FaHome /> Home
                 </button>
               </li>
+
             </ul>
           </div>
         </Transition>

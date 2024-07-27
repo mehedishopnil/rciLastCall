@@ -22,6 +22,7 @@ import PaymentConfirmation from "../pages/PaymentConfirmation/PaymentConfirmatio
 import AdminPanel from "../layout/AdminPanel/AdminPanel";
 import AdminControl from "../pages/AdminControl/AdminControl";
 import UserControl from "../pages/UserControl/UserControl";
+import MyBookings from "../pages/MyBookings/MyBookings";
 
  export  const router = createBrowserRouter([
     {
@@ -98,9 +99,10 @@ import UserControl from "../pages/UserControl/UserControl";
               element: <Overview/>
           },
           {
-              path: 'resort-input-form',
-              element: <ResortInputForm/>
-          },
+            path: 'my-bookings',
+            element: <MyBookings/>
+          }
+          
          
       ]
   },
@@ -118,7 +120,11 @@ import UserControl from "../pages/UserControl/UserControl";
       {
         path: 'user-control',
         element: <UserControl/>
-      }
+      },
+      {
+        path: 'resort-input-form',
+        element: <ResortInputForm/>
+    },
     ]
   }
 
