@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
@@ -7,19 +7,37 @@ const PaymentConfirmation = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { resort } = location.state || {};
- 
 
-  console.log(resort)
-  // Ensure bookingsData is an array
-  if (!Array.isArray(bookingsData)) {
-    return <div>Error: Bookings data is not available.</div>;
+  const [loading, setLoading] = useState(true);
+  const [matchingBooking, setMatchingBooking] = useState(null);
+
+  useEffect(() => {
+    const bookingsArray = Array.isArray(bookingsData) ? bookingsData : [bookingsData];
+    if (bookingsArray.length > 0 && resort) {
+      // Ensure both IDs are compared as strings
+      const foundBooking = bookingsArray.find((booking) => {
+        const bookingResortId = booking.resort.resort_ID;
+        const resortId = resort.resort_ID;
+        return bookingResortId === resortId;
+      });
+
+      setMatchingBooking(foundBooking);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [bookingsData, resort]);
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  // Find matching booking data based on resort ID
-  const matchingBooking = bookingsData.find((booking) => booking.resort && booking.resort._id === resort._id);
+  if (!resort) {
+    return <div>Error: Resort data is not available.</div>;
+  }
 
   if (!matchingBooking) {
-    return <div>No matching booking found.</div>;
+    return <div>No matching booking found for the selected resort.</div>;
   }
 
   const { cardNumber, cvv, email, price, expiryDate } = matchingBooking;

@@ -24,8 +24,6 @@ const Payment = () => {
   });
   const [loading, setLoading] = useState(false);
 
-
-
   const { email } = user;
 
   const handleCardNumberChange = (e) => setCardNumber(e.target.value);
@@ -36,48 +34,46 @@ const Payment = () => {
     setBillingInfo({ ...billingInfo, [name]: value });
   };
 
-  // Inside the handleContinue function
-const handleContinue = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-
-  const bookingInfo = {
-    resort,
-    email,
-    cardNumber,
-    expiryDate,
-    cvv,
-    price,
-    billingInfo: guestInfo ? { isGuest: true, ...guestInfo } : billingInfo,
-  };
-
-  console.log(bookingInfo);
-
-  try {
-    const response = await fetch("https://rci-last-call-server.vercel.app/bookings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookingInfo),
-    });
-
-    if (response.ok) {
-      setLoading(false);
-      alert("Payment confirmed!");
-      navigate("/payment-confirmation", {
-        state: { resort, bookingInfo },
-      });
-    } else {
-      setLoading(false);
-      alert("Payment failed. Please try again.");
-    }
-  } catch (error) {
-    setLoading(false);
-    alert("An error occurred. Please try again.");
-  }
-};
+  const handleContinue = async (e) => {
+    e.preventDefault();
+    setLoading(true);
   
+    const bookingInfo = {
+      resort,
+      email,
+      cardNumber,
+      expiryDate,
+      cvv,
+      price,
+      billingInfo: guestInfo ? { isGuest: true, ...guestInfo } : billingInfo,
+    };
+  
+    console.log(resort);
+  
+    try {
+      const response = await fetch("https://rci-last-call-server.vercel.app/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookingInfo),
+      });
+  
+      if (response.ok) {
+        setLoading(false);
+        alert("Payment confirmed!");
+        navigate("/payment-confirmation", {
+          state: { resort },
+        });
+      } else {
+        setLoading(false);
+        alert("Payment failed. Please try again.");
+      }
+    } catch (error) {
+      setLoading(false);
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
