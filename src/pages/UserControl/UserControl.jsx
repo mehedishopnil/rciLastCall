@@ -2,8 +2,8 @@ import React from 'react';
 
 const UserControl = () => {
      return (
-          <div>
-               <h1>User Control</h1>
+          <div className='py-5'>
+               <h1 className='text-center text-2xl font-bold'>All Users Info</h1>
           </div>
      );
 };

@@ -46,15 +46,6 @@ const AuthProvider = ({ children }) => {
   }
 };
 
-  
-  
-
-
-
-
-
-
-  
 
    // SignIn process (with email and password)
    const login = async (email, password) => {
@@ -166,9 +157,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
-  
-
-  
+   
 
 
   // Sign out process
@@ -185,7 +174,6 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
 
 
     // Google Login
@@ -334,8 +322,6 @@ const fetchPaymentInformation = async (email) => {
   }
 };
 
-
- 
 
   // Effect to listen for auth state changes
   useEffect(() => {

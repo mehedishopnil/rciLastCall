@@ -8,7 +8,7 @@ import { IoMdClose } from "react-icons/io";
 import logo from "../../assets/Images/logo.svg";
 import { RiAdminLine } from "react-icons/ri";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
-import { MdViewQuilt } from "react-icons/md";
+import { MdLibraryBooks, MdViewQuilt } from "react-icons/md";
 
 const AdminPanel = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -78,9 +78,11 @@ const AdminPanel = () => {
                 </button>
               </li>
 
+
+
               <li>
-                <button onClick={() => handleMenuItemClick("/admin-panel/admin-control")}>
-                <RiAdminLine /> Admin Control
+                <button onClick={() => handleMenuItemClick("/admin-panel/users-bookings")}>
+                <MdLibraryBooks /> Users Bookings
                 </button>
               </li>
 
@@ -95,6 +97,13 @@ const AdminPanel = () => {
               <li>
                 <button onClick={() => handleMenuItemClick("/admin-panel/resort-input-form")}>
                   <FaWpforms /> Resort Input Form
+                </button>
+              </li>
+
+              
+              <li>
+                <button onClick={() => handleMenuItemClick("/admin-panel/admin-control")}>
+                <RiAdminLine /> Admin Control
                 </button>
               </li>
 
