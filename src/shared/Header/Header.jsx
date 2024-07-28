@@ -66,7 +66,7 @@ const Header = () => {
                 {role === "admin" ? (
                   <>
                     <li>
-                      <Link to="/adminPanel">
+                      <Link to="/admin-panel">
                         <p className="text-xl">AdminPanel</p>
                       </Link>
                     </li>
@@ -301,7 +301,7 @@ const Header = () => {
                         {role === "admin" ? (
                           <div>
                             
-                            <Link to="/adminPanel" onClick={closeMenu}>
+                            <Link to="/admin-panel" onClick={closeMenu}>
                               <li className="flex font-regular text-gray-600">
                                 <div className="">
                                   <FaWpforms className="text-2xl" />
