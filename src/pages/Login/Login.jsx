@@ -10,7 +10,6 @@ const Login = () => {
   const { login, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state?.from?.pathname || "/";
 
   const handleLogin = async (e) => {
@@ -87,6 +86,7 @@ const Login = () => {
       });
     }
   };
+
 
   return (
     <div className="flex justify-center items-center h-full bg-base-100">

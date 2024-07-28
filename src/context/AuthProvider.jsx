@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import app from '../Firebase/firebase.config';
+import Swal from 'sweetalert2';
 
 export const AuthContext = createContext();
 
@@ -27,157 +28,146 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
 
-  //Set User Role
-  const setUserRole = async (email) => {
-    try {
-      const response = await fetch(`https://rci-last-call-server.vercel.app/users?email=${email}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch user data from backend');
-      }
-      const userData = await response.json();
-      if (userData.isAdmin) {
-        setRole('admin');
-      } else {
-        setRole('user');
-      }
-    } catch (error) {
-      console.error('Error setting user role:', error.message);
+ // Set User Role
+ const setUserRole = async (email) => {
+  try {
+    const response = await fetch(`https://rci-last-call-server.vercel.app/users?email=${email}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch user data from backend');
     }
-  };
+    const userData = await response.json();
+    if (userData.isAdmin) {
+      setRole('admin');
+    } else {
+      setRole('user');
+    }
+  } catch (error) {
+    console.error('Error setting user role:', error.message);
+  }
+};
+
   
   
 
-  // Signup process (create user with email and password)
-  const signup = async (name, email, password) => {
+
+
+
+
+
+  
+
+   // SignIn process (with email and password)
+   const login = async (email, password) => {
     setLoading(true);
     try {
-      // Check if the user already exists
-      const userExistsResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${email}`);
-      if (!userExistsResponse.ok) {
-        throw new Error('Failed to check if user exists');
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const signedInUser = userCredential.user;
+
+      // Fetch specific user data from backend based on email
+      const userDataResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${email}`);
+      if (!userDataResponse.ok) {
+        throw new Error('Failed to fetch user data from backend');
       }
-      const userExistsData = await userExistsResponse.json();
-      if (userExistsData.length > 0) {
-        throw new Error('User already exists with this email');
+
+      const userData = await userDataResponse.json();
+      setUser(userData[0]); // Set user state with fetched userData
+
+      console.log('User signed in and data fetched:', signedInUser, userData);
+
+      // Show success alert
+      Swal.fire({
+        title: "Successfully Signed In",
+        showClass: {
+          popup: "animate__animated animate__fadeInUp animate__faster",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutDown animate__faster",
+        },
+      });
+
+      return userCredential; // Return the userCredential
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+      throw error; // Throw the error to handle it in the SignIn component
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  
+  
+  // Function to create user and send data to backend
+  const createUser = async (name, email, password, membership) => {
+    setLoading(true);
+    try {
+      // Check if user already exists in the backend
+      const userExistsResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${email}`);
+      
+      if (userExistsResponse.status === 404) {
+        console.log('User not found, proceeding with registration');
+      } else if (!userExistsResponse.ok) {
+        throw new Error('Failed to check if user exists');
+      } else {
+        const userExistsData = await userExistsResponse.json();
+        if (userExistsData.length > 0) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You are already registered",
+          });
+          return; // Stop the registration process
+        }
       }
   
+      // Create user with Firebase
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const newUser = userCredential.user;
-      await newUser.updateProfile({ displayName: name });
+      const createdUser = userCredential.user;
   
       // Send user data to backend
-      const backendResponse = await fetch('https://rci-last-call-server.vercel.app/users/signup', {
+      const backendResponse = await fetch('https://rci-last-call-server.vercel.app/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email })
+        body: JSON.stringify({
+          name,
+          email,
+          membership
+        })
       });
   
       if (!backendResponse.ok) {
-        throw new Error('Failed to create user or update backend data');
+        throw new Error('Failed to send user data to backend');
       }
+  
+      Swal.fire({
+        title: "Successfully Registered",
+        showClass: {
+          popup: "animate__animated animate__fadeInUp animate__faster",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutDown animate__faster",
+        },
+      });
   
       // Fetch specific user data from backend based on email
       const userDataResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${email}`);
       if (!userDataResponse.ok) {
         throw new Error('Failed to fetch user data from backend');
       }
-  
       const userData = await userDataResponse.json();
-      setUser(userData); // Set user state with fetched userData
-  
-      console.log('User signed up and data fetched:', newUser, userData);
+      setUser(userData[0]); // Set user state with fetched userData
+      return userCredential;
     } catch (error) {
-      console.error('Error signing up:', error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  
-
-  // Login process (sign in with email and password)
-  const login = async (email, password) => {
-    setLoading(true);
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User logged in:', userCredential.user);
-    } catch (error) {
-      console.error('Error logging in:', error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Google Login
-  const googleLogin = async () => {
-    setLoading(true);
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-  
-      // Check if the user already exists in the backend
-      const userExistsResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${user.email}`);
-      
-      if (userExistsResponse.status === 404) {
-        console.log('User not found, creating new user');
-  
-        // User does not exist, send user data to backend
-        const backendResponse = await fetch('https://rci-last-call-server.vercel.app/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: user.displayName || '', // Use displayName if available
-            email: user.email,
-            photoURL: user.photoURL
-          })
-        });
-  
-        if (!backendResponse.ok) {
-          const errorText = await backendResponse.text();
-          console.error(`Failed to update backend data with Google user: ${backendResponse.status} ${backendResponse.statusText}`);
-          console.error('Response text:', errorText);
-          throw new Error('Failed to update backend data with Google user');
-        }
-  
-        // Set user state with new user data
-        const newUser = {
-          name: user.displayName || '',
-          email: user.email,
-          photoURL: user.photoURL
-        };
-        setUser(newUser);
-  
-        console.log('New user signed up with Google:', user);
-        return result;
-      } else if (!userExistsResponse.ok) {
-        const errorText = await userExistsResponse.text();
-        console.error(`Failed to check if user exists: ${userExistsResponse.status} ${userExistsResponse.statusText}`);
-        console.error('Response text:', errorText);
-        throw new Error('Failed to check if user exists');
-      }
-  
-      const userExistsData = await userExistsResponse.json();
-  
-      if (userExistsData.length > 0) {
-        // User exists, set user state with fetched userData
-        setUser(userExistsData[0]);
-        console.log('User logged in with Google:', user);
-        return result;
-      }
-    } catch (error) {
-      console.error('Error logging in with Google:', error.message);
+      console.error('Error creating user:', error.message);
       throw error;
     } finally {
       setLoading(false);
     }
   };
   
-  
-  
+
   
 
 
@@ -195,6 +185,78 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+
+
+    // Google Login
+const googleLogin = async () => {
+  setLoading(true);
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    // Check if the user already exists in the backend
+    const userExistsResponse = await fetch(`https://rci-last-call-server.vercel.app/users?email=${user.email}`);
+    
+    if (userExistsResponse.status === 404) {
+      console.log('User not found, creating new user');
+
+      // User does not exist, send user data to backend
+      const backendResponse = await fetch('https://rci-last-call-server.vercel.app/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: user.displayName || '', // Use displayName if available
+          email: user.email,
+          photoURL: user.photoURL
+        })
+      });
+
+      if (!backendResponse.ok) {
+        const errorText = await backendResponse.text();
+        console.error(`Failed to update backend data with Google user: ${backendResponse.status} ${backendResponse.statusText}`);
+        console.error('Response text:', errorText);
+        throw new Error('Failed to update backend data with Google user');
+      }
+
+      // Set user state with new user data
+      const newUser = {
+        name: user.displayName || '',
+        email: user.email,
+        photoURL: user.photoURL
+      };
+      setUser(newUser);
+
+      console.log('New user signed up with Google:', user);
+    } else if (userExistsResponse.ok) {
+      const userExistsData = await userExistsResponse.json();
+
+      if (userExistsData.length > 0) {
+        // User exists, set user state with fetched userData
+        setUser(userExistsData[0]);
+        console.log('User logged in with Google:', user);
+      } else {
+        // In case the user is not found but the response is ok (not 404), it could be an unexpected scenario
+        console.log('Unexpected response: User not found but status is not 404');
+      }
+    } else {
+      const errorText = await userExistsResponse.text();
+      console.error(`Failed to check if user exists: ${userExistsResponse.status} ${userExistsResponse.statusText}`);
+      console.error('Response text:', errorText);
+      throw new Error('Failed to check if user exists');
+    }
+
+    return result;
+  } catch (error) {
+    console.error('Error logging in with Google:', error.message);
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // Fetch resort data
   const fetchResortData = async (page = 1, limit = 15) => {
@@ -327,10 +389,10 @@ const fetchPaymentInformation = async (email) => {
     loading,
     user,
     role,
-    signup,
     login,
     googleLogin,
     signOut,
+    createUser,
     setLoading,
     resortData,
     filteredData,

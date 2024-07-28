@@ -5,57 +5,37 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../context/AuthProvider';
 
 const SignUp = () => {
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [membership, setMembership] = useState(''); // State for membership selection
+  const [membership, setMembership] = useState(''); 
   const location = useLocation();
   const navigate = useNavigate();
   const { createUser, googleLogin } = useContext(AuthContext);
 
   const from = location.state?.from?.pathname || "/";
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const membership = form.membership.value; // Retrieve membership value
-
-    createUser(name,membership, email, password)
-      .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
-
-        setIsRegistered(true);
-        Swal.fire({
-          title: "Successfully Registered",
-          showClass: {
-            popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `,
-          },
-          hideClass: {
-            popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `,
-          },
-        });
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        console.error("Error during registration:", error.message);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Error during registration",
-          footer: "Please try again later",
-        });
+    const membership = form.membership.value;
+  
+    try {
+      const result = await createUser(name, email, password, membership);
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      navigate(from, { replace: true });
+    } catch (error) {
+      console.error("Error during registration:", error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message || "Error during registration",
+        footer: "Please try again later",
       });
+    }
   };
+  
 
   const handleGoogleLogin = async () => {
     try {
@@ -65,21 +45,12 @@ const SignUp = () => {
       Swal.fire({
         title: "Successfully Logged In with Google",
         showClass: {
-          popup: `
-          animate__animated
-          animate__fadeInUp
-          animate__faster
-        `,
+          popup: "animate__animated animate__fadeInUp animate__faster",
         },
         hideClass: {
-          popup: `
-          animate__animated
-          animate__fadeOutDown
-          animate__faster
-        `,
+          popup: "animate__animated animate__fadeOutDown animate__faster",
         },
       });
-      setIsRegistered(true);
       navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
@@ -175,15 +146,14 @@ const SignUp = () => {
             </div>
           </form>
 
-          <div className="divider">OR</div> {/* Divider between login methods */}
+          <div className="divider">OR</div>
 
-          {/* Google Login */}
           <div className="flex items-center form-control mb-4">
             <button
               onClick={handleGoogleLogin}
               className="btn bg-[#4285F4] text-white hover:bg-[#357ae8] flex items-center justify-center"
             >
-              <FcGoogle className="mr-2 text-2xl" /> {/* Google icon */}
+              <FcGoogle className="mr-2 text-2xl" />
               Register with Google
             </button>
           </div>
