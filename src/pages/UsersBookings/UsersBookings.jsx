@@ -7,7 +7,7 @@ const UsersBookings = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">All The Bookings</h1>
+      <h1 className="text-2xl text-center font-bold mb-4">Total Bookings {allBookingsData.length}</h1>
       <div className="overflow-x-auto">
         <table className="table w-full hidden lg:table">
           <thead>
