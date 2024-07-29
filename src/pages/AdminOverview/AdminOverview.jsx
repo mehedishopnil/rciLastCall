@@ -57,10 +57,12 @@ const AdminOverview = () => {
           </div>
         </Link>
 
+        <Link to="/admin-panel/user-control">
         <div className="text-center card border p-4">
           <h1 className="font-bold text-gray-500">Total Users:</h1>
           <h1 className="text-3xl text-gray-700">{allUsersData.length}</h1>
         </div>
+        </Link>
       </div>
     </div>
   );

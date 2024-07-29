@@ -41,22 +41,30 @@ const UsersBookings = () => {
           {allBookingsData.map((booking, index) => (
             <div
               key={index}
-              className="card card-side bg-base-100 shadow-xl p-2 mb-4"
+              className="card card-side bg-base-100 shadow-xl p-2 py-3 mb-4"
             >
               <figure>
                 <img
                   src={booking.resort.img}
                   alt="Resort"
-                  className="w-24 h-24 object-cover"
+                  className="w-24 h-24 object-cover rounded-md"
                 />
               </figure>
-              <div className="card-body">
-                <h2 className="card-title">{booking.billingInfo.firstName}</h2>
+              <div className="pl-10 space-y-1">
+                <h2 className="card-title">{booking.billingInfo.firstName} {booking.billingInfo.lastName}</h2>
+                <div>
                 <p>
-                  <strong>Booking Date:</strong> {booking.startDate} to {booking.endDate}
+                  <strong>Booking Date:</strong> 
                 </p>
                 <p>
-                  <strong>Status:</strong> {booking.status}
+               {booking.startDate} 
+                </p>
+                <p>
+                {booking.endDate}
+                </p>
+                </div>
+                <p>
+                  <strong>Unit Type:</strong> {booking.unitType}
                 </p>
               </div>
             </div>
