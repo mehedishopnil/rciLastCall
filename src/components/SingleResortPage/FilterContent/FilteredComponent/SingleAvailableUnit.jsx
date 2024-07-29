@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate} from "react-router-dom";
 import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";
 import { IoIosArrowDown } from "react-icons/io";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { AuthContext } from "../../../../context/AuthProvider";
 
 const SingleAvailableUnit = () => {
+  const {user} = useContext(AuthContext);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
@@ -50,19 +52,27 @@ const SingleAvailableUnit = () => {
 
   const handleShowUnits = () => {
     if (!currentResort) {
-      console.error("Error: No currentResort data available.");
-      return;
+        console.error("Error: No currentResort data available.");
+        return;
     }
 
-    navigate("/available-booking", {
-      state: {
-        resort: currentResort,
-        startDate: selectionRange.startDate,
-        endDate: selectionRange.endDate,
-        unitType: selectedUnit,
-      },
-    });
-  };
+    if (user) {
+        navigate("/available-booking", {
+            state: {
+                resort: currentResort,
+                startDate: selectionRange.startDate,
+                endDate: selectionRange.endDate,
+                unitType: selectedUnit,
+            },
+        });
+    } else {
+        // User is not logged in, save current path and redirect to login
+        navigate("/login", {
+            state: { from: location.pathname }
+        });
+    }
+};
+
 
   const handleClearDate = () => {
     setSelectionRange({

@@ -10,7 +10,7 @@ const Login = () => {
   const { login, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from || "/"; // Redirect to the previous page or default to homepage
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ const Login = () => {
         },
       });
       setIsLoggedIn(true);
-      navigate(from, { replace: true });
+      navigate(from, { replace: true }); // Redirect to the previous page
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -75,7 +75,7 @@ const Login = () => {
         },
       });
       setIsLoggedIn(true);
-      navigate(from, { replace: true });
+      navigate(from, { replace: true }); // Redirect to the previous page
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -86,7 +86,6 @@ const Login = () => {
       });
     }
   };
-
 
   return (
     <div className="flex justify-center items-center h-full bg-base-100">
