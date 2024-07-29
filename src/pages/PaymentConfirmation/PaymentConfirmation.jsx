@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthProvider';
 import Loading from '../../components/Loading';
 
 const PaymentConfirmation = () => {
-  const { bookingsData } = useContext(AuthContext);
+  const { allBookingsData } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const { resort } = location.state || {};
@@ -13,23 +13,28 @@ const PaymentConfirmation = () => {
   const [matchingBooking, setMatchingBooking] = useState(null);
 
   useEffect(() => {
-    // Check if both bookingsData and resort are available
-    if (bookingsData && resort) {
-      // Convert bookingsData to an array if it's not already
-      const bookingsArray = Array.isArray(bookingsData) ? bookingsData : [bookingsData];
-      
+    console.log('Bookings Data:', allBookingsData);
+    console.log('Resort Data:', resort);
+
+    if (allBookingsData && resort) {
+      // Ensure allBookingsData is an array
+      const bookingsArray = Array.isArray(allBookingsData) ? allBookingsData : [allBookingsData];
+      console.log('Bookings Array:', bookingsArray);
+
       // Find the matching booking
       const foundBooking = bookingsArray.find((booking) => {
-        const bookingResortId = booking.resort.resort_ID;
-        const resortId = resort.resort_ID;
+        const bookingResortId = String(booking.resort.resort_ID);
+        const resortId = String(resort.resort_ID);
+        console.log('Comparing:', bookingResortId, resortId);
         return bookingResortId === resortId;
       });
 
-      // Set state with the found booking and update loading state
+      console.log('Found Booking:', foundBooking);
+      // Set the matching booking and update loading state
       setMatchingBooking(foundBooking);
     }
     setLoading(false); // Ensure loading state is set to false after processing
-  }, [bookingsData, resort]);
+  }, [allBookingsData, resort]);
 
   if (loading) {
     return <div><Loading/></div>;

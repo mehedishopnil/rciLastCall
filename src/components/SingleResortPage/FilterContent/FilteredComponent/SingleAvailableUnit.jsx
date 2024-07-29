@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate} from "react-router-dom";
 import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";
 import { IoIosArrowDown } from "react-icons/io";
@@ -21,15 +21,23 @@ const SingleAvailableUnit = () => {
   if (!currentResort) {
     return <div>Error: No resort data found.</div>;
   }
+  
 
   const handleSelect = (ranges) => {
     const { selection } = ranges;
+    const startDate = new Date(
+      selection.startDate.getFullYear(),
+      selection.startDate.getMonth(),
+      selection.startDate.getDate()
+    );
     setSelectionRange({
-      startDate: selection.startDate,
-      endDate: addDays(selection.startDate, 6),
+      startDate: startDate,
+      endDate: addDays(startDate, 6),
       key: "selection",
     });
   };
+  
+  
 
   const handleDateButtonClick = (unitType) => {
     setSelectedUnit(unitType);
@@ -128,6 +136,8 @@ const SingleAvailableUnit = () => {
           </button>
         </div>
       </div>
+
+      {/* Date functions */}
 
       {isCalendarOpen && (
         <div className="fixed inset-0 flex flex-col justify-between bg-black bg-opacity-50 z-50">

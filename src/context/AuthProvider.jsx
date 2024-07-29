@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const [resortData, setResortData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [allResortData, setAllResortData] = useState([]);
+  const [allBookingsData, setAllBookingsData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [bookingsData, setBookingsData] = useState([]);
@@ -304,7 +305,7 @@ const googleLogin = async () => {
 const fetchPaymentInformation = async (email) => {
   setLoading(true);
   try {
-    const response = await fetch(`https://rci-last-call-server.vercel.app/payment-info?email=${email}`);
+    const response = await fetch(`https://rci-last-call-server.vercel.app/bookings?email=${email}`);
     if (!response.ok) {
       throw new Error(`Error fetching payment information: ${response.status} ${response.statusText}`);
     }
@@ -322,11 +323,29 @@ const fetchPaymentInformation = async (email) => {
   }
 };
 
+// Fetch all Booking Data
+const fetchAllBookingsData = async () => {
+  setLoading(true);
+  try {
+    const response = await fetch('https://rci-last-call-server.vercel.app/all-bookings');
+    if (!response.ok) {
+      throw new Error(`Error fetching all resort data: ${response.status} ${response.statusText}`);
+    }
+    const data = await response.json();
+    setAllBookingsData(data);
+  } catch (error) {
+    console.error('Error fetching all resort data:', error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // Effect to listen for auth state changes
   useEffect(() => {
     fetchResortData();
     fetchAllResorts();
+    fetchAllBookingsData();
   
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -387,6 +406,7 @@ const fetchPaymentInformation = async (email) => {
     currentPage,
     fetchResortData,
     bookingsData,
+    allBookingsData,
     paymentInfoData
   };
   
