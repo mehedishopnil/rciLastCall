@@ -23,10 +23,14 @@ const AuthProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [bookingsData, setBookingsData] = useState([]);
+  const [allUsersData, setAllUsersData] = useState([]);
   const [paymentInfoData, setPaymentInfoData] = useState({});
   const [role, setRole] = useState(null);
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
+
+
+
 
 
  // Set User Role
@@ -154,6 +158,25 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Error creating user:', error.message);
       throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  // Fetch all Users Data
+  const fetchAllUsersData = async () => {
+    setLoading(true);
+    try {
+      console.log('Fetching all users data...');
+      const response = await fetch('https://rci-last-call-server.vercel.app/all-users');
+      if (!response.ok) {
+        throw new Error(`Error fetching all users data: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setAllUsersData(data);
+    } catch (error) {
+      console.error('Error fetching all users data:', error.message);
     } finally {
       setLoading(false);
     }
@@ -346,6 +369,7 @@ const fetchAllBookingsData = async () => {
     fetchResortData();
     fetchAllResorts();
     fetchAllBookingsData();
+    fetchAllUsersData();
   
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -407,6 +431,7 @@ const fetchAllBookingsData = async () => {
     fetchResortData,
     bookingsData,
     allBookingsData,
+    allUsersData,
     paymentInfoData
   };
   
