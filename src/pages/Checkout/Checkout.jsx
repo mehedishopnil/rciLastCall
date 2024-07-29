@@ -153,7 +153,7 @@ const Checkout = () => {
       <div className="md:grid grid-cols-2 items-center justify-between px-4 py-4 h-auto z-50 sticky bottom-0  bg-slate-100">
         <div className="flex justify-between font-semibold py-2 gap-10 row-span-1">
           <h1>View RCI Charges</h1>
-          <h1>USD {price}</h1>
+          <h1 className="text-sm"> <span className="text-lg">${price}</span> USD + TAX</h1>
         </div>
 
         <div className="flex w-full row-span-1">

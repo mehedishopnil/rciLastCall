@@ -5,7 +5,7 @@ import { MdEmail, MdLogout, MdOutlineSupportAgent } from "react-icons/md";
 import { AuthContext } from "../../context/AuthProvider";
 
 const ProfilePage = () => {
-  const {user} = useContext(AuthContext);
+  const {user, signOut} = useContext(AuthContext);
   const {name, photoURL, email} = user;
   return (
     <div className=" my-5">
