@@ -181,6 +181,41 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+
+  const updateUser = async (email, isAdmin) => {
+    try {
+      const response = await fetch(`https://rci-last-call-server.vercel.app/update-user`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, isAdmin }),
+      });
+  
+      if (!response.ok) {
+        // Log response details for debugging
+        const errorText = await response.text();
+        throw new Error(`Error updating user role: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+  
+      // Fetch updated user data
+      const updatedUser = await response.json();
+      
+      // Log the updated user for debugging
+      console.log('Updated user:', updatedUser);
+  
+      // Update the state with the updated user
+      setAllUsersData(prevUsers =>
+        prevUsers.map(user => (user.email === email ? updatedUser : user))
+      );
+    } catch (error) {
+      console.error('Error updating user role:', error.message);
+    }
+  };
+
+  
+  
    
 
 
@@ -411,12 +446,10 @@ const fetchAllBookingsData = async () => {
   
   
 
-
- 
-
   const authInfo = {
     loading,
     user,
+    updateUser,
     role,
     login,
     googleLogin,
