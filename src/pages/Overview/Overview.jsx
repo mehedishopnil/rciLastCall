@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import Loading from "../../components/Loading";
+import { Link } from "react-router-dom";
 
 const Overview = () => {
   const { user, bookingsData } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Overview = () => {
       </div>
     ); // or any loading indicator you prefer
   }
+
 
   const { name, email, photoURL } = user;
 
@@ -63,6 +65,11 @@ const Overview = () => {
                     <p><strong>End Date:</strong> {endDate}</p>
                     <p><strong>Unit Type:</strong> {unitType}</p>
                   </div>
+                  <Link to='/dashboard/my-bookings' className="mt-4">
+                  <button className="w-full text-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                    See all the bookings
+                  </button>
+                  </Link>
                 </div>
               );
             })

@@ -2,19 +2,22 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 
 const MyBookings = () => {
-  const { bookingsData } = useContext(AuthContext);
+  const { allBookingsData, user } = useContext(AuthContext);
 
-  // Ensure bookingsData is an array
-  const bookingsArray = Array.isArray(bookingsData) ? bookingsData : [bookingsData];
+  // Ensure allBookingsData is an array
+  const bookingsArray = Array.isArray(allBookingsData) ? allBookingsData : [allBookingsData];
+
+  // Filter bookings that match the user's email
+  const userBookings = bookingsArray.filter(booking => booking.email === user.email);
 
   return (
     <div className="py-6 px-4">
-      <h1 className="text-center text-2xl font-bold mb-6">My All Booking List</h1>
+      <h1 className="text-center text-2xl font-bold mb-6">Total Bookings {allBookingsData.length}</h1>
 
       {/* Booking Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {bookingsArray.length > 0 ? (
-          bookingsArray.map((booking, index) => {
+        {userBookings.length > 0 ? (
+          userBookings.map((booking, index) => {
             const { img, place_name, location } = booking.resort;
             const { startDate, endDate, price } = booking;
 
