@@ -35,9 +35,26 @@ const Payment = () => {
     setBillingInfo({ ...billingInfo, [name]: value });
   };
 
+  // Function to determine price based on unitType
+  const getPriceByUnitType = (unitType) => {
+    switch (unitType) {
+      case 'studio':
+        return 329.08;
+      case '1 bedroom':
+        return 361.02;
+      case '2 bedroom':
+        return 403.63;
+      default:
+        return price; // Default to the existing price if unitType does not match
+    }
+  };
+
   const handleContinue = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // Update price based on unitType
+    const updatedPrice = getPriceByUnitType(unitType);
 
     const bookingInfo = {
       resort,
@@ -45,13 +62,12 @@ const Payment = () => {
       cardNumber,
       expiryDate,
       cvv,
-      price,
+      price: updatedPrice, // Use the updated price here
       startDate,
       endDate,
       unitType,
       billingInfo: guestInfo ? { isGuest: true, ...guestInfo } : billingInfo,
     };
-
 
     try {
       const response = await fetch(
@@ -80,6 +96,9 @@ const Payment = () => {
       alert("An error occurred. Please try again.");
     }
   };
+
+  // Determine the displayed price based on unitType
+  const displayedPrice = getPriceByUnitType(unitType);
 
   return (
     <div className="container mx-auto p-4">
@@ -225,21 +244,24 @@ const Payment = () => {
           </div>
 
           <div className="md:grid grid-cols-2 items-center justify-between px-4 py-4 h-auto z-50 sticky bottom-0 bg-slate-100">
-            <div className="flex justify-between font-semibold py-2 gap-10 row-span-1">
-              <h1>View RCI Charges</h1>
-              <h1 className="text-sm"> <span className="text-lg">${price}</span> USD + TAX</h1>
-            </div>
+      <div className="flex justify-between font-semibold py-2 gap-10 row-span-1">
+        <h1>View RCI Charges</h1>
+        <h1 className="text-sm">
+          <span className="text-lg">${displayedPrice.toFixed(2)}</span> USD + TAX
+        </h1>
+      </div>
 
-            <div className="flex w-full row-span-1">
-              <button
-                type="submit"
-                className="w-full py-2 rounded font-bold bg-yellow-400"
-                disabled={loading}
-              >
-                {loading ? "Processing..." : "Make Payment"}
-              </button>
-            </div>
-          </div>
+      <div className="flex w-full row-span-1">
+        <button
+          type="submit"
+          className="w-full py-2 rounded font-bold bg-yellow-400"
+          disabled={loading}
+          onClick={handleContinue}
+        >
+          {loading ? "Processing..." : "Make Payment"}
+        </button>
+      </div>
+    </div>
         </form>
       ) : (
         <p className="text-center text-red-500">
