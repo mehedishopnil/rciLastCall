@@ -161,7 +161,7 @@ const Checkout = () => {
             className="w-full py-2 rounded font-bold bg-yellow-400"
             onClick={handleContinue}
           >
-            Continue
+            Checkout
           </button>
         </div>
       </div>

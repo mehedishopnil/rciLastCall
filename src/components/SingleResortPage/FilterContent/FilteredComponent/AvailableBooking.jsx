@@ -9,11 +9,11 @@ const AvailableBooking = () => {
   const getPrice = (unitType) => {
     switch (unitType) {
       case 'studio':
-        return 309.00;
+        return 329.08;
       case '1 bedroom':
-        return 339.00;
+        return 361.02;
       case '2 bedroom':
-        return 379.00;
+        return 403.63;
       default:
         return 0.00;
     }
