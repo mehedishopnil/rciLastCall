@@ -240,7 +240,7 @@ const Payment = () => {
           )}
 
           <div className="mb-4">
-            <h3 className="text-lg font-semibold">Total Price: USD {price}</h3>
+            <h3 className="text-lg font-semibold">Total Price: ${price} <span className="text-sm">USD</span></h3>
           </div>
 
           <div className="md:grid grid-cols-2 items-center justify-between px-4 py-4 h-auto z-50 sticky bottom-0 bg-slate-100">
