@@ -240,14 +240,14 @@ const Payment = () => {
           )}
 
           <div className="mb-4">
-            <h3 className="text-lg font-semibold">Total Price: ${price} <span className="text-sm">USD</span></h3>
+            <h3 className="text-lg font-semibold">View RCI Charges: ${price} <span className="text-sm">USD + Tax</span></h3>
           </div>
 
           <div className="md:grid grid-cols-2 items-center justify-between px-4 py-4 h-auto z-50 sticky bottom-0 bg-slate-100">
       <div className="flex justify-between font-semibold py-2 gap-10 row-span-1">
         <h1>View RCI Charges</h1>
         <h1 className="text-sm">
-          <span className="text-lg">${displayedPrice.toFixed(2)}</span> USD + TAX
+          <span className="text-lg">${displayedPrice.toFixed(2)}</span> USD
         </h1>
       </div>
 
