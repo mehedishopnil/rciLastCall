@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/Images/logo.svg";
+import logo from "../../../public/RCI_50th_logo.png";
 import {
   IoIosHelpCircleOutline,
   IoMdNotificationsOutline,
