@@ -106,15 +106,20 @@ const Payment = () => {
       <div className="bg-[#e6f8fc] py-2">
         <h1 className="text-3xl font-bold mx-5 mb-5">Secure Payment</h1>
 
-        <div className="bg-[#1fa5c7]  p-4">
+        <div className="bg-[#b3e8f8] ">
+        <div className="bg-[#1fa5c7] px-4 py-2">
         <h1 className="text-white font-semibold">Save USD 50.00 on this purchase</h1>
         <h1 className="text-white">upon approval for the RCI® Elite Rewards® Mastercard®</h1>
-
-        <div>
-
         </div>
 
-        <div className="py-2 flex flex-col items-center space-y-2">
+        <div className="mx-4"> 
+          <div className="flex justify-between">
+            <p>You pay today</p>
+            <p>USD 369.95</p>
+          </div>
+        </div>
+
+        <div className="py-2 flex flex-col items-center space-y-2 bg-[#1fa5c7]">
           <h1 className="text-xl text-center text-white font-semibold">No Annual Fee</h1>
           <img className="w-1/2" src="https://www.rci.com/static/images/content/_NAMER/barclays/Barclay%20CC%20image.png" alt="" />
         </div>

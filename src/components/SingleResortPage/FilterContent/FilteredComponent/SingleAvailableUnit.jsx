@@ -90,8 +90,8 @@ const SingleAvailableUnit = () => {
         <h1> Available Units</h1>
       </div>
 
-      <div className="md:hidden flex justify-center text-white py-6 bg-[#037092]">
-        <div className="flex flex-col items-center bg-[#e6f8fc] px-10 py-4 rounded text-gray-700">
+      <div className="md:hidden flex justify-center text-white py-6 px-6 bg-[#037092]">
+        <div className="w-full flex flex-col items-center bg-[#e6f8fc] px-10 py-4 rounded text-gray-700">
           <h1>TRAVEL DATES</h1>
           <button
             className="flex items-center text-2xl font-semibold"
@@ -102,7 +102,7 @@ const SingleAvailableUnit = () => {
         </div>
       </div>
 
-      <div className="flex justify-center my-10">
+      {/* <div className="flex justify-center my-10">
         <div className="w-10/12 flex flex-col items-center border-[1px] p-2 rounded shadow-md">
           <h1>BEFORE YOU BOOK</h1>
           <div className="divider"></div>
@@ -110,11 +110,11 @@ const SingleAvailableUnit = () => {
             Fees & Urgent Information
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="divider"></div>
 
-      <div>
+      <div className="mx-4">
         <h1 className="text-center text-xl font-semibold"> Available Units </h1>
         <div className="text-center mt-5 py-3 shadow-md">
           <h1 className="text-3xl text-[#0370ad] bg-[#e6f8fc] py-5">Studio</h1>
