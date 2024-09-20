@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { FaBed, FaUserTie, FaCheckCircle } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaBed, FaUserTie, FaCheckCircle, FaRegClock } from "react-icons/fa";
 import { MdBathtub, MdKitchen, MdMeetingRoom } from "react-icons/md";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GuestInfo from "./guestInfo";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
@@ -14,7 +14,6 @@ const ProtectInfoSection = () => {
 
   return (
     <div className="ml-5">
-      {/* Title and toggle arrow */}
       <h1
         className="flex items-center gap-2 font-semibold text-lg text-[#2383a1] cursor-pointer"
         onClick={toggleInfoVisibility}
@@ -23,7 +22,6 @@ const ProtectInfoSection = () => {
         {isInfoVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
       </h1>
 
-      {/* Information section, conditionally rendered */}
       {isInfoVisible && (
         <p className="mt-2 text-gray-600">
           We have implemented appropriate physical, electronic, and managerial
@@ -42,6 +40,32 @@ const Checkout = () => {
   const { resort, startDate, endDate, unitType, price } = location.state || {};
   const [selectedOption, setSelectedOption] = useState(null);
   const [guestInfo, setGuestInfo] = useState(null);
+  const [countdown, setCountdown] = useState(9 * 60); // 9 minutes in seconds
+
+  useEffect(() => {
+    if (!resort) {
+      return;
+    }
+
+    // Countdown timer logic
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => {
+        if (prevCountdown <= 1) {
+          clearInterval(timer);
+          navigate("/singleResortPage"); // Redirect on timeout
+        }
+        return prevCountdown - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer); // Cleanup timer on unmount
+  }, [navigate, resort]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+  };
 
   if (!resort) {
     return <div>Error: No booking information provided.</div>;
@@ -49,7 +73,6 @@ const Checkout = () => {
 
   const { img, place_name, location: resortLocation, resort_ID, room_details, check_in_time, check_out_time } = resort;
 
-  // Function to get room details based on unitType
   const getRoomDetails = () => {
     if (unitType === "studio") {
       return {
@@ -59,7 +82,6 @@ const Checkout = () => {
         sleeps_room: room_details.studio_sleeps_room,
       };
     } else {
-      // Assuming unitType can only be 'studio' or 'bedroom'
       return {
         bath: room_details.bath,
         kitchen: room_details.kitchen,
@@ -71,7 +93,6 @@ const Checkout = () => {
 
   const { bath, kitchen, privacy_room_amount, sleeps_room } = getRoomDetails();
 
-  // Function to handle the continue button click
   const handleContinue = () => {
     if (selectedOption) {
       if (selectedOption === "A Guest" && !guestInfo) {
@@ -79,7 +100,6 @@ const Checkout = () => {
         return;
       }
 
-      // Prepare the data to send to the payment route
       const bookingData = {
         resort,
         startDate,
@@ -98,11 +118,22 @@ const Checkout = () => {
     }
   };
 
+
   return (
     <div className="">
-      <h1 className="text-center text-2xl font-semibold">Checkout</h1>
+      <div className="flex justify-between items-center text-[#016e84] px-10 pt-4">
+        <h1 className="font-semibold" >Trip Info</h1>
+
+        <div className="flex items-center gap-3 ">
+        <FaRegClock  className="text-2xl"/>
+        {/* here I need a conditional operation. The page will timeout after 9minutes and the time countdown will be here. when it will be timeout then it will be return to the /singleResortPage*/}
+        <h1 className="font-bold bg-[#e6f8fc] py-1 px-2">{formatTime(countdown)}</h1>
+
+        </div>
+      </div>
+      {/* <h1 className="text-center text-2xl font-semibold">Checkout</h1> */}
       <div className="divider"></div>
-      <div className="md:grid grid-cols-3 gap-4 space-y-5 md:space-y-2 mx-5 p-4 border border-gray-300">
+      <div className="md:grid grid-cols-3 gap-4 space-y-5 md:space-y-2 mx-5  border border-gray-300">
         <img src={img} alt={place_name} className="col-span-1" />
         <div className="col-span-2 p-4">
           <p className="md:hidden">{resortLocation}</p>
