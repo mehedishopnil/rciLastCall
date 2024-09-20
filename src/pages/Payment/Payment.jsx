@@ -101,67 +101,96 @@ const Payment = () => {
   const displayedPrice = getPriceByUnitType(unitType);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">
+    <div className="container mx-auto">
+      <div className="divider"></div>
+      <div className="bg-[#e6f8fc] py-2">
+        <h1 className="text-3xl font-bold mx-5 mb-5">Secure Payment</h1>
+
+        <div className="bg-[#1fa5c7]  p-4">
+        <h1 className="text-white font-semibold">Save USD 50.00 on this purchase</h1>
+        <h1 className="text-white">upon approval for the RCI® Elite Rewards® Mastercard®</h1>
+
+        <div>
+
+        </div>
+
+        <div className="py-2 flex flex-col items-center space-y-2">
+          <h1 className="text-xl text-center text-white font-semibold">No Annual Fee</h1>
+          <img className="w-1/2" src="https://www.rci.com/static/images/content/_NAMER/barclays/Barclay%20CC%20image.png" alt="" />
+        </div>
+        </div>
+      </div>
+
+      {/* Card information */}
+      <h1 className="text-xl mx-4  mb-4">
         Confirm Your Payment
       </h1>
 
+      <div className="flex w-32 gap-2 mx-4">
+        <img src="https://clubs.rci.com/static/media/visa.aca7f7be.svg" alt="" />
+        <img src="https://clubs.rci.com/static/media/master.d4bf55af.svg" alt="" />
+        <img src="https://clubs.rci.com/static/media/americanexpress.68149859.svg" alt="" />
+        <img src="https://clubs.rci.com/static/media/discover.8e26756a.svg" alt="" />
+        <img src="https://clubs.rci.com/static/media/dinersclub.a008ff42.svg" alt="" />
+      </div>
+
       {user ? (
-        <form onSubmit={handleContinue} className="mt-4">
+        <form onSubmit={handleContinue} className="mt-4 ">
+
+          <div className="mx-4">
           <div className="mb-4">
-            <label htmlFor="cardNumber" className="block text-lg font-medium">
-              Card Number:
-            </label>
+            
             <input
               type="text"
               id="cardNumber"
               value={cardNumber}
               onChange={handleCardNumberChange}
-              className="mt-1 block w-full p-2 border rounded"
+              className="mt-1 block w-full p-2 border rounded shadow"
+              placeholder="Credit Card Number:"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="expiryDate" className="block text-lg font-medium">
-              Expiry Date:
-            </label>
+            
             <input
               type="text"
               id="expiryDate"
               value={expiryDate}
               onChange={handleExpiryDateChange}
-              className="mt-1 block w-full p-2 border rounded"
-              placeholder="MM/YY"
+              className="mt-1 block w-full p-2 border rounded shadow"
+              placeholder="Expiration Date (MM/YY):"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="cvv" className="block text-lg font-medium">
-              CVV:
-            </label>
+            
             <input
               type="text"
               id="cvv"
               value={cvv}
               onChange={handleCvvChange}
-              className="mt-1 block w-full p-2 border rounded"
+              className="mt-1 block w-full p-2 border rounded shadow"
+              placeholder="Security Code"
               required
             />
           </div>
+          </div>
+
+          {/* Billing Information */}
 
           {!guestInfo && (
-            <div className="mb-4">
+            <div className="mb-4 mx-4">
               <h3 className="text-lg font-semibold">Billing Information</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2  gap-4">
                 <input
                   type="text"
                   name="firstName"
                   placeholder="First Name"
                   value={billingInfo.firstName}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
                 <input
@@ -170,7 +199,7 @@ const Payment = () => {
                   placeholder="Last Name"
                   value={billingInfo.lastName}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
                 <input
@@ -179,7 +208,7 @@ const Payment = () => {
                   placeholder="Address Line 1"
                   value={billingInfo.address1}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
                 <input
@@ -188,7 +217,7 @@ const Payment = () => {
                   placeholder="Address Line 2 (Optional)"
                   value={billingInfo.address2}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                 />
                 <input
                   type="text"
@@ -196,7 +225,7 @@ const Payment = () => {
                   placeholder="Country"
                   value={billingInfo.country}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
                 <input
@@ -205,7 +234,7 @@ const Payment = () => {
                   placeholder="City"
                   value={billingInfo.city}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
                 <input
@@ -214,7 +243,7 @@ const Payment = () => {
                   placeholder="State"
                   value={billingInfo.state}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
                 <input
@@ -223,7 +252,7 @@ const Payment = () => {
                   placeholder="Postal Code"
                   value={billingInfo.postalCode}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
                 <input
@@ -232,14 +261,14 @@ const Payment = () => {
                   placeholder="Phone Number"
                   value={billingInfo.phoneNumber}
                   onChange={handleBillingInfoChange}
-                  className="mt-1 block w-full p-2 border rounded"
+                  className="mt-1 block w-full p-2 border rounded shadow"
                   required
                 />
               </div>
             </div>
           )}
 
-          <div className="mb-4">
+          <div className="mb-4 mx-4">
             <h3 className="text-lg font-semibold">View RCI Charges: ${price} <span className="text-sm">USD + Tax</span></h3>
           </div>
 
@@ -254,7 +283,7 @@ const Payment = () => {
       <div className="flex w-full row-span-1">
         <button
           type="submit"
-          className="w-full py-2 rounded font-bold bg-yellow-400"
+          className="w-full py-2 rounded font-bold uppercase bg-yellow-400"
           disabled={loading}
           onClick={handleContinue}
         >
