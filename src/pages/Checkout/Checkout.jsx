@@ -111,17 +111,21 @@ const Checkout = () => {
             Resort ID: <span className="font-medium">{resort_ID}</span>
           </p>
 
-          <div className="mt-3 space-y-1 font-semibold text-gray-600">
+          <div className="mt-3  space-y-1 text-[16px]  text-[#525252]">
+            <p className="-mb-2 text-lg">
+              Travel Dates:
+            </p>
             <p>
-              Travel Dates:{" "}
-              <span className="font-semibold">
+            {" "}
+              <span className="font-semibold text-gray-900">
                 {new Date(startDate).toLocaleDateString()} -{" "}
                 {new Date(endDate).toLocaleDateString()}
               </span>
             </p>
+
             <div className="md:flex gap-5">
               <p>
-                Check-in: <span className="font-semibold">{check_in_time}</span>
+                Check-in: <span className="font-semibold text-gray-900">{check_in_time}</span>
               </p>
               <p>
                 Check-out: <span className="font-semibold">{check_out_time}</span>
@@ -129,7 +133,7 @@ const Checkout = () => {
             </div>
 
             {/* Display room details based on unitType */}
-            <div className="md:grid grid-cols-2 gap-2 text-lg text-gray-500">
+            <div className="md:grid grid-cols-2 gap-2 text-[18px] text-[#545454] space-y-2">
               <p className="flex gap-2 items-center ">
                 <MdBathtub /> {bath}
               </p>
@@ -152,21 +156,33 @@ const Checkout = () => {
         <div>
           <div className="flex justify-center w-full gap-8 p-4">
             <div
-              className={`w-full h-1/2 flex flex-col items-center px-14 py-6 shadow-md border border-gray-200 rounded hover:shadow-lg hover:border hover:border-blue-700 cursor-pointer ${selectedOption === "RCI Member" ? "border-blue-700" : ""}`}
+              className={`relative w-full h-1/2 px-14 py-6 shadow-md border border-gray-200 rounded hover:shadow-lg hover:border hover:border-[#016e84] cursor-pointer ${selectedOption === "RCI Member" ? "border-[#016e84]" : ""}`}
               onClick={() => setSelectedOption("RCI Member")}
             >
+              <div className="flex flex-col items-center">
               <img className="w-14" src="https://clubs.rci.com/static/media/rci-member.455654d9.svg" alt="RCI Member" />
               <h1 className="text-lg pt-2">RCI Member</h1>
-              {selectedOption === "RCI Member" && <FaCheckCircle className="text-green-500 mt-2" />}
+              </div>
+
+              <div className="absolute top-3 right-3">
+              {selectedOption === "RCI Member" && <FaCheckCircle className="text-[#016e84] text-2xl mt-2" />}
+              </div>
             </div>
 
             <div
-              className={`w-full h-1/2 flex flex-col items-center px-14 py-6 shadow-md rounded border border-gray-200 hover:shadow-lg hover:border hover:border-blue-700 cursor-pointer ${selectedOption === "A Guest" ? "border-blue-700" : ""}`}
+              className={`relative w-full h-1/2 px-14 py-6 shadow-md rounded border border-gray-200 hover:shadow-lg hover:border hover:border-[#016e84] cursor-pointer ${selectedOption === "A Guest" ? "border-[#016e84]" : ""}`}
               onClick={() => setSelectedOption("A Guest")}
             >
+              
+              <div className="flex flex-col items-center">
               <img className="w-14" src="https://clubs.rci.com/static/media/guest.86a36989.svg" alt="Guest" />
               <h1 className="text-xl pt-2">A Guest</h1>
-              {selectedOption === "A Guest" && <FaCheckCircle className="text-green-500 mt-2" />}
+              </div>
+
+              <div className="absolute top-3 right-3">
+              {selectedOption === "A Guest" && <FaCheckCircle className="text-[#016e84] text-2xl mt-2" />}
+              </div>
+              
             </div>
           </div>
 
