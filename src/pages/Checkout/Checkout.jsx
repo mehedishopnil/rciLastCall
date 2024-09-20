@@ -76,7 +76,7 @@ const Checkout = () => {
           <p className="md:hidden">{resortLocation}</p>
           <h1 className="font-bold text-xl md:text-lg">{place_name}</h1>
           <p>
-            Resort ID: <span className="font-semibold">{resort_ID}</span>
+            Resort ID: <span className="font-medium">{resort_ID}</span>
           </p>
 
           <div className="mt-3 space-y-1 font-semibold text-gray-600">
@@ -116,14 +116,16 @@ const Checkout = () => {
       </div>
 
       <div className="mt-10 shadow-md">
-        <h1 className="text-2xl font-bold p-4 bg-[#e6f8fc]">Who's Checking-in?</h1>
+        <h1 className="text-4xl font-bold p-4 bg-[#e6f8fc]">Who's Checking-in?</h1>
         <div>
           <div className="flex justify-center w-full gap-5 p-4">
             <div
               className={`flex flex-col items-center px-14 py-6 shadow-md rounded hover:shadow-lg hover:border hover:border-blue-700 cursor-pointer ${selectedOption === "RCI Member" ? "border-blue-700" : ""}`}
               onClick={() => setSelectedOption("RCI Member")}
             >
-              <FaUserTie className="text-6xl" />
+              <img src="https://clubs.rci.com/static/media/rci-member.455654d9.svg" alt="" />
+              
+              {/* <FaUserTie className="text-6xl" /> */}
               <h1 className="font-semibold pt-2">RCI Member</h1>
               {selectedOption === "RCI Member" && <FaCheckCircle className="text-green-500 mt-2" />}
             </div>
