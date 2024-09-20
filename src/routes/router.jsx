@@ -25,6 +25,7 @@ import UserControl from "../pages/UserControl/UserControl";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import AdminOverview from "../pages/AdminOverview/AdminOverview";
 import UsersBookings from "../pages/UsersBookings/UsersBookings";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +45,8 @@ export const router = createBrowserRouter([
       { path: "payment", element: <Payment /> },
       { path: "payment-confirmation", element: <PaymentConfirmation /> },
       { path: "single-available-unit", element: <SingleAvailableUnit /> },
-      { path: "available-booking", element: <AvailableBooking /> }
+      { path: "available-booking", element: <AvailableBooking /> },
+      { path: "*", element: <NotFoundPage/> },
     ],
   },
 

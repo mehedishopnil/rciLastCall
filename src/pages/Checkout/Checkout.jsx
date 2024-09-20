@@ -4,10 +4,11 @@ import { MdBathtub, MdKitchen, MdMeetingRoom } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import GuestInfo from "./guestInfo";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const ProtectInfoSection = () => {
   const [isInfoVisible, setIsInfoVisible] = useState(false);
-
+  
   const toggleInfoVisibility = () => {
     setIsInfoVisible(!isInfoVisible);
   };
@@ -41,15 +42,22 @@ const Checkout = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [guestInfo, setGuestInfo] = useState(null);
   const [countdown, setCountdown] = useState(9 * 60); // 9 minutes in seconds
+  const [popupShown, setPopupShown] = useState(false); // Track if the 2-minute popup has been shown
 
   useEffect(() => {
     if (!resort) {
       return;
     }
 
-    // Countdown timer logic
     const timer = setInterval(() => {
       setCountdown((prevCountdown) => {
+        // Show notification at the 2-minute mark, but only once
+        if (prevCountdown === 2 * 60 && !popupShown) {
+          setPopupShown(true); // Set popupShown to true so it doesn't show again
+          showTwoMinuteWarning(); // Call the function to display notification
+        }
+
+        // Timeout and redirect if countdown reaches 0
         if (prevCountdown <= 1) {
           clearInterval(timer);
           navigate("/singleResortPage"); // Redirect on timeout
@@ -59,7 +67,27 @@ const Checkout = () => {
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup timer on unmount
-  }, [navigate, resort]);
+  }, [navigate, resort, popupShown]);
+
+  const showTwoMinuteWarning = () => {
+    Swal.fire({
+      title: "Time is running out!",
+      text: "Your time left to book will expire in two minutes. Do you want to extend the time?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Reset the countdown if "Yes" is clicked
+        setCountdown(9 * 60); // Reset to 9 minutes
+        setPopupShown(false); // Allow the popup to show again when the countdown reaches 2 minutes
+      } else {
+        // Redirect if "No" is clicked
+        navigate("/singleResortPage");
+      }
+    });
+  };
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -70,6 +98,8 @@ const Checkout = () => {
   if (!resort) {
     return <div>Error: No booking information provided.</div>;
   }
+
+
 
   const { img, place_name, location: resortLocation, resort_ID, room_details, check_in_time, check_out_time } = resort;
 
