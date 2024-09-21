@@ -10,9 +10,13 @@ const RequiredForm = ({ onSubmit }) => {
   const [idNumber, setIdNumber] = useState("");
   const navigate = useNavigate();
 
+  const email = user?.email;
+  console.log(email)
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    // Validate age
     if (age < 20) {
       Swal.fire({
         icon: "error",
@@ -22,17 +26,28 @@ const RequiredForm = ({ onSubmit }) => {
       return;
     }
 
-    // Sending data to the backend
+    if (!email) {
+      Swal.fire({
+        icon: "error",
+        title: "User Email Missing",
+        text: "Please log in to submit your information.",
+      });
+      return;
+    }
+
+    // Required data to send
     const requiredInfo = {
-      age,
-      securityDeposit,
+      age: Number(age), // Ensure the age is a number
+      securityDeposit: Number(securityDeposit), // Ensure deposit is a number
       idNumber,
-      email: user?.email, // Retrieve the current user's email from AuthContext
+      email,
     };
 
-    // Simulate sending data to the backend
-    fetch("https://your-backend-endpoint.com/submit-required-info", {
-      method: "POST",
+    console.log(requiredInfo)
+
+    // Send the data to the backend with the user's email
+    fetch(`https://rci-last-call-server.vercel.app/update-user-info?email=${email}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -40,19 +55,26 @@ const RequiredForm = ({ onSubmit }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // On successful form submission
-        Swal.fire({
-          icon: "success",
-          title: "Information Submitted",
-          text: "You can now select a date.",
-        });
-        onSubmit(); // Allow user to proceed with selecting a date
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Information Submitted",
+            text: "You can now select a date.",
+          });
+          onSubmit(); // Proceed to the next step after successful submission
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Submission Failed",
+            text: data.message || "There was an issue submitting your information.",
+          });
+        }
       })
       .catch((error) => {
         Swal.fire({
           icon: "error",
           title: "Submission Failed",
-          text: "There was an error submitting your information.",
+          text: "An error occurred while submitting your information.",
         });
       });
   };
@@ -69,6 +91,7 @@ const RequiredForm = ({ onSubmit }) => {
           onChange={(e) => setAge(e.target.value)}
           className="border border-gray-300 p-2 w-full rounded mt-1"
           required
+          min="20" // Set minimum age in the input for better UX
         />
       </label>
 
@@ -80,6 +103,7 @@ const RequiredForm = ({ onSubmit }) => {
           onChange={(e) => setSecurityDeposit(e.target.value)}
           className="border border-gray-300 p-2 w-full rounded mt-1"
           required
+          min="0" // Ensure only non-negative numbers
         />
       </label>
 
@@ -96,7 +120,7 @@ const RequiredForm = ({ onSubmit }) => {
 
       <button
         type="submit"
-        className="bg-[#037092] text-white py-2 px-4 rounded hover:bg-[#015974]"
+        className="bg-[#037092] text-white py-2 px-4 rounded hover:bg-[#015974] transition duration-300 ease-in-out"
       >
         Submit
       </button>
