@@ -191,7 +191,7 @@ const Payment = () => {
       </div>
 
       {/* Card information */}
-      <h1 className="text-xl mx-4  mb-4">Confirm Your Payment</h1>
+      <h1 className="text-lg font-semibold mx-4 my-5  mb-4">Confirm Your Payment</h1>
 
       <div className="flex w-32 gap-2 mx-4">
         <img
