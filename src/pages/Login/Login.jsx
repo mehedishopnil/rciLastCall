@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../context/AuthProvider";
+import logo from "../../../public/RCI_50th_logo.png";
 
 const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,7 +18,7 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    
+
     try {
       const result = await login(email, password);
       const user = result.user;
@@ -88,81 +89,92 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full bg-base-100">
-      <div className="hero w-full h-auto p-10 rounded bg-base-200">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <h1 className="text-center text-2xl font-bold pt-4">LogIn</h1>
-            <form onSubmit={handleLogin} className="card-body">
-              <div>
+    <div className="flex justify-center items-center h-full bg-[#fbf3ec]">
+      <div className="hero w-full h-auto p-10 rounded ">
+        <div className="">
+          {/* Login Input section */}
+          <div className="">
+            <div className="flex flex-col items-center space-y-10">
+              <Link to="/">
+              <img src={logo} alt="logo-img" className="w-16 " />
+              </Link>
+              <h1 className="text-center text-3xl font-semibold pt-4">
+                Sign in to your account.
+              </h1>
+            </div>
+            <form onSubmit={handleLogin} className="mt-5">
+              <div className="w-full space-y-3 ">
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
-                  </label>
                   <input
                     type="email"
                     placeholder="email"
                     name="email"
-                    className="input input-bordered"
+                    className="input input-bordered rounded-md border-gray-700 shadow-md"
                     required
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
                   <input
                     type="password"
                     placeholder="password"
                     name="password"
-                    className="input input-bordered"
+                    className="input input-bordered rounded-md border-gray-700 shadow-md"
                     required
                   />
-                  <label className="label">
-                    <a
-                      href="#"
-                      className="label-text-alt link link-hover text-[#D1A054]"
-                    >
-                      Forgot password?
-                    </a>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="rememberMe"
+                    className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <label htmlFor="rememberMe" className="text-sm text-gray-700">
+                    Remember me on this device
                   </label>
                 </div>
+
                 <div className="form-control mt-6">
                   <input
                     type="submit"
                     value="Login"
                     disabled={isLoggedIn}
-                    className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
+                    className="btn bg-[#037092] rounded-md text-white hover:bg-[#b18441] shadow"
                   />
                 </div>
-                <p>
-                  Do not have Account? Please{" "}
-                  <Link
-                    to={"/signup"}
-                    className="font-bold text-[#D1A054]"
+
+                <div className="flex flex-col items-center gap-3">
+                  <a
+                    href="#"
+                    className="text-[#037092] text-semibold underline text-center"
                   >
-                    Register
-                  </Link>
-                </p>
+                    Forgot Username or Password?
+                  </a>
+
+                  <p className="font-semibold text-center">
+                    New to RCI?{" "}
+                    <Link
+                      to={"/signup"}
+                      className="font-semibold text-[#037092] underline"
+                    >
+                      Register
+                    </Link>
+                  </p>
+                </div>
               </div>
             </form>
-
-            <div className="divider">OR</div> {/* Divider between login methods */}
-
+            <div className="divider">OR</div>{" "}
+            {/* Divider between login methods */}
             {/* Google Login */}
             <div className="flex items-center form-control mb-4">
               <button
                 onClick={handleGoogleLogin}
-                className="btn bg-[#4285F4] text-white hover:bg-[#357ae8] flex items-center justify-center"
+                className="btn text-lg  text-[#037092]  hover:bg-[#357ae8] flex items-center justify-center"
               >
                 <FcGoogle className="mr-2 text-2xl" /> {/* Google icon */}
                 Login with Google
               </button>
             </div>
-          </div>
-
-          <div className="text-center lg:text-left">
-            <img src="" alt="" />
           </div>
         </div>
       </div>
