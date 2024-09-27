@@ -112,18 +112,46 @@ const Payment = () => {
         <h1 className="text-white">upon approval for the RCI® Elite Rewards® Mastercard®</h1>
         </div>
 
-        <div className="mx-4"> 
-          <div className="flex justify-between">
+        <div className="mx-4 py-2"> 
+          <div className="flex justify-between text-lg ">
             <p>You pay today</p>
-            <p>USD 369.95</p>
+            <p>USD {displayedPrice}</p>
+          </div>
+
+          <div className="flex justify-between text-lg ">
+            <p>Card statement credit:</p>
+            <p>-USD 50.00</p>
+          </div>
+          <div className="border border-gray-600"></div>
+
+          <div className="flex justify-between text-lg ">
+            <p>Total after credit:</p>
+            <p>USD {displayedPrice}</p>
           </div>
         </div>
 
         <div className="py-2 flex flex-col items-center space-y-2 bg-[#1fa5c7]">
           <h1 className="text-xl text-center text-white font-semibold">No Annual Fee</h1>
-          <img className="w-1/2" src="https://www.rci.com/static/images/content/_NAMER/barclays/Barclay%20CC%20image.png" alt="" />
+          <img className="w-1/2 pb-2" src="https://www.rci.com/static/images/content/_NAMER/barclays/Barclay%20CC%20image.png" alt="" />
         </div>
         </div>
+        <div className="text-base mx-5 py-4 space-y-4">
+          <p><span className="text-[#1fa5c7] font-semibold">5X Rewards</span> for every $1 spent on all eligible RCI purchases</p>
+          <p><span className="text-[#1fa5c7] font-semibold">2X Rewards</span> for every $1 spent on all eligible travel expenses</p>
+          <p><span className="text-[#1fa5c7] font-semibold">1X Rewards</span> for every $1 spent on all eligible RCI purchases</p>
+        </div>
+        <div className="flex flex-col items-center ">
+        <button
+          type="submit"
+          className="w-11/12 py-2 rounded font-bold uppercase bg-yellow-400 shadow-md"
+          disabled={loading}
+          onClick={handleContinue}
+        >
+          {loading ? "Processing..." : "apply now"}
+        </button>
+      </div>  
+
+      <p>Show Details</p>
       </div>
 
       {/* Card information */}
@@ -274,7 +302,7 @@ const Payment = () => {
           )}
 
           <div className="mb-4 mx-4">
-            <h3 className="text-lg font-semibold">View RCI Charges: ${price} <span className="text-sm">USD + Tax</span></h3>
+            <h3 className="text-lg font-semibold">View RCI Charges: ${displayedPrice} <span className="text-sm">USD + Tax</span></h3>
           </div>
 
           <div className="md:grid grid-cols-2 items-center justify-between px-4 py-4 h-auto z-50 sticky bottom-0 bg-slate-100">
