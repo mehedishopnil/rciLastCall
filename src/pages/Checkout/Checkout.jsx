@@ -5,35 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import GuestInfo from "./guestInfo";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Swal from "sweetalert2";
-
-const ProtectInfoSection = () => {
-  const [isInfoVisible, setIsInfoVisible] = useState(false);
-  
-  const toggleInfoVisibility = () => {
-    setIsInfoVisible(!isInfoVisible);
-  };
-
-  return (
-    <div className="ml-5">
-      <h1
-        className="flex items-center gap-2 font-semibold text-lg text-[#2383a1] cursor-pointer"
-        onClick={toggleInfoVisibility}
-      >
-        How we protect your information{" "}
-        {isInfoVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
-      </h1>
-
-      {isInfoVisible && (
-        <p className="mt-2 text-gray-600">
-          We have implemented appropriate physical, electronic, and managerial
-          procedures to help secure your information. To help safeguard your
-          information, always protect your password and make sure to sign out
-          from rci.com when finished using a shared device.
-        </p>
-      )}
-    </div>
-  );
-};
+import DropdownInfo from "../../components/DropdownInfo";
 
 const Checkout = () => {
   const location = useLocation();
@@ -43,6 +15,12 @@ const Checkout = () => {
   const [guestInfo, setGuestInfo] = useState(null);
   const [countdown, setCountdown] = useState(9 * 60); // 9 minutes in seconds
   const [popupShown, setPopupShown] = useState(false); // Track if the 2-minute popup has been shown
+
+
+  const dropdownInfo =[{
+    header: "How we protect your information",
+    content: "We use industry-standard encryption to protect your personal information. Your booking is secure and your personal details are confidential. We also implement strict access controls to ensure that only authorized staff can access and modify your booking information."
+  }]
 
   useEffect(() => {
     if (!resort) {
@@ -277,7 +255,9 @@ const Checkout = () => {
       </div>
 
       {/* How we protect your information Section */}
-      <ProtectInfoSection />
+      {
+        dropdownInfo.map(info =>  <DropdownInfo key={info} info = {info} />)
+      }
     </div>
   );
 };

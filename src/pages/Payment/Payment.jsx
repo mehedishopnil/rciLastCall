@@ -1,6 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
+import DropdownInfo from "../../components/DropdownInfo";
+import { key } from "localforage";
+
+const dropdownInfo = [
+  {
+    header: "Show Details",
+    content:
+      "This purchase will be held while you apply for this card, and you automatically be returned to this page to use your new card upon approval. Receive $50 statement credit after making your first purchase within 30 days of opening account. Purchase & statement credit may post on separate statements.",
+  },
+];
 
 const Payment = () => {
   const { user } = useContext(AuthContext);
@@ -38,11 +48,11 @@ const Payment = () => {
   // Function to determine price based on unitType
   const getPriceByUnitType = (unitType) => {
     switch (unitType) {
-      case 'studio':
+      case "studio":
         return 329.08;
-      case '1 bedroom':
+      case "1 bedroom":
         return 361.02;
-      case '2 bedroom':
+      case "2 bedroom":
         return 403.63;
       default:
         return price; // Default to the existing price if unitType does not match
@@ -107,108 +117,143 @@ const Payment = () => {
         <h1 className="text-3xl font-bold mx-5 mb-5">Secure Payment</h1>
 
         <div className="bg-[#b3e8f8] ">
-        <div className="bg-[#1fa5c7] px-4 py-2">
-        <h1 className="text-white font-semibold">Save USD 50.00 on this purchase</h1>
-        <h1 className="text-white">upon approval for the RCI® Elite Rewards® Mastercard®</h1>
-        </div>
-
-        <div className="mx-4 py-2"> 
-          <div className="flex justify-between text-lg ">
-            <p>You pay today</p>
-            <p>USD {displayedPrice}</p>
+          <div className="bg-[#1fa5c7] px-4 py-2">
+            <h1 className="text-white font-semibold">
+              Save USD 50.00 on this purchase
+            </h1>
+            <h1 className="text-white">
+              upon approval for the RCI® Elite Rewards® Mastercard®
+            </h1>
           </div>
 
-          <div className="flex justify-between text-lg ">
-            <p>Card statement credit:</p>
-            <p>-USD 50.00</p>
-          </div>
-          <div className="border border-gray-600"></div>
+          <div className="mx-4 py-2">
+            <div className="flex justify-between text-lg ">
+              <p>You pay today</p>
+              <p>USD {displayedPrice}</p>
+            </div>
 
-          <div className="flex justify-between text-lg ">
-            <p>Total after credit:</p>
-            <p>USD {displayedPrice}</p>
-          </div>
-        </div>
+            <div className="flex justify-between text-lg ">
+              <p>Card statement credit:</p>
+              <p>-USD 50.00</p>
+            </div>
+            <div className="border border-gray-600"></div>
 
-        <div className="py-2 flex flex-col items-center space-y-2 bg-[#1fa5c7]">
-          <h1 className="text-xl text-center text-white font-semibold">No Annual Fee</h1>
-          <img className="w-1/2 pb-2" src="https://www.rci.com/static/images/content/_NAMER/barclays/Barclay%20CC%20image.png" alt="" />
-        </div>
+            <div className="flex justify-between text-lg ">
+              <p>Total after credit:</p>
+              <p>USD {displayedPrice}</p>
+            </div>
+          </div>
+
+          <div className="py-2 flex flex-col items-center space-y-2 bg-[#1fa5c7]">
+            <h1 className="text-xl text-center text-white font-semibold">
+              No Annual Fee
+            </h1>
+            <img
+              className="w-1/2 pb-2"
+              src="https://www.rci.com/static/images/content/_NAMER/barclays/Barclay%20CC%20image.png"
+              alt=""
+            />
+          </div>
         </div>
         <div className="text-base mx-5 py-4 space-y-4">
-          <p><span className="text-[#1fa5c7] font-semibold">5X Rewards</span> for every $1 spent on all eligible RCI purchases</p>
-          <p><span className="text-[#1fa5c7] font-semibold">2X Rewards</span> for every $1 spent on all eligible travel expenses</p>
-          <p><span className="text-[#1fa5c7] font-semibold">1X Rewards</span> for every $1 spent on all eligible RCI purchases</p>
+          <p>
+            <span className="text-[#1fa5c7] font-semibold">5X Rewards</span> for
+            every $1 spent on all eligible RCI purchases
+          </p>
+          <p>
+            <span className="text-[#1fa5c7] font-semibold">2X Rewards</span> for
+            every $1 spent on all eligible travel expenses
+          </p>
+          <p>
+            <span className="text-[#1fa5c7] font-semibold">1X Rewards</span> for
+            every $1 spent on all eligible RCI purchases
+          </p>
         </div>
         <div className="flex flex-col items-center ">
-        <button
-          type="submit"
-          className="w-11/12 py-2 rounded font-bold uppercase bg-yellow-400 shadow-md"
-          disabled={loading}
-          onClick={handleContinue}
-        >
-          {loading ? "Processing..." : "apply now"}
-        </button>
-      </div>  
+          <button
+            type="submit"
+            className="w-11/12 py-2 rounded font-bold uppercase bg-yellow-400 shadow-md"
+            disabled={loading}
+            onClick={handleContinue}
+          >
+            {loading ? "Processing..." : "apply now"}
+          </button>
+        </div>
 
-      <p>Show Details</p>
+        <div className="flex flex-col items-center py-2">
+
+          {dropdownInfo.map((info) => (
+            <DropdownInfo key={info} info={info} />
+          ))}
+
+        </div>
+
       </div>
 
       {/* Card information */}
-      <h1 className="text-xl mx-4  mb-4">
-        Confirm Your Payment
-      </h1>
+      <h1 className="text-xl mx-4  mb-4">Confirm Your Payment</h1>
 
       <div className="flex w-32 gap-2 mx-4">
-        <img src="https://clubs.rci.com/static/media/visa.aca7f7be.svg" alt="" />
-        <img src="https://clubs.rci.com/static/media/master.d4bf55af.svg" alt="" />
-        <img src="https://clubs.rci.com/static/media/americanexpress.68149859.svg" alt="" />
-        <img src="https://clubs.rci.com/static/media/discover.8e26756a.svg" alt="" />
-        <img src="https://clubs.rci.com/static/media/dinersclub.a008ff42.svg" alt="" />
+        <img
+          src="https://clubs.rci.com/static/media/visa.aca7f7be.svg"
+          alt=""
+        />
+        <img
+          src="https://clubs.rci.com/static/media/master.d4bf55af.svg"
+          alt=""
+        />
+        <img
+          src="https://clubs.rci.com/static/media/americanexpress.68149859.svg"
+          alt=""
+        />
+        <img
+          src="https://clubs.rci.com/static/media/discover.8e26756a.svg"
+          alt=""
+        />
+        <img
+          src="https://clubs.rci.com/static/media/dinersclub.a008ff42.svg"
+          alt=""
+        />
       </div>
 
       {user ? (
         <form onSubmit={handleContinue} className="mt-4 ">
-
           <div className="mx-4">
-          <div className="mb-4">
-            
-            <input
-              type="text"
-              id="cardNumber"
-              value={cardNumber}
-              onChange={handleCardNumberChange}
-              className="mt-1 block w-full p-2 border rounded shadow"
-              placeholder="Credit Card Number:"
-              required
-            />
-          </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                id="cardNumber"
+                value={cardNumber}
+                onChange={handleCardNumberChange}
+                className="mt-1 block w-full p-2 border rounded shadow"
+                placeholder="Credit Card Number:"
+                required
+              />
+            </div>
 
-          <div className="mb-4">
-            
-            <input
-              type="text"
-              id="expiryDate"
-              value={expiryDate}
-              onChange={handleExpiryDateChange}
-              className="mt-1 block w-full p-2 border rounded shadow"
-              placeholder="Expiration Date (MM/YY):"
-              required
-            />
-          </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                id="expiryDate"
+                value={expiryDate}
+                onChange={handleExpiryDateChange}
+                className="mt-1 block w-full p-2 border rounded shadow"
+                placeholder="Expiration Date (MM/YY):"
+                required
+              />
+            </div>
 
-          <div className="mb-4">
-            
-            <input
-              type="text"
-              id="cvv"
-              value={cvv}
-              onChange={handleCvvChange}
-              className="mt-1 block w-full p-2 border rounded shadow"
-              placeholder="Security Code"
-              required
-            />
-          </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                id="cvv"
+                value={cvv}
+                onChange={handleCvvChange}
+                className="mt-1 block w-full p-2 border rounded shadow"
+                placeholder="Security Code"
+                required
+              />
+            </div>
           </div>
 
           {/* Billing Information */}
@@ -302,28 +347,32 @@ const Payment = () => {
           )}
 
           <div className="mb-4 mx-4">
-            <h3 className="text-lg font-semibold">View RCI Charges: ${displayedPrice} <span className="text-sm">USD + Tax</span></h3>
+            <h3 className="text-lg font-semibold">
+              View RCI Charges: ${displayedPrice}{" "}
+              <span className="text-sm">USD + Tax</span>
+            </h3>
           </div>
 
           <div className="md:grid grid-cols-2 items-center justify-between px-4 py-4 h-auto z-50 sticky bottom-0 bg-slate-100">
-      <div className="flex justify-between font-semibold py-2 gap-10 row-span-1">
-        <h1>View RCI Charges</h1>
-        <h1 className="text-sm">
-          <span className="text-lg">${displayedPrice.toFixed(2)}</span> USD
-        </h1>
-      </div>
+            <div className="flex justify-between font-semibold py-2 gap-10 row-span-1">
+              <h1>View RCI Charges</h1>
+              <h1 className="text-sm">
+                <span className="text-lg">${displayedPrice.toFixed(2)}</span>{" "}
+                USD
+              </h1>
+            </div>
 
-      <div className="flex w-full row-span-1">
-        <button
-          type="submit"
-          className="w-full py-2 rounded font-bold uppercase bg-yellow-400"
-          disabled={loading}
-          onClick={handleContinue}
-        >
-          {loading ? "Processing..." : "Make Payment"}
-        </button>
-      </div>
-    </div>
+            <div className="flex w-full row-span-1">
+              <button
+                type="submit"
+                className="w-full py-2 rounded font-bold uppercase bg-yellow-400"
+                disabled={loading}
+                onClick={handleContinue}
+              >
+                {loading ? "Processing..." : "Make Payment"}
+              </button>
+            </div>
+          </div>
         </form>
       ) : (
         <p className="text-center text-red-500">
