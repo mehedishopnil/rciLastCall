@@ -7,7 +7,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { AuthContext } from "../../../../context/AuthProvider";
 import Swal from "sweetalert2";
-import RequiredForm from "../../../RequiredForm/RequiredForm";
+// import RequiredForm from "../../../RequiredForm/RequiredForm";
 
 const SingleAvailableUnit = () => {
   const { user } = useContext(AuthContext);
@@ -75,14 +75,14 @@ const SingleAvailableUnit = () => {
   };
 
   // Form submit handler
-  const handleFormSubmit = () => {
-    setIsFormSubmitted(true);
-    Swal.fire({
-      icon: "success",
-      title: "Form submitted successfully!",
-      text: "You can now select booking dates.",
-    });
-  };
+  // const handleFormSubmit = () => {
+  //   setIsFormSubmitted(true);
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Form submitted successfully!",
+  //     text: "You can now select booking dates.",
+  //   });
+  // };
 
   return (
     <div className="mt-10">
@@ -90,12 +90,12 @@ const SingleAvailableUnit = () => {
         <h1> Available Units</h1>
       </div>
 
-      {/* Required Form */}
-      {!isFormSubmitted && <RequiredForm onSubmit={handleFormSubmit} />}
+      {/* Required Form
+      {!isFormSubmitted && <RequiredForm onSubmit={handleFormSubmit} />} */}
 
       {/* Booking section (visible only if form is submitted) */}
-      {isFormSubmitted && (
-        <>
+      {/* {isFormSubmitted && (
+        <> */}
           <div className="mx-4">
             <h1 className="text-center text-xl font-semibold">Available Units</h1>
             <div className="text-center mt-5 py-3 shadow-md">
@@ -157,8 +157,8 @@ const SingleAvailableUnit = () => {
               </div>
             </div>
           )}
-        </>
-      )}
+        {/* </>
+      )} */}
     </div>
   );
 };
