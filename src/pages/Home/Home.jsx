@@ -193,7 +193,7 @@ const Home = () => {
         </div>
 
         <div className="">
-        <Link className="flex items-center justify-center text-center ">
+        <Link to="/lastCallVacation" className="flex items-center justify-center text-center ">
         <h1 className="w-1/2 border font-semibold uppercase text-[#037092] border-[#037092] p-2 rounded bg-white shadow hover:bg-[#037092] hover:text-white">See more resorts like this</h1>
         </Link>
         </div>
