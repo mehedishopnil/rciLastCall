@@ -4,6 +4,8 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
 import magazineImg from "../../assets/Images/rci-magazine-people-places.jpg"
 import BeautifulDestination from "./BeautifulDestination/BeautifulDestination";
+import img_nature from "../../assets/Images/C82-web-image.png"
+import PopularDestinations from "./PopularDestinations/PopularDestinations";
 
 const Home = () => {
   return (
@@ -108,6 +110,69 @@ const Home = () => {
       </Link>
 
     <BeautifulDestination/>
+
+
+    <Link>
+        <div className="bg-[#e6f8fc]">
+          <div className="text-center  py-5">
+            <h1 className="text-4xl font-bold uppercase homeHeader">
+            your limited time offers
+            </h1>
+            <p className="uppercase text-xl font-semibold text-gray-500">
+            planning a trip? there’s no better <br/> time than now!
+            </p>
+          </div>
+
+          <div className="">
+            <img
+              src="https://www.rci.com/static/images/content/_NAMER/C82-Offers/hotel-exchange.jpg"
+              alt=""
+              className=""
+            />
+          </div>
+
+          <div className="px-5 py-5">
+            <h1 className="text-xl font-bold">
+            Use Your Points for Powerful Hotel Savings!
+            </h1>
+            <p>4,000 Points per night gets you an exclusive discount on already member-low hotel rates.</p>
+          </div>
+        </div>
+      </Link>
+
+
+    <Link>
+        <div className="bg-[#e6f8fc]">
+
+          <div className="">
+            <img
+              src={img_nature}
+              alt=""
+              className=""
+            />
+          </div>
+
+          <div className="px-5 py-5">
+            <h1 className="text-xl font-bold">
+            Book A Select Exchange Resort
+            </h1>
+            <p>Receive priority access to worldwide resorts ahead of other RCI members.</p>
+          </div>
+        </div>
+      </Link>
+
+      <div>
+      <div className="text-center  py-5">
+            <h1 className="text-4xl font-bold uppercase homeHeader">
+            popular destinations
+            </h1>
+            <p className="uppercase text-xl font-semibold text-gray-500">
+            other members recently booked...
+            </p>
+          </div>
+          <PopularDestinations/>
+
+      </div>
 
       <div className="lg:container lg:mx-auto text-center space-y-5  border my-10 p-4">
         <div className="lg:grid lg:grid-cols-2 md:space-x-5 ">

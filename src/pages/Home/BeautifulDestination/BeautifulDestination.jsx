@@ -17,12 +17,12 @@ const BeautifulDestination = () => {
     },
     {
       image: "https://www.rci.com/static/images/content/_NAMER/C82-Offers/last-minute-vacations.jpg",
-      title: "Last-Minute Vacations",
-      description: "Vacation for travel in the next 45 days.",
+      title: "Last-Minute Vacations Starting at 309 ",
+      description: "Book a Last Call, Vacation for travel in the next 45 days.",
     },
     {
       image: "https://www.rci.com/static/images/content/_NAMER/C82-Offers/special-offers.jpg",
-      title: "Resort Deals",
+      title: "Resort Deals available in top destinations!",
       description: `Enjoy deals such as discounted all-inclusive fees, resort
                 credits, free stays for kids, and more to save on your next vacation!`,
     },

@@ -9,3 +9,12 @@
   font-weight: 500;
   font-style: normal;
 }
+
+
+/* slick carousel styles */
+.slick-prev:before, .slick-next:before {
+  color: black;
+}
+.slick-slide {
+  padding: 0 10px;
+}
