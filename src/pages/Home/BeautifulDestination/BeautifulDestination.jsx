@@ -3,6 +3,9 @@ import "daisyui"; // ensure daisyUI is installed
 
 const BeautifulDestination = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
   const destinations = [
     {
       image: "https://clubs.rci.com/content/dam/panorama/images/us/clubs/clubs-offers/rci-magazine-fall-2024.jpg",
@@ -10,31 +13,55 @@ const BeautifulDestination = () => {
       description: `RCI Magazine® is a curated digital resource for members,
       offering a wealth of travel inspiration, exclusive discounts,
       tips, and destination spotlights. With four editions each year,
-      consider it your go-to all-in-one travel resource.`
+      consider it your go-to all-in-one travel resource.`,
     },
     {
       image: "https://www.rci.com/static/images/content/_NAMER/C82-Offers/last-minute-vacations.jpg",
       title: "Last-Minute Vacations",
-      description: "Vacation for travel in the next 45 days."
+      description: "Vacation for travel in the next 45 days.",
     },
     {
       image: "https://www.rci.com/static/images/content/_NAMER/C82-Offers/special-offers.jpg",
       title: "Resort Deals",
       description: `Enjoy deals such as discounted all-inclusive fees, resort
-                credits, free stays for kids and more to save on your next vacation!`
+                credits, free stays for kids, and more to save on your next vacation!`,
     },
   ];
 
+  // Function to auto-slide every 8 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [currentSlide]);
+
   const nextSlide = () => {
-    setCurrentSlide((prevSlide) =>
-      prevSlide === destinations.length - 1 ? 0 : prevSlide + 1
-    );
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % destinations.length);
   };
 
   const prevSlide = () => {
     setCurrentSlide((prevSlide) =>
       prevSlide === 0 ? destinations.length - 1 : prevSlide - 1
     );
+  };
+
+  // Handle swipe gestures
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 75) {
+      nextSlide(); // swipe left
+    }
+    if (touchStart - touchEnd < -75) {
+      prevSlide(); // swipe right
+    }
   };
 
   return (
@@ -45,31 +72,36 @@ const BeautifulDestination = () => {
       </div>
 
       {/* Carousel */}
-      <div className="carousel w-full ">
-        <div className=" flex flex-col carousel-item relative  w-full x-5">
-          <img
-            src={destinations[currentSlide].image}
-            className="w-full h-60 object-cover rounded-t-lg"
-            alt={destinations[currentSlide].title}
-          />
-          <div className="bg-white p-4 rounded-b-lg">
-            <h2 className="text-2xl font-bold">{destinations[currentSlide].title}</h2>
-            <p className="text-lg">{destinations[currentSlide].description}</p>
-          </div>
-
-          {/* Carousel Controls */}
-          <button
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 btn btn-circle"
-            onClick={prevSlide}
-          >
-            ❮
-          </button>
-          <button
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 btn btn-circle"
-            onClick={nextSlide}
-          >
-            ❯
-          </button>
+      <div
+        className="carousel w-full flex overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div
+          className="flex w-full transition-transform duration-500"
+          style={{
+            transform: `translateX(-${(currentSlide % destinations.length) * 50}%)`,
+          }}
+        >
+          {destinations.map((destination, index) => (
+            <div
+              key={index}
+              className="flex flex-col carousel-item w-1/2 p-4"
+            >
+              <img
+                src={destination.image}
+                className="w-full h-60 object-cover rounded-lg"
+                alt={destination.title}
+              />
+              <div className="bg-white p-4 rounded-b-lg">
+                <h2 className="text-2xl font-bold mt-4">
+                  {destination.title}
+                </h2>
+                <p className="text-lg mt-2">{destination.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
