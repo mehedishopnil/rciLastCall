@@ -26,6 +26,7 @@ import MyBookings from "../pages/MyBookings/MyBookings";
 import AdminOverview from "../pages/AdminOverview/AdminOverview";
 import UsersBookings from "../pages/UsersBookings/UsersBookings";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import ResortEdit from "../components/ResortEdit/ResortEdit";
 
 export const router = createBrowserRouter([
   {
@@ -69,7 +70,8 @@ export const router = createBrowserRouter([
       { path: "admin-control", element: <AdminControl /> },
       { path: "user-control", element: <UserControl /> },
       { path: "resort-input-form", element: <ResortInputForm /> },
-      { path: "users-bookings", element: <UsersBookings/>}
+      { path: "users-bookings", element: <UsersBookings/>},
+      { path: "resort-edit/:_id", element: <ResortEdit/>}
     ],
   },
 ]);

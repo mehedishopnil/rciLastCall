@@ -12,6 +12,7 @@ const LastCallVacations = () => {
     totalPages,
     currentPage,
     fetchResortData,
+    role
   } = useContext(AuthContext);
   const [localCurrentPage, setLocalCurrentPage] = useState(currentPage);
   const [pageNumberLimit] = useState(10);
@@ -122,7 +123,7 @@ const LastCallVacations = () => {
         ) : (
           filteredData.map((resort) => (
             <Link to={`/singleResortPage/${resort._id}`} key={resort._id}>
-              <ResortCard resort={resort} />
+              <ResortCard resort={resort} role={role} />
             </Link>
           ))
         )}
