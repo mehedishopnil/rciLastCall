@@ -62,7 +62,7 @@ const ResortEdit = () => {
       fetchResortData();
     }
   }, [_id, location.state]);
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,31 +103,33 @@ const ResortEdit = () => {
     return changedData;
   };
 
+  //Handle submission of the new data to the server::
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // Get only the changed fields
-    const changedData = getChangedData(resortData, initialData);
+  // Get only the changed fields
+  const changedData = getChangedData(resortData, initialData);
 
-    try {
-      const response = await fetch(`https://rci-last-call-server.vercel.app/resorts/${_id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(changedData),
-      });
+  try {
+    const response = await fetch(`https://rci-last-call-server.vercel.app/resorts/${_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(changedData),
+    });
 
-      if (response.ok) {
-        Swal.fire('Updated!', 'Resort details updated successfully.', 'success');
-        navigate('/admin/resorts');
-      } else {
-        throw new Error('Failed to update resort details');
-      }
-    } catch (error) {
-      Swal.fire('Error', error.message, 'error');
+    if (response.ok) {
+      Swal.fire('Updated!', 'Resort details updated successfully.', 'success');
+      navigate(-1); // Go back to the previous page
+    } else {
+      throw new Error('Failed to update resort details');
     }
-  };
+  } catch (error) {
+    Swal.fire('Error', error.message, 'error');
+  }
+};
+
 
   return (
     <div className="container mx-auto p-8">
