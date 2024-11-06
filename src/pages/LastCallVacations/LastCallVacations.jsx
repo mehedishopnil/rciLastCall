@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import  { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ResortCard from "../../components/resortCard/resortCard";
 import { AuthContext } from "../../context/AuthProvider";

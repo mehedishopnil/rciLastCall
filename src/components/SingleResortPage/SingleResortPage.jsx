@@ -1,20 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { AuthContext } from "../../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
 import { GiStarsStack } from "react-icons/gi";
 import TopAmenities from "./TopAmenities/TopAmenities";
 import FilterContent from "./FilterContent/FilterContent";
 import Loading from "../Loading";
+import { FaRegEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const SingleResortPage = () => {
-  const { allResortData } = useContext(AuthContext);
+  const { allResortData, role } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentResort, setCurrentResort] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [additional_images, setAdditionalImages] = useState([]);
+
 
   useEffect(() => {
     if (allResortData && id) {
@@ -36,7 +38,7 @@ const SingleResortPage = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, [currentIndex, additional_images]);
 
   const handleSwipe = (direction) => {
     if (direction === "left" && additional_images.length > 0) {
@@ -94,15 +96,33 @@ const SingleResortPage = () => {
     );
   }
 
-  const { location, place_name, resort_ID, reviews_amount } = currentResort;
+  const { _id, location, place_name, resort_ID, reviews_amount } = currentResort;
 
   return (
     <div>
+      <div className="flex items-center justify-between text-[#037092] ">
+      <div>
       <button onClick={goBack} className="flex items-center m-2 text-[#037092] font-bold">
         <IoIosArrowBack /> Back
       </button>
+      </div>
+
+      <div>
+        {/* Edit icon for redirecting to ResortEdit page, visible only for admins */}
+        {role === "admin" && (
+          <p className=" text-xl px-10">
+            <Link to={`/admin-panel/resort-edit/${_id}`} state={{ resort: currentResort }}>
+              <FaRegEdit />
+            </Link>
+          </p>
+        )}
+      </div>
+      </div>
 
       <div className="container mx-auto p-4">
+
+        
+
         {/* Image Slider */}
         <div
           className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden"
